@@ -20,12 +20,49 @@ First install devtools package
 
 `install.packages("devtools")`
 
-Next instal rvkstat pacage
+Next instal rvkstat package
 
 `require(devtools)`
 
 `install_github('selesnow/rvkstat')`
 
+### rvkstat Package function
+
+Get start with `vkGetToken()` function in order to get vkontakte api token.
+
+Usage:
+
+`#Get api token` 
+
+`myToken <- vkGetToken(apppId = "YourAppID")`
+
+Change YourAppID to ID of your astandalone app.
+
+After you run this function start browser, you must accept for request data provide and copy value of URL parameter access_token, paste this value into R in request "Your vk token from URL parameter access_token: ".
+
+Further you can load you token without app authorization through `vkLoadToken()` function.
+
+`myToken <- vkLoadToken()`
+
+After you get token you can get data from vkontakte api, use next function.
+
+_Get daily data by number of visit, visitors, subscribed and unsubscribed_
+
+`communityData <- vkGetGroupStat(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Get daily data by visitors by users age group._
+
+`communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Get daily data by visitors by users gender._
+
+`communityDataGender <- vkGetGroupStatGender(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Get daily data by visitors by users age group and gender._
+
+`communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Get daily data by visitors by users age group and gender._
 
 ## Русский
 ### Описание
@@ -37,6 +74,7 @@ Next instal rvkstat pacage
 
 Для начала работы и для того, что бы с помощью функции `vkGetToken()` получить токен разработчика используйте ID приложения.
 <img src="http://picsee.net/upload/2016-04-29/39ef5f2d1d09.png" data-canonical-src="http://picsee.net/upload/2016-04-29/39ef5f2d1d09.png" style="max-width:100%;">
+
 
 ### Установка пакета
 Пакет rvkstat может быть установлен непосредственно из репозитория Github.
@@ -50,3 +88,20 @@ Next instal rvkstat pacage
 `require(devtools)`
 
 `install_github('selesnow/rvkstat')`
+
+### Функции доступные в пакете rvkstat
+
+Начните работу с пакетом с функции `vkGetToken()` для того, что бы получить токен разработчика
+
+`#Get api token` 
+
+`myToken <- vkGetToken(apppId = "YourAppID")`
+
+Измените "YourAppID" на ID вашего приложения.
+
+После запуска функции откроется окно браузера, в котором вы должны подтвердить доступ к данным в вконтакте, далее откроется страница в URL адресе которой будет параметр access_token, скопируйте его значение и вставьте в R, в качестве ответа на запрос "Your vk token from URL parameter access_token: ".
+
+Далее вы в любой момент можете загружать ваш токен без прохождения авторизации приложения с помощью функции `vkLoadToken()`.
+
+`myToken <- vkLoadToken()`
+
