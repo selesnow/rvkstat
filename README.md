@@ -62,7 +62,13 @@ _Get daily data by visitors by users age group and gender._
 
 `communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
 
-_Get daily data by visitors by users age group and gender._
+_Get daily data by visitor's geolocation by cities._
+
+`communityDataCity <- vkGetGroupStatCity(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Get daily data by visitor's geolocation by countries._
+
+`communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
 
 ## Русский
 ### Описание
@@ -105,3 +111,28 @@ _Get daily data by visitors by users age group and gender._
 
 `myToken <- vkLoadToken()`
 
+После того как вы получите токен разработчика вы можете загружать данные о посетителях сообществ в которых для вас открыт доступ к статистике.
+
+_Получить данные о количестве просмотров, посетителях, подписавшихся и отписавшихся посетителей по дням_
+
+`communityData <- vkGetGroupStat(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Получить данные о возрастных группах посетителей по дням._
+
+`communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Получить данные о поле посетителей по дням._
+
+`communityDataGender <- vkGetGroupStatGender(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Получить данные о половозрастной структуре ваших посетителей по дням._
+
+`communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Получить данные о городах посетителей._
+
+`communityDataCity <- vkGetGroupStatCity(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+_Получить данные о странах посетителей._
+
+`communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
