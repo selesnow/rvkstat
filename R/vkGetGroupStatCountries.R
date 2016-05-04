@@ -24,7 +24,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
     try(rm(temp), silent = TRUE)}
   colnames(vkCountries) <- c("Date", "Visitors", "CountryID", "CountryCode", "CountryName")
   vkCountries <- vkCountries[c(1,5,4,3,2)]
-  vkCountries$Date <- as.POSIXct(vkCountries$Date)
+  vkCountries$Date <- as.POSIXct(vkCountries$Date, format = "%Y-%m-%d")
   return(vkCountries)
   
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)

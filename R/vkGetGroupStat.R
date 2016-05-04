@@ -20,6 +20,6 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
                        subscribed = vkdataRaw$response.subscribed,
                        unsubscribed = vkdataRaw$response.unsubscribed)
   colnames(vkData) <- c("Date","Views","Visitors","TotalReach","SubscribersReach","Subscribed","Unsubscribed")
-  vkData$Date <- as.POSIXct(vkData$Date)
+  vkData$Date <- as.POSIXct(vkData$Date, format = "%Y-%m-%d")
   return(vkData)
 }

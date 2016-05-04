@@ -24,7 +24,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
     try(rm(temp))}
   colnames(vkGender) <- c("Date", "Visitors", "Gender")
   vkGender <- vkGender[c(1,3,2)]
-  vkGender$Date <- as.POSIXct(vkGender$Date)
+  vkGender$Date <- as.POSIXct(vkGender$Date, format = "%Y-%m-%d")
   vkGender$Gender <- as.factor(vkGender$Gender)
   return(vkGender)
   
