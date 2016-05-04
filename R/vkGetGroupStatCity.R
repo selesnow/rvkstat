@@ -24,7 +24,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
       try(rm(temp), silent = TRUE)}
     colnames(vkCities) <- c("Date", "Visitors", "CityID", "CityName")
     vkCities <- vkCities[c(1,4,3,2)]
-    vkCities$Date <- as.POSIXlt(vkCities$Date)
+    vkCities$Date <- as.POSIXct(vkCities$Date)
     return(vkCities)
     
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)

@@ -24,7 +24,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
     try(rm(temp), silent = TRUE)}
   colnames(vkAge) <- c("Date", "Visitors", "AgeGroup")
   vkAge <- vkAge[c(1,3,2)]
-  vkAge$Date <- as.POSIXlt(vkAge$Date)
+  vkAge$Date <- as.POSIXct(vkAge$Date)
   vkAge$AgeGroup <- as.factor(vkAge$AgeGroup)
   return(vkAge)
   

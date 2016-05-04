@@ -30,7 +30,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
   #                          Gender <- vkGenderAge$Gender,
   #                          AgeGroup <- vkGenderAge$AgeGroup,
   #                          Visitors <- vkGenderAge$visitors)
-  vkGenderAge$Date <- as.POSIXlt(vkGenderAge$Date)
+  vkGenderAge$Date <- as.POSIXct(vkGenderAge$Date)
   vkGenderAge$Gender <- as.factor(vkGenderAge$Gender)
   vkGenderAge$AgeGroup <- as.factor(vkGenderAge$AgeGroup)
   
