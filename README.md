@@ -136,3 +136,7 @@ _Получить данные о городах посетителей._
 _Получить данные о странах посетителей._
 
 `communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01", date_to = "2016-04-01", group_id = 1, access_token = myToken)`
+
+<p align="center">
+<img src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" data-canonical-src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" style="max-width:100%;">
+</p>
