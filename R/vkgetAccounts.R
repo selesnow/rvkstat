@@ -4,19 +4,19 @@ vkgetAccounts <- function(access_token = NULL){
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ðåçóëüòèðóþùèé äàòà ôðåéì
+  #ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   result  <- data.frame(account_id     = integer(0),
                         account_type   = character(0),
                         account_status = character(0),
                         access_role    = character(0))
   
-  #Ïàðñèíã ðåçóëüòàòà
+  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã 
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
-                     data.frame(account_id     = dataRaw$response[[1]]$account_id,
-                                account_type   = dataRaw$response[[1]]$account_type,
-                                account_status = dataRaw$response[[1]]$account_status,
-                                access_role    = dataRaw$response[[1]]$access_role))}
+                     data.frame(account_id     = dataRaw$response[[i]]$account_id,
+                                account_type   = dataRaw$response[[i]]$account_type,
+                                account_status = dataRaw$response[[i]]$account_status,
+                                access_role    = dataRaw$response[[i]]$access_role))}
   
   return(result)
 }
