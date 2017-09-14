@@ -1,5 +1,5 @@
 vkgetAccounts <- function(access_token = NULL){
-  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",my_new_tok$access_token)
+  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
