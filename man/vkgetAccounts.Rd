@@ -1,23 +1,23 @@
 \name{vkgetAccounts}
 \alias{vkgetAccounts}
-\title{Возвращает список рекламных кабинетов}
-\description{Функция vkgetAccounts возвращает список доступны рекламных кабинетов.}
+\title{Г‚Г®Г§ГўГ°Г Г№Г ГҐГІ Г±ГЇГЁГ±Г®ГЄ Г°ГҐГЄГ«Г Г¬Г­Г»Гµ ГЄГ ГЎГЁГ­ГҐГІГ®Гў}
+\description{Г”ГіГ­ГЄГ¶ГЁГї vkgetAccounts ГўГ®Г§ГўГ°Г Г№Г ГҐГІ Г±ГЇГЁГ±Г®ГЄ Г¤Г®Г±ГІГіГЇГ­Г» Г°ГҐГЄГ«Г Г¬Г­Г»Гµ ГЄГ ГЎГЁГ­ГҐГІГ®Гў.}
 \usage{
 vkgetAccounts(access_token = NULL)
 }
 \arguments{
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{access_token}{Г’Г®ГЄГҐГ­ Г¤Г®Г±ГІГіГЇГ  ГЄ API, ГЇГ®Г«ГіГ·ГҐГ­Г­Г»Г© Г± ГЇГ®Г¬Г®Г№ГјГѕ ГґГіГ­ГЄГ¶ГЁГ© vkAuth ГЁГ«ГЁ vkGetToken}
 }
-\value{Дата фрейм со списком рекламных кабинетов и их параметров}
+\value{Г„Г ГІГ  ГґГ°ГҐГ©Г¬ Г±Г® Г±ГЇГЁГ±ГЄГ®Г¬ Г°ГҐГЄГ«Г Г¬Г­Г»Гµ ГЄГ ГЎГЁГ­ГҐГІГ®Гў ГЁ ГЁГµ ГЇГ Г°Г Г¬ГҐГІГ°Г®Гў}
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(client_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+##ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГї Гў ГўГЄ
+my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Запрос списка доступных рекламных кабинетов
+##Г‡Г ГЇГ°Г®Г± Г±ГЇГЁГ±ГЄГ  Г¤Г®Г±ГІГіГЇГ­Г»Гµ Г°ГҐГЄГ«Г Г¬Г­Г»Гµ ГЄГ ГЎГЁГ­ГҐГІГ®Гў
 my_vk_acc <- vkgetAccounts(my_tok$access_token)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
