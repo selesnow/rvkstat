@@ -46,7 +46,12 @@ vkGetAds <- function(account_id = NULL,
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
-
+  
+  #Проверка ответа на ошибки
+  if(!is.null(dataRaw$error)){
+    stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
+  }
+  
   #Парсинг результата
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
