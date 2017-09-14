@@ -29,7 +29,7 @@ Alexey Seleznev
 }
 \examples{
 ##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 
 ##Запрос списка рекламных кампаний
 my_vk_camp <- vkGetAdCampaigns(account_id = 1, 

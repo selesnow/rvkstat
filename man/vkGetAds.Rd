@@ -48,7 +48,7 @@ Alexey Seleznev
 
 \examples{
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список объявлений
 my_vk_ads <- vkGetAds(account_id = 11111111, 
                       access_token = my_tok$access_token)
