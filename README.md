@@ -54,7 +54,7 @@ devtools::install_github('selesnow/rvkstat')
 После запуска функции откроется окно браузера, в котором вы должны подтвердить доступ к данным в вконтакте, далее откроется страница в URL адресе которой будет параметр access_token, скопируйте его значение и вставьте в R, в качестве ответа на запрос "Your vk token from URL parameter access_token: ".
 
 #### Пример прохождения авторизации с помощью функции vkAuth
-`myToken <- vkAuth(app_id = <ID Вашего Приложения>, client_secret = <Защищённый Ключ Вашего Приложения>)`
+`myToken <- vkAuth(app_id = <ID Вашего Приложения>, app_secret = <Защищённый Ключ Вашего Приложения>)`
 
 Вместо <ID Вашего Приложения> укажите ID вашего приложения, вместо <Защищённый Ключ Вашего Приложения> укажите защищёный ключ вашего приложения, оба аргумента можно посмотреть на странице настройки приложения как описано в разделе "[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Требование)". 
 
@@ -67,7 +67,7 @@ devtools::install_github('selesnow/rvkstat')
 #### Получить список досупных рекламных кабинетов Вконтакте
 ```
 ##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Запрос списка доступных рекламных кабинетов
 my_vk_acc <- vkGetAccounts(my_tok$access_token)
 ```
@@ -78,7 +78,7 @@ my_vk_acc <- vkGetAccounts(my_tok$access_token)
 #### Получить список объявлений из рекламного кабинета вконтакте
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список объявлений
 my_vk_ads <- vkGetAds(account_id = 11111111, 
                       access_token = my_tok$access_token)
@@ -94,7 +94,7 @@ my_vk_ads <- vkGetAds(account_id = 11111111,
 #### Получить список рекламных кампаний из рекламного кабинета вконтакте
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список рекламных кампаний
 my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111, 
                                     access_token = my_tok$access_token)
@@ -111,7 +111,7 @@ my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111,
 
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 ```
 
 #### Получить данные о количестве просмотров, посетителях, подписавшихся и отписавшихся посетителей по дням
