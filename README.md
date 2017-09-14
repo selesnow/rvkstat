@@ -22,10 +22,10 @@
 
 ## Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat
 Для работы с api вконтакте вам необходимо создать Standalone-приложение, для этого перейдите по этой <a href="https://vk.com/editapp?act=create">ссылке</a>, и выберите Standalone-приложение. 
-<center><img src="http://picsee.net/upload/2016-04-29/ccbead79d129.png" data-canonical-src="http://picsee.net/upload/2016-04-29/ccbead79d129.png" style="max-width:100%;"></center>
+ <p align="center"><img src="http://picsee.net/upload/2016-04-29/ccbead79d129.png" data-canonical-src="http://picsee.net/upload/2016-04-29/ccbead79d129.png" style="max-width:100%;"></p>
 
 Для начала работы и для того, что бы с помощью функции авторизации в Вконтакте получить токен разработчика используйте ID и Защищённый ключ приложения.
-<center><img src="http://img.netpeak.ua/alsey/150540127636_kiss_56kb.png" data-canonical-src="http://picsee.net/upload/2016-04-29/39ef5f2d1d09.png" style="max-width:100%;"></center>
+ <p align="center"><img src="http://img.netpeak.ua/alsey/150540127636_kiss_56kb.png" data-canonical-src="http://picsee.net/upload/2016-04-29/39ef5f2d1d09.png" style="max-width:100%;"></p>
 
 
 ## Установка пакета
