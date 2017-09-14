@@ -6,7 +6,7 @@
 vkGetAds(account_id = NULL, client_id = NULL, include_deleted = TRUE, campaign_ids = "null", ad_ids = "null", access_token = NULL))
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkgetAccounts.}
+  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
   \item{client_id}{Идентификатор клиента, у которого запрашиваются рекламные объявления. Доступно и обязательно для рекламных агентств.}
   \item{include_deleted}{Логическое TRUE или FALSE, флаг, задающий необходимость вывода архивных объявлений.}
   \item{campaign_ids}{Числовой вектор, фильтр по рекламным кампаниям.}
