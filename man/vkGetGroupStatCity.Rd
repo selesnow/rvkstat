@@ -17,7 +17,6 @@ vkGetGroupStatCity(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL
 \item{3. CityID}{идентификатор города или "other" для раздела «прочие города».}
 \item{4. CityName}{название города.}
 }
-\value{Data frame with daily data about visits by City}
 \author{Alexey Seleznev}
 \examples{
 ##Авторизация в вк

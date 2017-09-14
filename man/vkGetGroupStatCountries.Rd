@@ -18,7 +18,6 @@ vkGetGroupStatCountries(date_from = Sys.Date(), date_to = Sys.Date(), group_id =
 \item{4. CountryCode}{двухбуквенный код страны (например, "RU").}
 \item{5. CountryName}{название страны.}
 }
-\value{Data frame with daily data about visits by Country}
 \author{Alexey Seleznev}
 \examples{
 ##Авторизация в вк
