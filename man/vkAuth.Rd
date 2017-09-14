@@ -1,23 +1,23 @@
 \name{vkAuth}
 \alias{vkAuth}
-\title{Авторизация в Вконтакте}
-\description{Функция vkAuth даёт возможность получить токен для доступа к API используя схему Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
+\title{ГЂГўГІГ®Г°ГЁГ§Г Г¶ГЁГї Гў Г‚ГЄГ®Г­ГІГ ГЄГІГҐ}
+\description{Г”ГіГ­ГЄГ¶ГЁГї vkAuth Г¤Г ВёГІ ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГј ГЇГ®Г«ГіГ·ГЁГІГј ГІГ®ГЄГҐГ­ Г¤Г«Гї Г¤Г®Г±ГІГіГЇГ  ГЄ API ГЁГ±ГЇГ®Г«ГјГ§ГіГї Г±ГµГҐГ¬Гі Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
 \usage{
 vkAuth(client_id = NULL, client_secret = NULL, apiVersion = "5.68")
 }
 \arguments{
-  \item{client_id}{ID приложения, найти его можно на странице настройки приложения.}
-  \item{client_secret}{Защищённый ключ приложения, найти его можно на странице настройки приложения.}
-  \item{apiVersion}{Версия API.}
+  \item{app_id}{ID ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї, Г­Г Г©ГІГЁ ГҐГЈГ® Г¬Г®Г¦Г­Г® Г­Г  Г±ГІГ°Г Г­ГЁГ¶ГҐ Г­Г Г±ГІГ°Г®Г©ГЄГЁ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї.}
+  \item{client_secret}{Г‡Г Г№ГЁГ№ВёГ­Г­Г»Г© ГЄГ«ГѕГ· ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї, Г­Г Г©ГІГЁ ГҐГЈГ® Г¬Г®Г¦Г­Г® Г­Г  Г±ГІГ°Г Г­ГЁГ¶ГҐ Г­Г Г±ГІГ°Г®Г©ГЄГЁ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГї.}
+  \item{apiVersion}{Г‚ГҐГ°Г±ГЁГї API.}
 }
-\value{Список учётных данных для работы с API Вконтакте}
+\value{Г‘ГЇГЁГ±Г®ГЄ ГіГ·ВёГІГ­Г»Гµ Г¤Г Г­Г­Г»Гµ Г¤Г«Гї Г°Г ГЎГ®ГІГ» Г± API Г‚ГЄГ®Г­ГІГ ГЄГІГҐ}
 \author{
 Alexey Seleznev
 }
 
 \examples{
 ##Auth in VK
-my_tok <- vkAuth(client_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
