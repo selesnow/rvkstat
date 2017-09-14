@@ -3,8 +3,8 @@
 - [Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Требование)
 - [Установка пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Установка-пакета)
 - [Как пройти аутентификацию для работы с API Вконтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat#Авторизация-вконтакте-для-работы-с-api)
-  - [vkGetToken](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken) - Авторизация в Вконтакте с помощью метода [Implicit Flow](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken)
-  - [vkAuth](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkauth) - Авторизация в Вконтакте с помощью метода [Authorization Code Flow](https://vk.com/dev/authcode_flow_user)
+    - [vkGetToken](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken) - Авторизация в Вконтакте с помощью метода [Implicit Flow](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken)
+    - [vkAuth](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkauth) - Авторизация в Вконтакте с помощью метода [Authorization Code Flow](https://vk.com/dev/authcode_flow_user)
 - [Функции доступные в пакете rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-доступные-в-пакете-rvkstat)
   - [Функции для загрузки данных из рекламного кабинета Вконтакте](https://github.com/selesnow/rvkstat#Функции-для-загрузки-данных-из-рекламного-кабинета-Вконтакте)
     - [vkGetAdAccounts](https://github.com/selesnow/rvkstat#Получить-список-досупных-рекламных-кабинетов-Вконтакте) - Получить список доступных рекламных кабинетов
