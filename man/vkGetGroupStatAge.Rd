@@ -20,7 +20,7 @@ vkGetGroupStatAge(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL,
 
 \examples{
 ##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 
 ##Получить статистику по возрастным группам посетителеф
 communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01",

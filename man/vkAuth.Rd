@@ -17,7 +17,7 @@ Alexey Seleznev
 
 \examples{
 ##Auth in VK
-my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
