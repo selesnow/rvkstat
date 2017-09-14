@@ -1,25 +1,32 @@
 \name{vkGetGroupStatAge}
 \alias{vkGetGroupStatAge}
-\title{Get data about communities by user's age categories}
-\description{vkGetGroupStatCity get data about views vk.com communities by date user's age categories (12-18, 18-21, 21-24, 24-27, 27-30, 30-35, 35-45, 45-100)}
+\title{Статистика по возрастным группам посетителей сообщества вконтакте}
+\description{Функция vkGetGroupStatAge предназначена для загрузки данных о посетителях сообщества в разрезе возрастных групп (12-18, 18-21, 21-24, 24-27, 27-30, 30-35, 35-45, 45-100) по датам.}
 \usage{
 vkGetGroupStatAge(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL)
 }
 \arguments{
-  \item{date_from}{Start reporting date as YYYY-MM-DD.}
-  \item{date_to}{End reporting date as YYYY-MM-DD.}
-  \item{group_id}{Communiti id.}
-  \item{access_token}{Your developer token vkontakte api which you get by function vkGetToken}
+  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
+  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
+  \item{group_id}{Идентификатор сообщества.}
+  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
 }
-\value{Data frame with daily data about users by age group}
+\value{Дата фрейм со статистикой по посетителям сообщества со следующими значениями:
+\item{1. Date}{дата за которую приведена статистика.}
+\item{2. Visitors}{количество уникальных посетителей.}
+\item{3. AgeGroup}{озрастной интервал.}
+}
 \author{Alexey Seleznev}
 
 \examples{
-##---- Get data about visitors by age group
+##Авторизация в вк
+my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")
+
+##Получить статистику по возрастным группам посетителеф
 communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01",
-                               date_to = "2016-04-01",
-                               group_id = 1,
-                               access_token = myToken)
+                                      date_to = "2016-04-01",
+                                      group_id = 1,
+                                      access_token = my_tok$access_token)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
