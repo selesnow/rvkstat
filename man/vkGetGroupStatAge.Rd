@@ -14,7 +14,7 @@ vkGetGroupStatAge(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL,
 \value{Дата фрейм со статистикой по посетителям сообщества со следующими значениями:
 \item{1. Date}{дата за которую приведена статистика.}
 \item{2. Visitors}{количество уникальных посетителей.}
-\item{3. AgeGroup}{озрастной интервал.}
+\item{3. AgeGroup}{возрастной интервал.}
 }
 \author{Alexey Seleznev}
 
