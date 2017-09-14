@@ -1,5 +1,5 @@
 vkGetAdAccounts <- function(access_token = NULL){
-  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",my_new_tok$access_token)
+  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
@@ -13,10 +13,10 @@ vkGetAdAccounts <- function(access_token = NULL){
   #Парсинг результата
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
-                     data.frame(account_id     = dataRaw$response[[1]]$account_id,
-                                account_type   = dataRaw$response[[1]]$account_type,
-                                account_status = dataRaw$response[[1]]$account_status,
-                                access_role    = dataRaw$response[[1]]$access_role))}
+                     data.frame(account_id     = dataRaw$response[[i]]$account_id,
+                                account_type   = dataRaw$response[[i]]$account_type,
+                                account_status = dataRaw$response[[i]]$account_status,
+                                access_role    = dataRaw$response[[i]]$access_role))}
   
   return(result)
 }
