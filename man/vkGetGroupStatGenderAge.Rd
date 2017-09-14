@@ -25,9 +25,9 @@ my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 
 ##Загрузка данных по пользователям по полу и возрастной группе
 communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01",
-													date_to = "2016-04-01",
-													group_id = 1,
-													access_token = my_tok$access_token)
+												  date_to = "2016-04-01",
+												  group_id = 1,
+												  access_token = my_tok$access_token)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
