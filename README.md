@@ -118,7 +118,7 @@ my_tok <- vkAuth(app_id = 1,client_secret = "H2Pk8htyFD8024mZaPHm")```
 communityData <- vkGetGroupStat(date_from = "2016-01-01", 
                                 date_to = "2016-04-01", 
                                 group_id = 1, 
-                                access_token = my_tok$access_token)```
+                                access_token = my_tok$access_token)``` 
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
