@@ -3,7 +3,7 @@
 \title{Àâòîðèçàöèÿ â Âêîíòàêòå}
 \description{Ôóíêöèÿ vkAuth äà¸ò âîçìîæíîñòü ïîëó÷èòü òîêåí äëÿ äîñòóïà ê API èñïîëüçóÿ ñõåìó Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
 \usage{
-vkAuth(client_id = NULL, client_secret = NULL, apiVersion = "5.68")
+vkAuth(app_id = NULL, client_secret = NULL, apiVersion = "5.68")
 }
 \arguments{
   \item{app_id}{ID ïðèëîæåíèÿ, íàéòè åãî ìîæíî íà ñòðàíèöå íàñòðîéêè ïðèëîæåíèÿ.}
