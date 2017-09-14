@@ -125,7 +125,7 @@ communityData <- vkGetGroupStat(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить данные о возрастных группах посетителей по дням.
@@ -139,7 +139,7 @@ communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить данные о поле посетителей по дням.
@@ -153,7 +153,7 @@ communityDataGender <- vkGetGroupStatGender(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить данные о половозрастной структуре ваших посетителей по дням.
@@ -167,7 +167,7 @@ communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить данные о городах посетителей.
@@ -181,7 +181,7 @@ communityDataCity <- vkGetGroupStatCity(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить данные о странах посетителей.
@@ -195,7 +195,7 @@ communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01",
 ##### Аргументы
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
-* <b>group_id</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
+* <b>group_id</b> - Идентификатор сообщества.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
  ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
