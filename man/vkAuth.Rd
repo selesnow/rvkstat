@@ -6,8 +6,8 @@
 vkAuth(client_id = NULL, client_secret = NULL, apiVersion = "5.68")
 }
 \arguments{
-  \item{client_id}{Your app id from filed "ID РїСЂРёР»РѕР¶РµРЅРёСЏ" in app settings page vkontakte.}
-  \item{client_secret}{Your app secret from filed "Р—Р°С‰РёС‰С‘РЅРЅС‹Р№ РєР»СЋС‡" in app settings page vkontakte.}
+  \item{client_id}{Your app id from filed "ID приложения" in app settings page vkontakte.}
+  \item{client_secret}{Your app secret from filed "Защищённый ключ" in app settings page vkontakte.}
   \item{apiVersion}{Current API version.}
 }
 \value{Vkontakte credentials list}
