@@ -5,6 +5,12 @@
 \usage{
 vkGetGroupStatCity(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL)
 }
+\arguments{
+  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
+  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
+  \item{group_id}{Идентификатор сообщества.}
+  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+}
 \value{Дата фрейм со статистикой по посетителям сообщества со следующими значениями:
 \item{1. Date}{дата за которую приведена статистика.}
 \item{2. Visitors}{количество уникальных посетителей.}
