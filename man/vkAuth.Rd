@@ -1,16 +1,16 @@
 \name{vkAuth}
 \alias{vkAuth}
-\title{Vkontakte auth}
-\description{Function for vk authorisation by Authorization Code Flow schema - https://vk.com/dev/authcode_flow_user}
+\title{Авторизация в Вконтакте}
+\description{Функция vkAuth даёт возможность получить токен для доступа к API используя схему Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
 \usage{
 vkAuth(client_id = NULL, client_secret = NULL, apiVersion = "5.68")
 }
 \arguments{
-  \item{client_id}{Your app id from filed "ID приложения" in app settings page vkontakte.}
-  \item{client_secret}{Your app secret from filed "Защищённый ключ" in app settings page vkontakte.}
-  \item{apiVersion}{Current API version.}
+  \item{client_id}{ID приложения, найти его можно на странице настройки приложения.}
+  \item{client_secret}{Защищённый ключ приложения, найти его можно на странице настройки приложения.}
+  \item{apiVersion}{Версия API.}
 }
-\value{Vkontakte credentials list}
+\value{Список учётных данных для работы с API Вконтакте}
 \author{
 Alexey Seleznev
 }
