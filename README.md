@@ -13,6 +13,7 @@
     - [vkGetAds](https://github.com/selesnow/rvkstat#Получить-список-объявлений-из-рекламного-кабинета-вконтакте) - Получить список объявлений
     - [vkGetAdCampaigns](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-список-рекламных-кампаний-из-рекламного-кабинета-вконтакте) - Получить список рекламных кампаний
     - [vkGetAdStatistics](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-статистику-показателей-эффективности-по-рекламным-объявлениям-кампаниям-клиентам-или-всему-кабинету) - Получить статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету
+    - [vkGetAdBudget]() - Получить остаток средств из рекламного кабинета.
   - [Функции для загрузки данных из сообществ Вконтакте](https://github.com/selesnow/rvkstat#Функции-для-загрузки-данных-из-сообществ-Вконтакте)
     - [vkGetGroupStat](https://github.com/selesnow/rvkstat#Получить-данные-о-количестве-просмотров-посетителях-подписавшихся-и-отписавшихся-посетителей-по-дням) - Получить общую статистику по сообществу
     - [vkGetGroupStatAge](https://github.com/selesnow/rvkstat#Получить-данные-о-возрастных-группах-посетителей-по-дням) - Получить данные о посетителях сообщества по возрасту
@@ -105,7 +106,7 @@ devtools::install_github('selesnow/rvkstat')
 #### Получить список досупных рекламных кабинетов Вконтакте
 ```
 ##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Запрос списка доступных рекламных кабинетов
 my_vk_acc <- vkGetAccounts(my_tok$access_token)
 ```
@@ -116,7 +117,7 @@ my_vk_acc <- vkGetAccounts(my_tok$access_token)
 #### Получить список объявлений из рекламного кабинета вконтакте
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список объявлений
 my_vk_ads <- vkGetAds(account_id = 11111111, 
                       access_token = my_tok$access_token)
@@ -132,7 +133,7 @@ my_vk_ads <- vkGetAds(account_id = 11111111,
 #### Получить список рекламных кампаний из рекламного кабинета вконтакте
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список рекламных кампаний
 my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111, 
                                     access_token = my_tok$access_token)
@@ -147,10 +148,10 @@ my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111,
 #### Получить статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету.
 ```
 ##Авторизация в вконтакте
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
 ##Получаем список рекламных кампаний
-camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
+camp <- vkGetAdCampaigns(account_id = 11111111, access_token = my_tok$access_token)
 
 ##Получаем статистику по рекламным кампаниям по дням
 vk_stat_by_campaign <- vkGetAdStatistics(account_id = 11111111,
@@ -199,6 +200,19 @@ vk_stat_by_campaign <- vkGetAdStatistics(account_id = 11111111,
 * video_views_full (если ids_type равен ad) — просмотры целого видеоролика (для видеорекламы)
 * video_clicks_site (если ids_type равен ad) — переходы на сайт рекламодателя из видеорекламы (для видеорекламы)
 * join_rate (если ids_type равен ad или campaign) — вступления в группу, событие, подписки на публичную страницу или установки приложения (только если в объявлении указана прямая ссылка на соответствующую страницу ВКонтакте)
+
+#### Получить остаток средств из рекламного кабинета
+```
+##Авторизация в вконтакте
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
+#Получаем остаток средств из рекламного кабинета
+vk_budget <- vkGetAdBudget(account_id = 11111111, 
+                           access_token = my_tok$access_token)
+```
+##### Аргументы
+* <b>account_id</b> - Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkgetAccounts.
+* <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
 
 ### Функции для загрузки данных из сообществ Вконтакте
 Во всех примерах этого раздела подразумевается что вы сначала прошли процесс авторизации с помощью функции vkAuth, пример кода ниже:
