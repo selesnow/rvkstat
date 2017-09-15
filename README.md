@@ -9,6 +9,7 @@
   - [vkAuth](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkauth) - Авторизация в Вконтакте с помощью метода [Authorization Code Flow](https://vk.com/dev/authcode_flow_user)
 - **[Функции доступные в пакете rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-доступные-в-пакете-rvkstat)**
   - [Функции для загрузки данных из рекламного кабинета Вконтакте](https://github.com/selesnow/rvkstat#Функции-для-загрузки-данных-из-рекламного-кабинета-Вконтакте)
+    - [vkGetAdCategories]() - Получить возможные тематики рекламных объявлений и их подразделы.
     - [vkGetAdAccounts](https://github.com/selesnow/rvkstat#Получить-список-досупных-рекламных-кабинетов-Вконтакте) - Получить список доступных рекламных кабинетов
     - [vkGetAds](https://github.com/selesnow/rvkstat#Получить-список-объявлений-из-рекламного-кабинета-вконтакте) - Получить список объявлений
     - [vkGetAdCampaigns](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-список-рекламных-кампаний-из-рекламного-кабинета-вконтакте) - Получить список рекламных кампаний
@@ -103,6 +104,16 @@ devtools::install_github('selesnow/rvkstat')
 
 ### Функции для загрузки данных из рекламного кабинета Вконтакте
 
+#### Получить список возможных тематик рекламных объявлений и их подразделов.
+```
+##Авторизация в вк
+my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
+##Получение списка возможных тематик рекламных объявлений
+vk_ad_categories <- vkGetAdCategories(access_token = my_tok$access_token)
+```
+##### Аргументы
+* <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
 #### Получить список досупных рекламных кабинетов Вконтакте
 ```
 ##Авторизация в вк
@@ -112,7 +123,6 @@ my_vk_acc <- vkGetAccounts(my_tok$access_token)
 ```
 ##### Аргументы
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
-
 
 #### Получить список объявлений из рекламного кабинета вконтакте
 ```
