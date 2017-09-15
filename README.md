@@ -1,6 +1,7 @@
 # Содержание ReadMe пакета rvkstat
 - **[Краткое описание пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Краткое-описание-пакета-rvkstat)**
 - **[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Требование)**
+- **[Как обойти блокировку API сервиса Вконтакте на Украине]()**
 - **[Установка пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Установка-пакета)**
 - **[Как пройти аутентификацию для работы с API Вконтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat#Авторизация-вконтакте-для-работы-с-api)**
   - [vkGetToken](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken) - Авторизация в Вконтакте с помощью метода [Implicit Flow](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken)
@@ -30,6 +31,27 @@
 Для начала работы и для того, что бы с помощью функции авторизации в Вконтакте получить токен разработчика используйте ID и Защищённый ключ приложения.
  <p align="center"><img src="http://img.netpeak.ua/alsey/150540127636_kiss_56kb.png" data-canonical-src="http://picsee.net/upload/2016-04-29/39ef5f2d1d09.png" style="max-width:100%;"></p>
 
+## Как работать с API сервиса Вконтакте на Украине
+Обойти блокировку API Вконтакте на Украине можно с помощью пакета [getProxy](https://github.com/selesnow/getProxy).
+Процесс обхода блокировки с помозью пакета getProxy:
+
+1. Устанавливаем пакет getProxy с помощью приведённого ниже кода:
+```
+if(!"devtools"" %in% installed.packages()[,1]){install.packages("devtools")}
+library(devtools)
+install_github("selesnow/getProxy")
+```
+2. Подключаем пакет getProxy с помощью комманды `library(getProxy)`.
+3. Далее с помощью функции `getProy` обходим блокировку через прокси сервер, пример кода ниже:
+```
+#Направляем интернет соединение через прокси сервер
+getProxy(port = "3128", country = "RU", supportsHttps = TRUE, action = "start")
+
+#Пишем код для работы с API Вконтакте с помощью функций пакета rvkstat
+
+#Отключаемся от прокси сервера
+getProxy9action = "stop")
+```
 
 ## Установка пакета
 Пакет rvkstat может быть установлен непосредственно из репозитория Github с помощью приведённого ниже программного кода.
