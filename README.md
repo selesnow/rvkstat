@@ -9,7 +9,7 @@
   - [vkAuth](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkauth) - Авторизация в Вконтакте с помощью метода [Authorization Code Flow](https://vk.com/dev/authcode_flow_user)
 - **[Функции доступные в пакете rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-доступные-в-пакете-rvkstat)**
   - [Функции для загрузки данных из рекламного кабинета Вконтакте](https://github.com/selesnow/rvkstat#Функции-для-загрузки-данных-из-рекламного-кабинета-Вконтакте)
-    - [vkGetAdCategories]() - Получить возможные тематики рекламных объявлений и их подразделы.
+    - [vkGetAdCategories](https://github.com/selesnow/rvkstat#Получить-список-возможных-тематик-рекламных-объявлений-и-их-подразделов) - Получить возможные тематики рекламных объявлений и их подразделы.
     - [vkGetAdAccounts](https://github.com/selesnow/rvkstat#Получить-список-досупных-рекламных-кабинетов-Вконтакте) - Получить список доступных рекламных кабинетов
     - [vkGetAds](https://github.com/selesnow/rvkstat#Получить-список-объявлений-из-рекламного-кабинета-вконтакте) - Получить список объявлений
     - [vkGetAdCampaigns](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-список-рекламных-кампаний-из-рекламного-кабинета-вконтакте) - Получить список рекламных кампаний
