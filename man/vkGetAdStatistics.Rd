@@ -3,7 +3,7 @@
 \title{Статистика по посещению сообщества в Вконтакте.}
 \description{Функция vkGetAdStatistics возвращает статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету.}
 \usage{
-vkGetGroupStat(account_id = NULL, ids_type = "office", ids = NULL, period = "overall", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
+vkGetAdStatistics(account_id = NULL, ids_type = "office", ids = NULL, period = "overall", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
 }
 \arguments{
   \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
