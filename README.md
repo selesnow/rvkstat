@@ -27,6 +27,8 @@
     - [vkGetGroupStatCountries](https://github.com/selesnow/rvkstat#Получить-данные-о-странах-посетителей) - Получить данные о посетителях сообщества по странам
     - [vkGetGroupStatGender](https://github.com/selesnow/rvkstat#Получить-данные-о-поле-посетителей-по-дням) - Получить данные о посетителях сообщества по полу
     - [vkGetGroupStatGenderAge](https://github.com/selesnow/rvkstat#Получить-данные-о-половозрастной-структуре-ваших-посетителей-по-дням) - Получить данные о посетителях сообщества по полу и возрасту
+  - [Функции для загрузки справочной инормации из Вконтакте]()
+    - [vkGetDbCountries]() -Получить id и название стран
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
@@ -520,6 +522,26 @@ communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01",
 * <b>date_from</b> - Начальная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>date_to</b> - Конечная дата выводимой статистики в формате YYYY-MM-DD.
 * <b>group_id</b> - Идентификатор сообщества.
+* <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
+### Функции для загрузки справочной информации из Вконтакте
+Во всех примерах этого раздела подразумевается что вы сначала прошли процесс авторизации с помощью функции vkAuth, пример кода ниже:
+
+```
+##Авторизация в вконтакте
+my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+```
+
+#### Получить id и название стран
+```
+##Получаем список стран
+vk_countries <- vkGetDbCountries(need_all = T,
+                                 code = c("RU","UA","BY"),
+                                 access_token = my_tok$access_token)
+```
+##### Аргументы
+* <b>need_all</b> - Логическое TRUE или FALSE, флаг - вернуть список всех стран.
+* <b>code</b> - Текстовый вектор, двухбуквенные коды стран в стандарте ISO 3166-1 alpha-2, для которых необходимо выдать информацию. Пример c("RU","UA","BY"), список всех кодов можно посмотреть по ссылке - https://vk.com/dev/country_codes. Не обязательный аргумент.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
  ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
