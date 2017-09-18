@@ -29,7 +29,7 @@
     - [vkGetGroupStatGenderAge](https://github.com/selesnow/rvkstat#Получить-данные-о-половозрастной-структуре-ваших-посетителей-по-дням) - Получить данные о посетителях сообщества по полу и возрасту
   - [Функции для загрузки справочной инормации из Вконтакте](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-для-загрузки-справочной-информации-из-Вконтакте)
     - [vkGetDbCountries](https://github.com/selesnow/rvkstat#Получить-id-и-название-стран) - Получить id и название стран
-    - [vkGetDbCities](https://github.com/selesnow/rvkstat#Получить-id-и-название-стран) - Получить справочник городов
+    - [vkGetDbCities](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-городов) - Получить справочник городов
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
