@@ -48,14 +48,9 @@ Alexey Seleznev
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем список рекламных кампаний
-camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
-
-##Получаем статистику по рекламным кампаниям
-post_reach <- vkGetAdPostsReach(account_id = 1600134264,
-                                ids_type = "campaign",
-                                ids = camp$id,
-                                access_token = my_tok$access_token)
+##Получаем список друзей пользователя
+my_vk_friends <- vkGetfriends(user_id = 7437995,
+                              access_token = my_tok$access_token)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
