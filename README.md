@@ -28,7 +28,7 @@
     - [vkGetGroupStatGender](https://github.com/selesnow/rvkstat#Получить-данные-о-поле-посетителей-по-дням) - Получить данные о посетителях сообщества по полу
     - [vkGetGroupStatGenderAge](https://github.com/selesnow/rvkstat#Получить-данные-о-половозрастной-структуре-ваших-посетителей-по-дням) - Получить данные о посетителях сообщества по полу и возрасту
   - [Функции для загрузки справочной инормации из Вконтакте]()
-    - [vkGetDbCountries]() -Получить id и название стран
+    - [vkGetDbCountries]() - Получить id и название стран
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
