@@ -29,6 +29,7 @@
     - [vkGetGroupStatGenderAge](https://github.com/selesnow/rvkstat#Получить-данные-о-половозрастной-структуре-ваших-посетителей-по-дням) - Получить данные о посетителях сообщества по полу и возрасту
   - [Функции для загрузки справочной инормации из Вконтакте](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-для-загрузки-справочной-информации-из-Вконтакте)
     - [vkGetDbCountries](https://github.com/selesnow/rvkstat#Получить-id-и-название-стран) - Получить id и название стран
+    - [vkGetDbCities](https://github.com/selesnow/rvkstat#Получить-id-и-название-стран) - Получить справочник городов
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
@@ -544,6 +545,20 @@ vk_countries <- vkGetDbCountries(need_all = T,
 * <b>need_all</b> - Логическое TRUE или FALSE, флаг - вернуть список всех стран.
 * <b>code</b> - Текстовый вектор, двухбуквенные коды стран в стандарте ISO 3166-1 alpha-2, для которых необходимо выдать информацию. Пример c("RU","UA","BY"), список всех кодов можно посмотреть по ссылке - https://vk.com/dev/country_codes. Не обязательный аргумент.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
+#### Получить справочник городов
+```
+##Получаем справочник городов Украины, т.к. id Украины = 2
+vk_cities <- vkGetDbCities(country_id = 2,
+                           access_token = my_tok$access_token)
+```
+##### Аргументы
+* <b>country_id</b> - Идентификатор страны, полученный с помощью функции vkGetDbCountries.
+* <b>region_id</b> - Идентификатор региона, города которого необходимо получить. (параметр не обязателен).}
+* <b>q</b> - Строка поискового запроса. Например, "Санкт". Максимальная длина строки — 15 символов.
+* <b>need_all</b> - Логическое TRUE или FALSE, флаг - вернуть список всех городов страны указанной в аргументе country_id.
+* <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
 
  ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">
