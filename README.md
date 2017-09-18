@@ -33,7 +33,7 @@
     - [vkGetDbCities](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-городов) - Получить справочник городов
     - [vkGetDbRegions](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-регионов) - Получить справочник регионов
   - [Функции для загрузки инормации о пользователе Вконтакте](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-для-загрузки-справочной-информации-из-Вконтакте)
-    - [vkGetFriends](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-городов) - Получить список друзей пользователя Вконтакте
+    - [vkGetFriends](https://github.com/selesnow/rvkstat/blob/master/README.md#Получиить-список-друзей-пользователя-Вконтакте) - Получить список друзей пользователя Вконтакте
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
