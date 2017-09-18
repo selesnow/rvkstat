@@ -105,5 +105,4 @@ vkGetAdCityStats <- function(account_id = NULL,
   
   
   return(result)
-}(result)
 }
