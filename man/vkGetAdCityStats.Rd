@@ -3,7 +3,7 @@
 \title{Статистика по охвату аудитории в разрезе городов.}
 \description{Функция vkGetAdCityStats возвращает статистику по охвату аудитории по разрезе рекламным кампания и объявлениям в разрезе городов.}
 \usage{
-vkGetAdStatistics(account_id = NULL, ids_type = "campaign", ids = NULL, period = "day", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
+vkGetAdCityStats(account_id = NULL, ids_type = "campaign", ids = NULL, period = "day", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
 }
 \arguments{
   \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
