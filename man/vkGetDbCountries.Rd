@@ -3,7 +3,7 @@
 \title{Список стран.}
 \description{Функция vkGetDbCountries возвращает список стран.}
 \usage{
-vkGetDbCountries(account_id = NULL, access_token = NULL)
+vkGetDbCountries(need_all = TRUE, code = NULL, access_token = NULL)
 }
 \arguments{
   \item{need_all}{Логическое TRUE или FALSE, флаг - вернуть список всех стран.}
