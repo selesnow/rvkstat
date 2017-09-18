@@ -30,7 +30,7 @@
   - [Функции для загрузки справочной инормации из Вконтакте](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-для-загрузки-справочной-информации-из-Вконтакте)
     - [vkGetDbCountries](https://github.com/selesnow/rvkstat#Получить-id-и-название-стран) - Получить id и название стран
     - [vkGetDbCities](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-городов) - Получить справочник городов
-    - [vkGetDbRegions]() - Получить справочник регионов
+    - [vkGetDbRegions](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-регионов) - Получить справочник регионов
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
