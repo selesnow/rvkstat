@@ -71,7 +71,7 @@
 
 1. Устанавливаем пакет getProxy с помощью приведённого ниже кода:
 ```
-if(!"devtools"" %in% installed.packages()[,1]){install.packages("devtools")}
+if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 library(devtools)
 install_github("selesnow/getProxy")
 ```
