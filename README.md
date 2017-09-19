@@ -34,7 +34,7 @@
     - [vkGetDbRegions](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-справочник-регионов) - Получить справочник регионов
   - [Функции для загрузки инормации о пользователе Вконтакте](https://github.com/selesnow/rvkstat/blob/master/README.md#Функции-для-загрузки-инормации-о-пользователе-Вконтакте)
     - [vkGetUserFriends](https://github.com/selesnow/rvkstat/blob/master/README.md#Получиить-список-друзей-пользователя-Вконтакте) - Получить список друзей пользователя Вконтакте
-    - [vkGetUserGroups]() - Получить список групп и сообществ в которых состоит пользователь Вконтакте
+    - [vkGetUserGroups](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-список-групп-и-сообществ-в-которых-состоит-пользователь-Вконтакте) - Получить список групп и сообществ в которых состоит пользователь Вконтакте
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
