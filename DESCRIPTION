@@ -1,11 +1,11 @@
 Package: rvkstat
 Type: Package
 Title: Load data from vk.com api into R
-Version: 1.1.1
+Version: 2.0.0
 Date: 2016-04-29
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from vk.com api about your communiti users and viewa by date into R
 License: not license it free
-Depends: R (>= 3.0.0)
-Imports: RCurl, jsonlite
+Depends: R (>= 3.4.0)
+Imports: RCurl, jsonlite, httr
