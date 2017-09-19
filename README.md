@@ -747,6 +747,38 @@ my_vk_community <- vkGetUserGroups(user_id = 7437995,
 * photo_medium - URL главной фотографии с размером 100х100px.
 * photo_big - URL главной фотографии в максимальном размере.
 
+#### Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
+```
+my_vk_wall <- vkGetUserWall(user_id = 7437995,
+                            access_token = my_tok$access_token)
+```
+##### Аргументы
+* <b>user_id</b> - Идентификатор пользователя, для которого необходимо получить список друзей. Если параметр не задан, то считается, что он равен идентификатору текущего пользователя.
+* <b>domain</b> - Короткий адрес пользователя
+* <b>filter</b> - определяет, какие типы записей на стене необходимо получить. Возможные значения:
+	* suggests — предложенные записи на стене сообщества
+	* postponed — отложенные записи
+	* owner — записи владельца стены
+	* others — записи не от владельца стены
+	* all — все записи на стене (owner + others) 
+	* По умолчанию: all. 
+* <b>access_token</b>Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
+
+##### Возвращаемые значения
+* id - Идентификатор записи.
+* from_id - Идентификатор автора записи.
+* to_id - Идентификатор владельца стены, на которой размещена запись.
+* date - Время публикации записи
+* post_type - Тип записи, может принимать следующие значения: post, copy, reply, postpone, suggest.
+* text - Текст записи.
+* can_delete - Информация о том, может ли текущий пользователь удалить запись 
+	* 1 — может
+	* 0 — не может.
+* comments_count - Кличество комментариев.
+* likes_count - Число пользователей, которым понравилась запись.
+* reposts_count - Число пользователей, скопировавших запись.
+* attachment_type - Тип медиавложения записи (фотографии, ссылки и т.п.)
+
  ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">
 <img src="https://lh3.googleusercontent.com/R-0jgJSxIIhpag2L6YCIhJVIcIWx6-Jt5UCTRJjWzJewo47u2QBnik5CRF2dNB79jmsN_BFRjVOAYfvCqFcn3UNS_thGbbxF-99c9lwBWWlFI7JCWE43K5Yk9HnIW8i8YpTDx3l28IuYswaI-qc9QosHT1lPCsVilTfXTyV2empF4S74daOJ6x5QHYRWumT_2MhUS0hPqUsKVtOoveqDnGf3cF_VsN-RfOAwG9uCeGOgNRgv_fhSr41rw4LBND4gf05nO8zMp4TZMrrcUjKvvx6qNgYDor5LFOHiRmfKISYRVkWYe4wLyGO1FgkgTDjg0300lcur2t3txVwZUgROLZdaxOLx4owa8Rc8B8VKwd3vHxjov_aVfNPT4xf9jSFBBEOI-mfYpa55ejKDw-rqTQ6miFRFWpp_hjrk9KbGyB-Z6iZvYL-2dZ6mzgpUfs2I0tEAGsV07yTzboJ0RNCByC2-U-ZVjWdp2_9Au3FFoUcdQUAmPYOVqOv4r3oLbkkJKLj2A5jp7vf4IAoExLIfJuqEf7XN7fFcv4geib029qJjBt28wnqSO6TKEwB2fesR3uPHvGB6_6NHD70UDH-aCRCK4UBeoajtU0Y8Ks8Vwxo0oZBwmoEu8gudTFBF6mDT7GjLoGLDeNxE-TG7OtWUdxsJk7yzXGW3hE-VxsMD9g=s351-no?w=300" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
