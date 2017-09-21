@@ -2,29 +2,25 @@ vkGetAdClients <- function(account_id = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
-    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+    stop("ÃÃ¥ Ã§Ã Ã¯Ã®Ã«Ã­Ã¥Ã­ access_token, Ã½Ã²Ã®Ã² Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã² Ã¿Ã¢Ã«Ã¿Ã¥Ã²Ã±Ã¿ Ã®Ã¡Ã¿Ã§Ã Ã²Ã¥Ã«Ã¼Ã­Ã»Ã¬.")
   }
   
-  if(!(period %in% c("day","month","overall"))){
-    stop("Íåâåðíîå çíà÷åíèå â àðãóìåíòå period, äîñòóïíûå çíà÷åíèÿ day, month è overall")
-  }
-  
-  #Ðåçóëüòèðóþùèé äàòà ôðåéì
+  #ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   result  <- data.frame()
   
   
-  #Ôîðìèðóåì çàïðîñ
+  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
   query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Ïàðñèíã ðåçóëüòàòà
+  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã 
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -33,7 +29,7 @@ vkGetAdClients <- function(account_id = NULL,
                                 all_limit           = ifelse(is.null(dataRaw$response[[i]]$all_limit), NA,dataRaw$response[[i]]$all_limit),
                                 stringsAsFactors = F))}
   
-    #Ïðåîáðàçîâàíèå â ÷èñëà
+    #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¥ Ã¢ Ã·Ã¨Ã±Ã«Ã 
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   
