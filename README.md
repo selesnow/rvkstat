@@ -1,4 +1,4 @@
-.readme h1{font-size:170%!important;border-top:4px solid #aaa!important;padding-top:.5em!important;margin-top:1.5em!important;}
+h1{font-size:170%!important;border-top:4px solid #aaa!important;padding-top:.5em!important;margin-top:1.5em!important;}
 
 # Содержание ReadMe пакета rvkstat
 
