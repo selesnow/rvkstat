@@ -138,7 +138,7 @@ vk_ad_categories <- vkGetAdCategories(access_token = my_tok$access_token)
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Запрос списка доступных рекламных кабинетов
-my_vk_acc <- vkGetAccounts(my_tok$access_token)
+my_vk_acc <- vkGetAdAccounts(my_tok$access_token)
 ```
 ##### Аргументы
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
