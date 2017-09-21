@@ -1,4 +1,5 @@
 # Содержание ReadMe пакета rvkstat
+<div style="border: 2px solid #4682B4; background: #EEE8AA; padding: 15px; border-radius: 9px; font-size: 12px; font-family: Arial;">
 - **[Краткое описание пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Краткое-описание-пакета-rvkstat)**
 - **[Как получить подробную справку по функциям пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Как-получить-подробную-справку-по-функциям-пакета-rvkstat)**
 - **[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Требование)**
@@ -38,6 +39,7 @@
     - [vkGetUserWall](https://github.com/selesnow/rvkstat/blob/master/README.md#Получить-сообщения-со-стены-пользователя-с-количеством-комментариев-лайков-и-рипостов) - Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
+</div>
 
 ## Краткое описание пакета rvkstat
 Пакет rvkstat является R клиентом для работы с API социальной сети [Вконтакте](url), с помощью функций данного пакета можно получить статистику из рекламного кабинета Вконтакте, а так же данные о посетителях сообществ вконтакте по дням, в разрезе возрастных групп, пола и геолокации посетителей.
