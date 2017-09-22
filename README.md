@@ -33,12 +33,12 @@
     - [vkGetGroupStatGenderAge](https://selesnow.github.io/rvkstat/#получить-данные-о-половозрастной-структуре-ваших-посетителей-по-дням) - Получить данные о посетителях сообщества по полу и возрасту
   - [Функции для загрузки справочной инормации из Вконтакте](https://selesnow.github.io/rvkstat/#функции-для-загрузки-справочной-информации-из-вконтакте)
     - [vkGetDbCountries](https://selesnow.github.io/rvkstat/#получить-id-и-название-стран) - Получить id и название стран
-    - [vkGetDbCities](https://selesnow.github.io/rvkstat/#Получить-справочник-городов) - Получить справочник городов
-    - [vkGetDbRegions](https://selesnow.github.io/rvkstat/#Получить-справочник-регионов) - Получить справочник регионов
-  - [Функции для загрузки инормации о пользователе Вконтакте](https://selesnow.github.io/rvkstat/#Функции-для-загрузки-инормации-о-пользователе-Вконтакте)
-    - [vkGetUserFriends](https://selesnow.github.io/rvkstat/#Получиить-список-друзей-пользователя-Вконтакте) - Получить список друзей пользователя Вконтакте
-    - [vkGetUserGroups](https://selesnow.github.io/rvkstat/#Получить-список-групп-и-сообществ-в-которых-состоит-пользователь-Вконтакте) - Получить список групп и сообществ в которых состоит пользователь Вконтакте
-    - [vkGetUserWall](https://selesnow.github.io/rvkstat/#Получить-сообщения-со-стены-пользователя-с-количеством-комментариев-лайков-и-рипостов) - Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
+    - [vkGetDbCities](https://selesnow.github.io/rvkstat/#получить-справочник-городов) - Получить справочник городов
+    - [vkGetDbRegions](https://selesnow.github.io/rvkstat/#получить-справочник-регионов) - Получить справочник регионов
+  - [Функции для загрузки инормации о пользователе Вконтакте](https://selesnow.github.io/rvkstat/#функции-для-загрузки-инормации-о-пользователе-Вконтакте)
+    - [vkGetUserFriends](https://selesnow.github.io/rvkstat/#получиить-список-друзей-пользователя-Вконтакте) - Получить список друзей пользователя Вконтакте
+    - [vkGetUserGroups](https://selesnow.github.io/rvkstat/#получить-список-групп-и-сообществ-в-которых-состоит-пользователь-Вконтакте) - Получить список групп и сообществ в которых состоит пользователь Вконтакте
+    - [vkGetUserWall](https://selesnow.github.io/rvkstat/#получить-сообщения-со-стены-пользователя-с-количеством-комментариев-лайков-и-рипостов) - Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
 - **[Примеры работы с пакетом rvkstat]()**
 - **[Информация об авторе пакета](https://selesnow.github.io/rvkstat/#Автор-пакета-Алексей-Селезнёв-head-of-analytics-dept-at-netpeak)**
 
@@ -783,7 +783,7 @@ my_vk_wall <- vkGetUserWall(user_id = 7437995,
 * reposts_count - Число пользователей, скопировавших запись.
 * attachment_type - Тип медиавложения записи (фотографии, ссылки и т.п.)
 
- ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
+ ## Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak
  <p align="center">
 <img src="https://lh3.googleusercontent.com/R-0jgJSxIIhpag2L6YCIhJVIcIWx6-Jt5UCTRJjWzJewo47u2QBnik5CRF2dNB79jmsN_BFRjVOAYfvCqFcn3UNS_thGbbxF-99c9lwBWWlFI7JCWE43K5Yk9HnIW8i8YpTDx3l28IuYswaI-qc9QosHT1lPCsVilTfXTyV2empF4S74daOJ6x5QHYRWumT_2MhUS0hPqUsKVtOoveqDnGf3cF_VsN-RfOAwG9uCeGOgNRgv_fhSr41rw4LBND4gf05nO8zMp4TZMrrcUjKvvx6qNgYDor5LFOHiRmfKISYRVkWYe4wLyGO1FgkgTDjg0300lcur2t3txVwZUgROLZdaxOLx4owa8Rc8B8VKwd3vHxjov_aVfNPT4xf9jSFBBEOI-mfYpa55ejKDw-rqTQ6miFRFWpp_hjrk9KbGyB-Z6iZvYL-2dZ6mzgpUfs2I0tEAGsV07yTzboJ0RNCByC2-U-ZVjWdp2_9Au3FFoUcdQUAmPYOVqOv4r3oLbkkJKLj2A5jp7vf4IAoExLIfJuqEf7XN7fFcv4geib029qJjBt28wnqSO6TKEwB2fesR3uPHvGB6_6NHD70UDH-aCRCK4UBeoajtU0Y8Ks8Vwxo0oZBwmoEu8gudTFBF6mDT7GjLoGLDeNxE-TG7OtWUdxsJk7yzXGW3hE-VxsMD9g=s351-no?w=300" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
 </p>
