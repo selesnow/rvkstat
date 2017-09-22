@@ -2,10 +2,10 @@
 
 # Содержание ReadMe пакета rvkstat
 
-- **[Краткое описание пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Краткое-описание-пакета-rvkstat)**
-- **[Как получить подробную справку по функциям пакета](https://github.com/selesnow/rvkstat/blob/master/README.md#Как-получить-подробную-справку-по-функциям-пакета-rvkstat)**
-- **[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Требование)**
-- **[Как обойти блокировку API сервиса Вконтакте на Украине](https://github.com/selesnow/rvkstat/blob/master/README.md#Как-работать-с-api-сервиса-Вконтакте-на-Украине)**
+- **[Краткое описание пакета rvkstat](https://selesnow.github.io/rvkstat/#краткое-описание-пакета-rvkstat)**
+- **[Как получить подробную справку по функциям пакета](https://selesnow.github.io/rvkstat/#как-получить-подробную-справку-по-функциям-пакета-rvkstat)**
+- **[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://selesnow.github.io/rvkstat/#что-необходимо-для-начала-работы-с-api-вктонтакте-с-помощью-пакета-rvkstat)**
+- **[Как обойти блокировку API сервиса Вконтакте на Украине](https://selesnow.github.io/rvkstat/#как-работать-с-api-сервисом-вконтакте-на-украине)**
 - **[Установка пакета rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Установка-пакета)**
 - **[Как пройти аутентификацию для работы с API Вконтакте с помощью пакета rvkstat](https://github.com/selesnow/rvkstat#Авторизация-вконтакте-для-работы-с-api)**
   - [vkGetToken](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken) - Авторизация в Вконтакте с помощью метода [Implicit Flow](https://github.com/selesnow/rvkstat#Пример-прохождения-авторизации-с-помощью-функции-vkgettoken)
@@ -80,6 +80,7 @@ install_github("selesnow/getProxy")
 ```
 2. Подключаем пакет getProxy с помощью комманды `library(getProxy)`.
 3. Далее с помощью функции `getProy` обходим блокировку через прокси сервер, пример кода ниже:
+
 ```
 #Направляем интернет соединение через прокси сервер
 getProxy(port = "3128", country = "RU", supportsHttps = TRUE, action = "start")
