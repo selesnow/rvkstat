@@ -1,9 +1,9 @@
 vkAuth <- function(app_id = NULL, app_secret = NULL, apiVersion = "5.68"){
   #Ïîëó÷àåì code
-  browseURL(paste0("https://oauth.vk.com/authorize?client_id=",app_id,"&redirect_uri=http://my-office-life.narod.ru/rvkstat/get_code.html&display=popup&scope=offline,groups,ads,stats&response_type=code&v=",apiVersion))
+  browseURL(paste0("https://oauth.vk.com/authorize?client_id=",app_id,"&redirect_uri=https://oauth.vk.com/blank.html&display=popup&scope=offline,groups,ads,stats&response_type=code&v=",apiVersion))
   code <- readline(prompt = "Enter code from URL: ")
   #Ïîëó÷àåì òîêåí
-  token <- GET(paste0("https://oauth.vk.com/access_token?client_id=",app_id,"&client_secret=",app_secret,"&redirect_uri=http://my-office-life.narod.ru/rvkstat/get_code.html&code=",code))
+  token <- GET(paste0("https://oauth.vk.com/access_token?client_id=",app_id,"&client_secret=",app_secret,"&redirect_uri=https://oauth.vk.com/blank.html&code=",code))
   stop_for_status(token)
   accessCredentilas <- content(token, "parsed", "application/json")
   save(accessCredentilas, file = "vkauth.RData")
