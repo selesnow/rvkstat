@@ -799,8 +799,7 @@ my_vk_wall <- vkGetUserWall(user_id = 7437995,
 * attachment_type - Тип медиавложения записи (фотографии, ссылки и т.п.)
 
 ## Список статей с примерами работы с пакетом rvkstat
-Название публикации / Издание / Автор
-[Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) / [Блог Netpeak](https://netpeak.net/ru/blog/) / [Алексей Селезнёв](https://www.facebook.com/selesnow)
+* [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) ([Блог Netpeak](https://netpeak.net/ru/blog/)), *[Алексей Селезнёв](https://www.facebook.com/selesnow)*
 
 ## Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">
