@@ -39,7 +39,8 @@
     - [vkGetUserFriends](https://selesnow.github.io/rvkstat/#получиить-список-друзей-пользователя-Вконтакте) - Получить список друзей пользователя Вконтакте
     - [vkGetUserGroups](https://selesnow.github.io/rvkstat/#получить-список-групп-и-сообществ-в-которых-состоит-пользователь-Вконтакте) - Получить список групп и сообществ в которых состоит пользователь Вконтакте
     - [vkGetUserWall](https://selesnow.github.io/rvkstat/#получить-сообщения-со-стены-пользователя-с-количеством-комментариев-лайков-и-рипостов) - Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
-- **[Список статей с примерами работы с пакетом rvkstat]()**
+- **[Список статей с примерами работы с пакетом rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Список-статей-с-примерами-работы-с-пакетом-rvkstat)**
+	- [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) | [Блог Netpeak](https://netpeak.net/ru/blog/) | [Алексей Селезнёв](https://www.facebook.com/selesnow)
 - **[Информация об авторе пакета](https://selesnow.github.io/rvkstat/#автор-пакета-алексей-селезнёв-head-of-analytics-dept-at-netpeak)**
 
 ## Краткое описание пакета rvkstat
@@ -798,7 +799,7 @@ my_vk_wall <- vkGetUserWall(user_id = 7437995,
 * attachment_type - Тип медиавложения записи (фотографии, ссылки и т.п.)
 
 ## Список статей с примерами работы с пакетом rvkstat
-* [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) | [Блог Netpeak](https://netpeak.net/ru/blog/)
+* [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) | [Блог Netpeak](https://netpeak.net/ru/blog/) | [Алексей Селезнёв](https://www.facebook.com/selesnow)
 
 ## Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">
