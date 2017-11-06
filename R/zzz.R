@@ -10,9 +10,9 @@ rvkstatWelcomeMessage <- function(){
   
   paste0("\n",
          "---------------------\n",
-         "Ð”Ð¾Ð±Ñ€Ð¾ Ð¿Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒ Ð² rvkstat Ð²ÐµÑ€ÑÐ¸Ð¸ ", utils::packageDescription("rvkstat")$Version, "\n",
+         "Äîáðî ïàëîâàòü â rvkstat âåðñèè ", utils::packageDescription("rvkstat")$Version, "\n",
          "\n",
-		 "ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ: rvkstat - R ÐºÐ»Ð¸ÐµÐ½Ñ‚ Ð´Ð»Ñ ÑƒÐ¿Ñ€Ð¾Ñ‰Ñ‘Ð½Ð½Ð¾Ð¹ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ Ñ API ÑÐ¾Ñ†Ð¸Ð°Ð»ÑŒÐ½Ð¾Ð¹ ÑÐµÑ‚Ð¸ Ð’ÐšÐ¾Ð½Ñ‚Ð°ÐºÑ‚Ðµ, Ð¸ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ Ð´Ð°Ð½Ð½Ñ‹Ñ… Ð² R. \n",
+		 "Îïèñàíèå: rvkstat - R êëèåíò äëÿ óïðîù¸ííîé ðàáîòû ñ API ñîöèàëüíîé ñåòè ÂÊîíòàêòå, è çàãðóçêè äàííûõ â R. \n",
 		 "\n",
          "Author:   Alexey Seleznev (Head of analytics dept at Netpeak).\n",
          "Email:    selesnow@gmail.com\n",
