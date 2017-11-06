@@ -10,9 +10,9 @@ rvkstatWelcomeMessage <- function(){
   
   paste0("\n",
          "---------------------\n",
-         "Welcome to rfacebookstat version ", utils::packageDescription("rvkstat")$Version, "\n",
+         "Добро паловать в rvkstat версии ", utils::packageDescription("rvkstat")$Version, "\n",
          "\n",
-		 "Description: rvkstat is R Client for simplified work with API social network vk.com. \n",
+		 "Описание: rvkstat - R клиент для упрощённой работы с API социальной сети ВКонтакте, и загрузки данных в R. \n",
 		 "\n",
          "Author:   Alexey Seleznev (Head of analytics dept at Netpeak).\n",
          "Email:    selesnow@gmail.com\n",
