@@ -29,7 +29,7 @@ vkGetAdClients <- function(account_id = NULL,
                                 all_limit           = ifelse(is.null(dataRaw$response[[i]]$all_limit), NA,dataRaw$response[[i]]$all_limit),
                                 stringsAsFactors = F))}
   
-    #I?aia?aciaaiea a ?enea
+    #
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   
