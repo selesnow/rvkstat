@@ -95,9 +95,15 @@ getProxy9action = "stop")
 ## Установка пакета
 Пакет rvkstat может быть установлен непосредственно из репозитория Github с помощью приведённого ниже программного кода.
 
+### Установка на Windows
 ```
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 devtools::install_github('selesnow/rvkstat')
+```
+### Установка на Ubuntu, Linux, Mac
+```
+if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
+devtools::install_github('selesnow/rvkstat', subdir = "en")
 ```
 ## Авторизация вконтакте для работы с API.
 Для прохождения процесса авторизации в пакете rvkstat есть две функции:
