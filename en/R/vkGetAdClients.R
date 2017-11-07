@@ -5,22 +5,22 @@ vkGetAdClients <- function(account_id = NULL,
     stop("Enter the access_token, this argument is requred.")
   }
   
-  #?acoeuoe?o?uee aaoa o?aei
+  #
   result  <- data.frame()
   
   
-  #Oi?ie?oai cai?in
+  #n
   query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #I?iaa?ea ioaaoa ia ioeaee
+  #
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Ia?neia ?acoeuoaoa
+  #
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
