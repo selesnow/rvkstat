@@ -9,7 +9,7 @@ vkGetDbRegions <- function(country_id = NULL,
   
   #‘ильтр по статусу объ€влени€
   if(nchar(q) > 15 && !(is.null(q))){
-  stop(paste0("In argument q maximum length Ч 15 character. You entered query of ", nchar(q)," characters!"))
+  stop(paste0("In argument q maximum length 15 character. You entered query of ", nchar(q)," characters!"))
   }
   
   if(need_all == TRUE){
