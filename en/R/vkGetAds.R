@@ -85,12 +85,12 @@ vkGetAds <- function(account_id = NULL,
 result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
 result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
 
+if(status_names == TRUE){
 #Çàãðóæàåì ñïðàâî÷íèê ôîðìàòîâ îáúâëåíèé
 ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
 ad_formats <- read.csv(text = ad_formats, sep = ";")
 result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
 
-if(status_names == TRUE){
 #Çàãðóæàåì ñïðàâî÷íèê ñòàòóñîâ ìîäåðàöèè îáúÿâëåíèé
 ad_approveds <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.approveds.csv", .encoding = "1251")
 ad_approveds <- read.csv(text = ad_approveds, sep = ";")
