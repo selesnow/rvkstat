@@ -2,7 +2,7 @@ vkGetAdCampaigns <- function(account_id = NULL,
                              client_id = NULL,
                              include_deleted = TRUE,
                              campaign_ids = "null",
-                             status_names = TRUE,
+                             status_names = FALSE,
                              access_token = NULL){
 
   #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
