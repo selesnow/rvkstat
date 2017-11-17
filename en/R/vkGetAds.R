@@ -3,7 +3,7 @@ vkGetAds <- function(account_id = NULL,
                      include_deleted = TRUE,
                      campaign_ids = "null",
                      ad_ids = "null",
-                     status_names = TRUE,
+                     status_names = FALSE,
                      access_token = NULL){
   #Check token
   if(is.null(access_token)){
