@@ -8,4 +8,4 @@ Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from vk.com api about your communiti users and viewa by date into R
 License: not license it free
 Depends: R (>= 3.4.1)
-Imports: RCurl, jsonlite, httr
+Imports: RCurl, jsonlite, httr, tidyr
