@@ -23,7 +23,7 @@ vkGetAdPostsReach <- function(account_id = NULL,
   ids_step  <-  if(ids_num - ids_start > ids_step) ids_step else ids_num - ids_start + 1
   
   #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
-  ids <- paste0(ids, collapse = ",")
+  ids <- paste0(ids[ids_start:(ids_start + ids_step - 1)], collapse = ",")
   
 
   
