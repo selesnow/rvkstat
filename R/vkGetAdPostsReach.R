@@ -14,7 +14,7 @@ vkGetAdPostsReach <- function(account_id = NULL,
   result <- data.frame()  
   
   
-  ids_num     <- as.integer(length(my_vk_ads$id))
+  ids_num     <- as.integer(length(ids))
   ids_start   <- 1
   ids_step    <- 100
   
