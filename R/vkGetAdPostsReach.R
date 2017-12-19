@@ -23,12 +23,10 @@ vkGetAdPostsReach <- function(account_id = NULL,
   ids_step  <-  if(ids_num - ids_start > ids_step) ids_step else ids_num - ids_start + 1
   
   #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
-  ids <- paste0(ids[ids_start:(ids_start + ids_step - 1)], collapse = ",")
-  
-
+  ids_temp <- paste0(ids[ids_start:(ids_start + ids_step - 1)], collapse = ",")
   
   #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids_temp,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
