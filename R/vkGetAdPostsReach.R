@@ -1,7 +1,8 @@
-vkGetAdPostsReach <- function(account_id = NULL,
-                              ids_type = "campaign",
-                              ids = NULL,
-                              access_token = NULL){
+vkGetAdPostsReach <- function(account_id      = NULL,
+                              ids_type        = "campaign",
+                              ids             = NULL,
+                              api_version     = "5.73",
+                              access_token    = NULL){
   if(is.null(access_token)){
     stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
   }
@@ -26,7 +27,7 @@ vkGetAdPostsReach <- function(account_id = NULL,
   ids_temp <- paste0(ids[ids_start:(ids_start + ids_step - 1)], collapse = ",")
   
   #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids_temp,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids_temp,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
