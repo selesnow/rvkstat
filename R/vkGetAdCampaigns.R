@@ -1,9 +1,10 @@
-vkGetAdCampaigns <- function(account_id = NULL,
-                             client_id = NULL,
+vkGetAdCampaigns <- function(account_id      = NULL,
+                             client_id       = NULL,
                              include_deleted = TRUE,
-                             campaign_ids = "null",
-                             status_names = TRUE,
-                             access_token = NULL){
+                             campaign_ids    = "null",
+                             status_names    = TRUE,
+                             api_version     = "5.73",
+                             access_token    = NULL){
 
   #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
   if(campaign_ids != "null"){
@@ -28,7 +29,7 @@ vkGetAdCampaigns <- function(account_id = NULL,
   
   
   #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/ads.getCampaigns?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getCampaigns?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
