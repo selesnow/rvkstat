@@ -1,10 +1,14 @@
 vkGetUserGroups <- function(user_id = NULL,
                             filter = NULL,
+							api_version = NULL,
                             access_token = NULL){
   
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
+  
+  #Проверка версии API
+  api_version <- api_version_checker(api_version)
   
   #Рещультирующая таблица
   result <- data.frame(stringsAsFactors = F)  
@@ -16,7 +20,7 @@ vkGetUserGroups <- function(user_id = NULL,
   
   while(last_iteration == FALSE){
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/groups.get?fields=city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,verified,site,can_create_topic",ifelse(is.null(user_id),"",paste0("&user_id=",user_id)),"&extended=1","&offset=",offset,"&count=10000",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/groups.get?fields=city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,verified,site,can_create_topic",ifelse(is.null(user_id),"",paste0("&user_id=",user_id)),"&extended=1","&offset=",offset,"&count=10000",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

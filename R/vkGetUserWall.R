@@ -1,11 +1,15 @@
 vkGetUserWall <- function(user_id = NULL,
                           domain = NULL,
                           filter = NULL,
+						  api_version = NULL,
                           access_token = NULL){
   
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
+  
+  #Проверка версии API
+  api_version <- api_version_checker(api_version)
   
   #Рещультирующая таблица
   result <- data.frame(stringsAsFactors = F)  
@@ -17,7 +21,7 @@ vkGetUserWall <- function(user_id = NULL,
   
   while(last_iteration == FALSE){
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/wall.get?extended=1",ifelse(is.null(user_id),"",paste0("&owner_id=",user_id)),ifelse(is.null(domain),"",paste0("&domain=",domain)),"&offset=",offset,"&count=100",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/wall.get?extended=1",ifelse(is.null(user_id),"",paste0("&owner_id=",user_id)),ifelse(is.null(domain),"",paste0("&domain=",domain)),"&offset=",offset,"&count=100",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

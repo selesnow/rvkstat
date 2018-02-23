@@ -1,6 +1,7 @@
 vkGetAdPostsReach <- function(account_id = NULL,
                               ids_type = "campaign",
                               ids = NULL,
+							  api_version = NULL,
                               access_token = NULL){
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
@@ -20,7 +21,7 @@ vkGetAdPostsReach <- function(account_id = NULL,
   result <- data.frame()  
   
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

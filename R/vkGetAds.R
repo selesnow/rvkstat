@@ -50,7 +50,7 @@ vkGetAds <- function(account_id = NULL,
                         
 
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/ads.getAds?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&ad_ids=",ad_ids,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getAds?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&ad_ids=",ad_ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

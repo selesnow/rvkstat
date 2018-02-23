@@ -9,16 +9,16 @@ vkGetUserFriends <- function(user_id  = NULL,
   
   api_version <- api_version_checker(api_version)
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  #ÃÃ¥Ã¹Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã Ã¿ Ã²Ã Ã¡Ã«Ã¨Ã¶Ã 
   result <- data.frame(stringsAsFactors = F)  
   
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/friends.get?",ifelse(is.null(user_id),"",paste0("user_id=",user_id)),"&hints&count=10000&fields=nickname,domain,sex,bdate,city,country,timezone,photo_50,photo_100,photo_200_orig,has_mobile,contacts,education,online,relation,last_seen,status,can_write_private_message,can_see_all_posts,can_post,universities&name_case",name_case,"&access_token=",access_token)
+  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
+  query <- paste0("https://api.vk.com/method/friends.get?",ifelse(is.null(user_id),"",paste0("user_id=",user_id)),"&hints&count=10000&fields=nickname,domain,sex,bdate,city,country,timezone,photo_50,photo_100,photo_200_orig,has_mobile,contacts,education,online,relation,last_seen,status,can_write_private_message,can_see_all_posts,can_post,universities&name_case",name_case,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -56,9 +56,9 @@ vkGetUserFriends <- function(user_id  = NULL,
                                     education_status              = ifelse(is.null(dataRaw$response[[i]]$education_status), NA,dataRaw$response[[i]]$education_status),
                                     relation                      = ifelse(is.null(dataRaw$response[[i]]$relation), NA,dataRaw$response[[i]]$relation),
                                     stringsAsFactors = F))}
-  #Ïåðåâîäèì äàòó â íóæíûé ôîðìàò
+  #ÃÃ¥Ã°Ã¥Ã¢Ã®Ã¤Ã¨Ã¬ Ã¤Ã Ã²Ã³ Ã¢ Ã­Ã³Ã¦Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã²
   result$last_seen_time <- as.POSIXct(as.integer(result$last_seen_time), origin="1970-01-01")
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   return(result)
 }
