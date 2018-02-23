@@ -1,17 +1,24 @@
-vkGetAdStatistics <- function(account_id      = NULL,
-                              ids_type        = "office",
-                              ids             = NULL,
-                              period          = "overall",
-                              date_from       = Sys.Date() - 30,
-                              date_to         = Sys.Date(),
-                              api_version     = "5.73",
-                              access_token    = NULL){
+vkGetAdStatistics <- function(account_id = NULL,
+                              ids_type = "office",
+                              ids = NULL,
+                              period = "overall",
+                              date_from = Sys.Date() - 30,
+                              date_to = Sys.Date(),
+							  api_version = NULL,
+                              access_token = NULL){
   
-  if(!(period %in% c("day","month","overall"))){
-    stop("ÃÃ¥Ã¢Ã¥Ã°Ã­Ã®Ã¥ Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥ Ã¢ Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã²Ã¥ period, Ã¤Ã®Ã±Ã²Ã³Ã¯Ã­Ã»Ã¥ Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¿ day, month Ã¨ overall")
+  if(is.null(access_token)){
+    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
   }
   
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã´Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® ÃªÃ Ã¬Ã¯Ã Ã­Ã¨Ã¿Ã¬ Ã¢ json Ã¬Ã Ã±Ã±Ã¨Ã¢
+  #Ïðîâåðêà âåðñèè API
+  api_version <- api_version_checker(api_version)
+  
+  if(!(period %in% c("day","month","overall"))){
+    stop("Íåâåðíîå çíà÷åíèå â àðãóìåíòå period, äîñòóïíûå çíà÷åíèÿ day, month è overall")
+  }
+  
+  #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
   if(period == "month"){
     date_from <- format(as.Date(as.character(date_from)), "%Y-%m")
     date_to   <- format(as.Date(as.character(date_to)), "%Y-%m")
@@ -23,26 +30,26 @@ vkGetAdStatistics <- function(account_id      = NULL,
   }
   
 
-  #Ã”Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® Ã±Ã²Ã Ã²Ã³Ã±Ã³ Ã®Ã¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã¿
+  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
   ids <- paste0(ids, collapse = ",")
   
-  #ÃÃ¥Ã¹Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã Ã¿ Ã²Ã Ã¡Ã«Ã¨Ã¶Ã 
+  #Ðåùóëüòèðóþùàÿ òàáëèöà
   result <- data.frame()  
 
-  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
-  query <- paste0("https://api.vk.com/method/ads.getStatistics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token,"&v=",api_version)
+  #Ôîðìèðóåì çàïðîñ
+  query <- paste0("https://api.vk.com/method/ads.getStatistics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
+  #Ïðîâåðêà îòâåòà íà îøèáêè
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
 
     for(i in 1:length(dataRaw$response)){
     
-    #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã 
+    #Ïàðñèíã ðåçóëüòàòà
     if(period == "day"){
     for(dt in 1:length(dataRaw$response[[i]]$stats)){
     if(length(dataRaw$response[[i]]$stats)==0) next

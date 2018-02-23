@@ -1,26 +1,32 @@
-vkGetAds <- function(account_id      = NULL,
-                     client_id       = NULL,
+vkGetAds <- function(account_id = NULL,
+                     client_id = NULL,
                      include_deleted = TRUE,
-                     campaign_ids    = "null",
-                     ad_ids          = "null",
-                     status_names    = TRUE,
-                     api_version     = "5.73",
-                     access_token    = NULL){
+                     campaign_ids = "null",
+                     ad_ids = "null",
+					 api_version = NULL,
+                     access_token = NULL){
   
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã´Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® ÃªÃ Ã¬Ã¯Ã Ã­Ã¨Ã¿Ã¬ Ã¢ json Ã¬Ã Ã±Ã±Ã¨Ã¢
+  if(is.null(access_token)){
+    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+  }
+  
+  #Ïðîâåðêà âåðñèè API
+  api_version <- api_version_checker(api_version)
+  
+  #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
   if(campaign_ids != "null"){
     campaign_ids <- toJSON(campaign_ids)
   }
   
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã´Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® ÃªÃ Ã¬Ã¯Ã Ã­Ã¨Ã¿Ã¬ Ã¢ json Ã¬Ã Ã±Ã±Ã¨Ã¢
+  #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
   if(ad_ids != "null"){
     ad_ids <- toJSON(ad_ids)
   }
   
-  #Ã”Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® Ã±Ã²Ã Ã²Ã³Ã±Ã³ Ã®Ã¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã¿
+  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
   include_deleted <- ifelse(include_deleted == T,1,0) 
 
-  #ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
+  #Ðåçóëüòèðóþùèé äàòà ôðåéì
   result  <- data.frame(id                  = integer(0),
                         campaign_id         = integer(0),
                         name                = character(0),
@@ -43,18 +49,18 @@ vkGetAds <- function(account_id      = NULL,
                         stringsAsFactors = F)
                         
 
-  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
-  query <- paste0("https://api.vk.com/method/ads.getAds?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&ad_ids=",ad_ids,"&access_token=",access_token,"&v=",api_version)
+  #Ôîðìèðóåì çàïðîñ
+  query <- paste0("https://api.vk.com/method/ads.getAds?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&ad_ids=",ad_ids,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
+  #Ïðîâåðêà îòâåòà íà îøèáêè
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã 
+  #Ïàðñèíã ðåçóëüòàòà
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -79,41 +85,39 @@ vkGetAds <- function(account_id      = NULL,
                                 stringsAsFactors = F))}
 
 
-#ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã»Ã¥ Ã¢ Ã¯Ã°Ã Ã¢Ã¨Ã«Ã¼Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã²
+#Ïðåîáðàçóåì ïåðåìåííûå â ïðàâèëüíûé ôîðìàò
 result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
 result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
 
-if(status_names == TRUE){
-#Ã‡Ã Ã£Ã°Ã³Ã¦Ã Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã´Ã®Ã°Ã¬Ã Ã²Ã®Ã¢ Ã®Ã¡ÃºÃ¢Ã«Ã¥Ã­Ã¨Ã©
+#Çàãðóæàåì ñïðàâî÷íèê ôîðìàòîâ îáúâëåíèé
 ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
 ad_formats <- read.csv(text = ad_formats, sep = ";")
 result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
 
-#Ã‡Ã Ã£Ã°Ã³Ã¦Ã Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã±Ã²Ã Ã²Ã³Ã±Ã®Ã¢ Ã¬Ã®Ã¤Ã¥Ã°Ã Ã¶Ã¨Ã¨ Ã®Ã¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã©
+#Çàãðóæàåì ñïðàâî÷íèê ñòàòóñîâ ìîäåðàöèè îáúÿâëåíèé
 ad_approveds <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.approveds.csv", .encoding = "1251")
 ad_approveds <- read.csv(text = ad_approveds, sep = ";")
 result$approved <- as.character(merge(result, ad_approveds, by.x = "approved", by.y = "id", all.x = T)$approved_name)
 
-#Ã‡Ã Ã£Ã°Ã³Ã¦Ã Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã²Ã¨Ã¯Ã®Ã¢ Ã®Ã¯Ã«Ã Ã²
+#Çàãðóæàåì ñïðàâî÷íèê òèïîâ îïëàò
 ad_cost_type <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.cost_type.csv", .encoding = "1251")
 ad_cost_type <- read.csv(text = ad_cost_type, sep = ";")
 result$cost_type <- as.character(merge(result, ad_cost_type, by.x = "cost_type", by.y = "id", all.x = T)$cost_type_name)
 
-#Ã‡Ã Ã£Ã°Ã³Ã¦Ã Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã¢Ã®Ã§Ã°Ã Ã±Ã²Ã­Ã»Ãµ Ã¬Ã¥Ã²Ã®Ãª
+#Çàãðóæàåì ñïðàâî÷íèê âîçðàñòíûõ ìåòîê
 ad_age_restriction <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.age_restriction.csv", .encoding = "1251")
 ad_age_restriction <- read.csv(text = ad_age_restriction, sep = ";")
 result$age_restriction <- as.character(merge(result, ad_age_restriction, by.x = "age_restriction", by.y = "id", all.x = T)$age_label)
 
-#Ã‘Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã±Ã²Ã Ã²Ã³Ã±Ã®Ã¢
+#Ñïðàâî÷íèê ñòàòóñîâ
 ad_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.status.csv", .encoding = "1251")
 ad_status <- read.csv(text = ad_status, sep = ";")
 result$status <- as.character(merge(result, ad_status, by.x = "status", by.y = "id", all.x = T)$status_name)
-}
-  
-#ÃÃ°Ã¥Ã®Ã¡Ã°Ã ÃµÃ³Ã¥Ã¬ Ã¢ Ã·Ã¨Ã±Ã«Ã®Ã¢Ã®Ã© Ã´Ã®Ã°Ã¬Ã Ã²
+
+#Ïðåîáðàõóåì â ÷èñëîâîé ôîðìàò
 result$cpc   <- as.numeric(result$cpc) / 100 
 result$cpm   <- as.numeric(result$cpm) / 100
 
-#Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²
+#Âîçâðàùàåì ðåçóëüòàò
 return(result)
 }
