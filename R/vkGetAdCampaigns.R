@@ -1,20 +1,27 @@
-vkGetAdCampaigns <- function(account_id      = NULL,
-                             client_id       = NULL,
+vkGetAdCampaigns <- function(account_id = NULL,
+                             client_id = NULL,
                              include_deleted = TRUE,
-                             campaign_ids    = "null",
-                             status_names    = TRUE,
-                             api_version     = "5.73",
-                             access_token    = NULL){
-
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã´Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® ÃªÃ Ã¬Ã¯Ã Ã­Ã¨Ã¿Ã¬ Ã¢ json Ã¬Ã Ã±Ã±Ã¨Ã¢
+                             campaign_ids = "null",
+							 api_version  = NULL,
+                             access_token = NULL){
+							 
+							 
+  #Ïðîâåðêà çàïîëíåíèÿ àðãóìåíòîâ
+  if(is.null(account_id)){
+    stop("Íå çàïîëíåí account_id, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+  }
+  
+  api_version <- api_version_checker(api_version)	
+  
+  #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
   if(campaign_ids != "null"){
     campaign_ids <- toJSON(campaign_ids)
   }
   
-  #Ã”Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® Ã±Ã²Ã Ã²Ã³Ã±Ã³ Ã®Ã¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã¿
+  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
   include_deleted <- ifelse(include_deleted == T,1,0) 
   
-  #ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
+  #Ðåçóëüòèðóþùèé äàòà ôðåéì
   result  <- data.frame(id               = integer(0),
                         type             = integer(0),
                         name             = character(0),
@@ -28,18 +35,18 @@ vkGetAdCampaigns <- function(account_id      = NULL,
                         stringsAsFactors = F)
   
   
-  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
+  #Ôîðìèðóåì çàïðîñ
   query <- paste0("https://api.vk.com/method/ads.getCampaigns?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
+  #Ïðîâåðêà îòâåòà íà îøèáêè
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã 
+  #Ïàðñèíã ðåçóëüòàòà
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -54,20 +61,18 @@ vkGetAdCampaigns <- function(account_id      = NULL,
                                 update_time         = ifelse(is.null(dataRaw$response[[i]]$update_time), NA,as.POSIXct(as.integer(dataRaw$response[[i]]$update_time), origin="1970-01-01")),
                                 stringsAsFactors = F))}
   
- if(status_names == TRUE){
-  #Ã‡Ã Ã£Ã°Ã³Ã¦Ã Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã±Ã²Ã Ã²Ã³Ã±Ã®Ã¢ ÃªÃ Ã¬Ã¯Ã Ã­Ã¨Ã©
+  #Çàãðóæàåì ñïðàâî÷íèê ñòàòóñîâ êàìïàíèé
   campaign_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/campaign.status.csv", .encoding = "1251")
   campaign_status <- read.csv(text = campaign_status, sep = ";")
   result$status <- as.character(merge(result, campaign_status, by.x = "status", by.y = "id", all.x = T)$status_name)
-  }
   
-  #ÃÃ°Ã¨Ã¢Ã®Ã¤Ã¨Ã¬ Ã¯Ã®Ã«Ã¿ Ã¢ Ã¯Ã°Ã Ã¢Ã¨Ã«Ã¼Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã²
+  #Ïðèâîäèì ïîëÿ â ïðàâèëüíûé ôîðìàò
   result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
   result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
   result$start_time  <- as.POSIXct(as.integer(result$start_time), origin="1970-01-01")
   result$stop_time   <- as.POSIXct(as.integer(result$stop_time), origin="1970-01-01")
   
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã®Ã¢Ã Ã­Ã¨Ã¥ Ã¢ Ã·Ã¨Ã±Ã«Ã 
+  #Ïðåîáðàçîâàíèå â ÷èñëà
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   

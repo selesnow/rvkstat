@@ -1,4 +1,6 @@
-vkGetAdBudget <- function(account_id = NULL, access_token = NULL){
+vkGetAdBudget <- function(account_id = NULL, 
+						  access_token = NULL,
+						  api_version  = NULL){
   
   #Проверка заполнения аргументов
   if(is.null(account_id)){
@@ -8,8 +10,11 @@ vkGetAdBudget <- function(account_id = NULL, access_token = NULL){
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
+  
+  api_version <- api_version_checker(api_version)		
+	
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/ads.getBudget?account_id=",account_id,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getBudget?account_id=",account_id,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

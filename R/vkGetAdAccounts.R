@@ -1,21 +1,28 @@
-vkGetAdAccounts <- function(access_token = NULL){
-  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",access_token)
+vkGetAdAccounts <- function(access_token = NULL, 
+							api_version  = NULL){
+    if(is.null(access_token)){
+    stop("Не заполнен access_token, этот аргумент является обязательным.")
+  }
+  
+  api_version <- api_version_checker(api_version)						
+
+  query <- paste0("https://api.vk.com/method/ads.getAccounts?v=",api_version,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Џроверка ответа на ошибки
+  #Проверка ответа на ошибки
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #ђезультирующий дата фрейм
+  #Результирующий дата фрейм
   result  <- data.frame(account_id     = integer(0),
                         account_type   = character(0),
                         account_status = character(0),
                         access_role    = character(0))
   
-  #Џарсинг результата
+  #Парсинг результата
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(account_id     = dataRaw$response[[i]]$account_id,

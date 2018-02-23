@@ -4,6 +4,7 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
                                   period = "day",
                                   date_from = Sys.Date() - 30,
                                   date_to = Sys.Date(),
+								  api_version  = NULL,
                                   access_token = NULL){
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
@@ -12,6 +13,8 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
   if(!(period %in% c("day","month","overall"))){
     stop("Неверное значение в аргументе period, доступные значения day, month и overall")
   }
+  
+  api_version <- api_version_checker(api_version)
   
   #Переводим дату в месяц
   if(period == "month"){
@@ -31,7 +34,7 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
   result <- data.frame()  
   
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/ads.getDemographics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getDemographics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

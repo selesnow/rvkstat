@@ -1,11 +1,14 @@
 vkGetDbCountries <- function(need_all = TRUE,
                              code = NULL,
+							 api_version  = NULL,
                              access_token = NULL){
 
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
   
+  api_version <- api_version_checker(api_version)
+	
   #Фильтр по статусу объявления
   if(!(is.null(code))){
   code <- paste0(code, collapse = ",")
@@ -27,7 +30,7 @@ vkGetDbCountries <- function(need_all = TRUE,
   
 
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/database.getCountries?need_all=",need_all,ifelse(!(is.null(code)),paste0("&code=",code),""),"&offset=",offset,"&count=",count,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/database.getCountries?need_all=",need_all,ifelse(!(is.null(code)),paste0("&code=",code),""),"&offset=",offset,"&count=",count,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

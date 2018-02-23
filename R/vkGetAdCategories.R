@@ -1,13 +1,16 @@
-vkGetAdCategories <- function(access_token = NULL){
+vkGetAdCategories <- function(access_token = NULL,
+							  api_version  = NULL){
   if(is.null(access_token)){
     stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
+  
+  api_version <- api_version_checker(api_version)
   
   #Создаём результирующий дата фрейм
   result <- data.frame()
   
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/ads.getCategories?access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getCategories?access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

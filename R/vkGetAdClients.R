@@ -1,8 +1,9 @@
 vkGetAdClients <- function(account_id = NULL,
+						   api_version  = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
-    stop("ÃÃ¥ Ã§Ã Ã¯Ã®Ã«Ã­Ã¥Ã­ access_token, Ã½Ã²Ã®Ã² Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã² Ã¿Ã¢Ã«Ã¿Ã¥Ã²Ã±Ã¿ Ã®Ã¡Ã¿Ã§Ã Ã²Ã¥Ã«Ã¼Ã­Ã»Ã¬.")
+    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
   }
   
   #ÃÃ¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
@@ -10,7 +11,7 @@ vkGetAdClients <- function(account_id = NULL,
   
   
   #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
-  query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

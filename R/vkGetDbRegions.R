@@ -1,5 +1,6 @@
 vkGetDbRegions <- function(country_id = NULL,
                            q = NULL,
+						   api_version  = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
@@ -12,6 +13,8 @@ vkGetDbRegions <- function(country_id = NULL,
   stop(paste0("В аргументе q максимальная длина строки — 15 символов. Вы ввели щапрос состоящий из ", nchar(q)," символов!"))
   }
   
+  api_version <- api_version_checker(api_version)
+	
   if(need_all == TRUE){
     need_all <- 1
   } else {
@@ -30,7 +33,7 @@ vkGetDbRegions <- function(country_id = NULL,
   while(last_iteration == FALSE){
 
   #Формируем запрос
-  query <- paste0("https://api.vk.com/method/database.getRegions?need_all=",need_all,"&country_id=",country_id,ifelse(!(is.null(region_id)),paste0("&region_id=",region_id),""),ifelse(!(is.null(q)),paste0("&q=",q),""),"&offset=",offset,"&count=",count,"&access_token=",access_token)
+  query <- paste0("https://api.vk.com/method/database.getRegions?need_all=",need_all,"&country_id=",country_id,ifelse(!(is.null(region_id)),paste0("&region_id=",region_id),""),ifelse(!(is.null(q)),paste0("&q=",q),""),"&offset=",offset,"&count=",count,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
