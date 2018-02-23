@@ -1,10 +1,13 @@
-vkGetUserFriends <- function(user_id = NULL,
+vkGetUserFriends <- function(user_id  = NULL,
                          access_token = NULL,
-                         name_case = "nom"){
+						 api_version  = NULL,
+                         name_case    = "nom"){
   
   if(is.null(access_token)){
     stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
   }
+  
+  api_version <- api_version_checker(api_version)
   
   #Ðåùóëüòèðóþùàÿ òàáëèöà
   result <- data.frame(stringsAsFactors = F)  
