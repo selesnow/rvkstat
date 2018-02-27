@@ -1,21 +1,24 @@
-vkGetUserFriends <- function(user_id = NULL,
+vkGetUserFriends <- function(user_id  = NULL,
                          access_token = NULL,
-                         name_case = "nom"){
+						 api_version  = NULL,
+                         name_case    = "nom"){
   
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred..")
+    stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
-    
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  
+  api_version <- api_version_checker(api_version)
+  
+  #ГђГҐГ№ГіГ«ГјГІГЁГ°ГіГѕГ№Г Гї ГІГ ГЎГ«ГЁГ¶Г 
   result <- data.frame(stringsAsFactors = F)  
   
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/friends.get?",ifelse(is.null(user_id),"",paste0("user_id=",user_id)),"&hints&count=10000&fields=nickname,domain,sex,bdate,city,country,timezone,photo_50,photo_100,photo_200_orig,has_mobile,contacts,education,online,relation,last_seen,status,can_write_private_message,can_see_all_posts,can_post,universities&name_case",name_case,"&access_token=",access_token)
+  #Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ Г§Г ГЇГ°Г®Г±
+  query <- paste0("https://api.vk.com/method/friends.get?",ifelse(is.null(user_id),"",paste0("user_id=",user_id)),"&hints&count=10000&fields=nickname,domain,sex,bdate,city,country,timezone,photo_50,photo_100,photo_200_orig,has_mobile,contacts,education,online,relation,last_seen,status,can_write_private_message,can_see_all_posts,can_post,universities&name_case",name_case,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г®ГІГўГҐГІГ  Г­Г  Г®ГёГЁГЎГЄГЁ
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -53,9 +56,9 @@ vkGetUserFriends <- function(user_id = NULL,
                                     education_status              = ifelse(is.null(dataRaw$response[[i]]$education_status), NA,dataRaw$response[[i]]$education_status),
                                     relation                      = ifelse(is.null(dataRaw$response[[i]]$relation), NA,dataRaw$response[[i]]$relation),
                                     stringsAsFactors = F))}
-  #Ïåðåâîäèì äàòó â íóæíûé ôîðìàò
+  #ГЏГҐГ°ГҐГўГ®Г¤ГЁГ¬ Г¤Г ГІГі Гў Г­ГіГ¦Г­Г»Г© ГґГ®Г°Г¬Г ГІ
   result$last_seen_time <- as.POSIXct(as.integer(result$last_seen_time), origin="1970-01-01")
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГЁГ© Г¤Г ГІГ  ГґГ°ГҐГ©Г¬
   return(result)
 }

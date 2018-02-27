@@ -1,4 +1,10 @@
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="as.ico">
+</head>
 
+<p align="center">
+<a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
+</p>
 
 # Содержание ReadMe пакета rvkstat
 
@@ -40,7 +46,8 @@
     - [vkGetUserGroups](https://selesnow.github.io/rvkstat/#получить-список-групп-и-сообществ-в-которых-состоит-пользователь-Вконтакте) - Получить список групп и сообществ в которых состоит пользователь Вконтакте
     - [vkGetUserWall](https://selesnow.github.io/rvkstat/#получить-сообщения-со-стены-пользователя-с-количеством-комментариев-лайков-и-рипостов) - Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
 - **[Список статей с примерами работы с пакетом rvkstat](https://github.com/selesnow/rvkstat/blob/master/README.md#Список-статей-с-примерами-работы-с-пакетом-rvkstat)**
-	- [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/)
+	- [Как перенести данные из ВКонтакте в Power BI (Алексей Селезнёв)](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/)
+	- [Загрузка статистики из «ВКонтакте» и Facebook в Google BigQuery — руководство (Михаил Гусев)](https://ppc.world/articles/zagruzka-statistiki-iz-vkontakte-i-facebook-v-google-bigquery/)
 - **[Информация об авторе пакета](https://selesnow.github.io/rvkstat/#автор-пакета-алексей-селезнёв-head-of-analytics-dept-at-netpeak)**
 
 ## Краткое описание пакета rvkstat
@@ -95,9 +102,15 @@ getProxy9action = "stop")
 ## Установка пакета
 Пакет rvkstat может быть установлен непосредственно из репозитория Github с помощью приведённого ниже программного кода.
 
+### Установка на Windows
 ```
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 devtools::install_github('selesnow/rvkstat')
+```
+### Установка на Ubuntu, Linux, Mac
+```
+if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
+devtools::install_github('selesnow/rvkstat', subdir = "en")
 ```
 ## Авторизация вконтакте для работы с API.
 Для прохождения процесса авторизации в пакете rvkstat есть две функции:
@@ -184,6 +197,7 @@ my_vk_ads <- vkGetAds(account_id = 11111111,
 * <b>include_deleted</b> - Логическое TRUE или FALSE, флаг, задающий необходимость вывода архивных объявлений.
 * <b>campaign_ids</b> - Числовой вектор, фильтр по рекламным кампаниям.
 * <b>ad_ids</b> - Числовой вектор, фильтр по рекламным объявлениям.
+* <b>status_names</b> - Логическое TRUE или FALSE, если значение TRUE то формат объявления, статус модерации объявления, тип оплаты, метка о возрастном ограничении объявления и статус объявления будут возвращены в виде строковых значений, если передать в аргумент status_names значение FALSE то перечисленные значения будут возвращены в виде их ID.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить список рекламных кампаний из рекламного кабинета вконтакте
@@ -199,6 +213,7 @@ my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111,
 * <b>client_id</b> - Идентификатор клиента, у которого запрашиваются рекламные объявления. Доступно и обязательно для рекламных агентств.
 * <b>include_deleted</b> - Логическое TRUE или FALSE, флаг, задающий необходимость вывода архивных объявлений.
 * <b>campaign_ids</b> - Числовой вектор, фильтр по рекламным кампаниям.
+* <b>status_names</b> - Логическое TRUE или FALSE, если значение TRUE то статус кампании будет возвращён в виде строкового значения, если указать значение FALSE будет возвращён ID статуса кампании.
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету.
@@ -800,6 +815,7 @@ my_vk_wall <- vkGetUserWall(user_id = 7437995,
 
 ## Список статей с примерами работы с пакетом rvkstat
 * [Как перенести данные из ВКонтакте в Power BI](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/) ([Блог Netpeak](https://netpeak.net/ru/blog/)), *[Алексей Селезнёв](https://www.facebook.com/selesnow)*
+* [Загрузка статистики из «ВКонтакте» и Facebook в Google BigQuery — руководство](https://ppc.world/articles/zagruzka-statistiki-iz-vkontakte-i-facebook-v-google-bigquery/) ([ppc.world](https://ppc.world/)), *[Михаил Гусев](https://ppc.world/profile/12937/)*
 
 ## Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">

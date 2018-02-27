@@ -4,16 +4,19 @@ vkGetAdGenderStats <- function(account_id = NULL,
                                period = "day",
                                date_from = Sys.Date() - 30,
                                date_to = Sys.Date(),
+							   api_version  = NULL,
                                access_token = NULL){
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred.")
+    stop("ÐÐµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½ access_token, ÑÑ‚Ð¾Ñ‚ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼.")
   }
   
+  api_version <- api_version_checker(api_version)
+	
   if(!(period %in% c("day","month","overall"))){
-    stop("Invalid period,use one of day, month or overall")
+    stop("ÐÐµÐ²ÐµÑ€Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚Ðµ period, Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ day, month Ð¸ overall")
   }
   
-  #Ïåðåâîäèì äàòó â ìåñÿö
+  #ÐŸÐµÑ€ÐµÐ²Ð¾Ð´Ð¸Ð¼ Ð´Ð°Ñ‚Ñƒ Ð² Ð¼ÐµÑÑÑ†
   if(period == "month"){
     date_from <- format(as.Date(as.character(date_from)), "%Y-%m")
     date_to   <- format(as.Date(as.character(date_to)), "%Y-%m")
@@ -24,26 +27,26 @@ vkGetAdGenderStats <- function(account_id = NULL,
     date_to   <- 0
   }
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+  #Ð¤Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ ÑÑ‚Ð°Ñ‚ÑƒÑÑƒ Ð¾Ð±ÑŠÑÐ²Ð»ÐµÐ½Ð¸Ñ
   ids <- paste0(ids, collapse = ",")
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  #Ð ÐµÑ‰ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð°Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð°
   result <- data.frame()  
   
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/ads.getDemographics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token)
+  #Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð¾Ñ
+  query <- paste0("https://api.vk.com/method/ads.getDemographics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¾Ñ‚Ð²ÐµÑ‚Ð° Ð½Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ¸
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
   for(i in 1:length(dataRaw$response)){
     
-    #Ïàðñèíã ðåçóëüòàòà
+    #ÐŸÐ°Ñ€ÑÐ¸Ð½Ð³ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°
     if(period == "day"){
       for(dt in 1:length(dataRaw$response[[i]]$stats)){
         

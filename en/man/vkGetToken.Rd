@@ -6,7 +6,7 @@
 vkGetToken(apppId = NULL)
 }
 \arguments{
-  \item{apppId}{Your app id from filed "ID приложения" in app page vkontakte.}
+  \item{apppId}{Your app id from filed "ID РїСЂРёР»РѕР¶РµРЅРёСЏ" in app page vkontakte.}
 }
 \value{R object with vk.com token}
 \author{Alexey Seleznev}

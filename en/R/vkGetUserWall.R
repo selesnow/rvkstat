@@ -1,29 +1,32 @@
 vkGetUserWall <- function(user_id = NULL,
                           domain = NULL,
                           filter = NULL,
+						  api_version = NULL,
                           access_token = NULL){
   
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred..")
+    stop("ÐÐµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½ access_token, ÑÑ‚Ð¾Ñ‚ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼.")
   }
   
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð²ÐµÑ€ÑÐ¸Ð¸ API
+  api_version <- api_version_checker(api_version)
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  #Ð ÐµÑ‰ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð°Ñ Ñ‚Ð°Ð±Ð»Ð¸Ñ†Ð°
   result <- data.frame(stringsAsFactors = F)  
   
-  #Ïîñòðàíè÷íàÿ âûãðóçêà
+  #ÐŸÐ¾ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ‡Ð½Ð°Ñ Ð²Ñ‹Ð³Ñ€ÑƒÐ·ÐºÐ°
   offset <- 0
   count <- 100
   last_iteration <- FALSE
   
   while(last_iteration == FALSE){
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/wall.get?extended=1",ifelse(is.null(user_id),"",paste0("&owner_id=",user_id)),ifelse(is.null(domain),"",paste0("&domain=",domain)),"&offset=",offset,"&count=100",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token)
+  #Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð¾Ñ
+  query <- paste0("https://api.vk.com/method/wall.get?extended=1",ifelse(is.null(user_id),"",paste0("&owner_id=",user_id)),ifelse(is.null(domain),"",paste0("&domain=",domain)),"&offset=",offset,"&count=100",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¾Ñ‚Ð²ÐµÑ‚Ð° Ð½Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ¸
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -44,16 +47,16 @@ vkGetUserWall <- function(user_id = NULL,
                                     attachment_type               = ifelse(is.null(dataRaw$response$wall[[i]]$attachment$type), NA,dataRaw$response$wall[[i]]$attachment$type),
                                     stringsAsFactors = F))}
   
-  #Ïåðåâîäèì äàòó â íóæíûé ôîðìàò
+  #ÐŸÐµÑ€ÐµÐ²Ð¾Ð´Ð¸Ð¼ Ð´Ð°Ñ‚Ñƒ Ð² Ð½ÑƒÐ¶Ð½Ñ‹Ð¹ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚
   if(length(dataRaw$response$wall) < 100){
     last_iteration <- TRUE}
   
   #Niauaai offet
   offset <- offset + count}
   
-  #Ïðåîáðàçóåì äàòó â ôîðìàò Windows
+  #ÐŸÑ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÐ¼ Ð´Ð°Ñ‚Ñƒ Ð² Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Windows
   result$date <- as.POSIXct(as.integer(result$date), origin="1970-01-01")
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð¸Ð¹ Ð´Ð°Ñ‚Ð° Ñ„Ñ€ÐµÐ¹Ð¼
   return(result)
 }

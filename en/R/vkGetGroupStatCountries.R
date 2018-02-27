@@ -1,9 +1,5 @@
 vkGetGroupStatCountries <-
 function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL){
-  if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred..")
-  }
-  
   #Create query text
   apiQuery <- paste0("https://api.vk.com/method/stats.get?group_id=",group_id,"&date_from=",date_from,"&date_to=",date_to,"&v=5.52&access_token=",access_token)
   
@@ -29,6 +25,11 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
   colnames(vkCountries) <- c("Date", "Visitors", "CountryID", "CountryCode", "CountryName")
   vkCountries <- vkCountries[c(1,5,4,3,2)]
   vkCountries$Date <- as.POSIXct(vkCountries$Date, format = "%Y-%m-%d")
+  return(vkCountries)
+  
+  if(isFactor == "Yes") options(stringsAsFactors = TRUE)
+}
+%Y-%m-%d")
   return(vkCountries)
   
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)

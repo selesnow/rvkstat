@@ -1,21 +1,28 @@
-vkGetAdAccounts <- function(access_token = NULL){
-  query <- paste0("https://api.vk.com/method/ads.getAccounts?&v=5.52&access_token=",access_token)
+vkGetAdAccounts <- function(access_token = NULL, 
+							api_version  = NULL){
+    if(is.null(access_token)){
+    stop("ÐÐµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½ access_token, ÑÑ‚Ð¾Ñ‚ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼.")
+  }
+  
+  api_version <- api_version_checker(api_version)						
+
+  query <- paste0("https://api.vk.com/method/ads.getAccounts?v=",api_version,"&access_token=",access_token)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #ðîâåðêà îòâåòà íà îøèáêè
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¾Ñ‚Ð²ÐµÑ‚Ð° Ð½Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ¸
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #åçóëüòèðóþùèé äàòà ôðåéì
+  #Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð¸Ð¹ Ð´Ð°Ñ‚Ð° Ñ„Ñ€ÐµÐ¹Ð¼
   result  <- data.frame(account_id     = integer(0),
                         account_type   = character(0),
                         account_status = character(0),
                         access_role    = character(0))
   
-  #àðñèíã ðåçóëüòàòà
+  #ÐŸÐ°Ñ€ÑÐ¸Ð½Ð³ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(account_id     = dataRaw$response[[i]]$account_id,

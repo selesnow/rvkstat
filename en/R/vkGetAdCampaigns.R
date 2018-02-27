@@ -2,18 +2,26 @@ vkGetAdCampaigns <- function(account_id = NULL,
                              client_id = NULL,
                              include_deleted = TRUE,
                              campaign_ids = "null",
-                             status_names = FALSE,
+							 api_version  = NULL,
                              access_token = NULL){
-
-  #Ïðåîáðàçóåì ôèëüòð ïî êàìïàíèÿì â json ìàññèâ
+							 
+							 
+  #Проверка заполнения аргументов
+  if(is.null(account_id)){
+    stop("Не заполнен account_id, этот аргумент является обязательным.")
+  }
+  
+  api_version <- api_version_checker(api_version)	
+  
+  #Преобразуем фильтр по кампаниям в json массив
   if(campaign_ids != "null"){
     campaign_ids <- toJSON(campaign_ids)
   }
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+  #Фильтр по статусу объявления
   include_deleted <- ifelse(include_deleted == T,1,0) 
   
-  #Ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Результирующий дата фрейм
   result  <- data.frame(id               = integer(0),
                         type             = integer(0),
                         name             = character(0),
@@ -27,18 +35,18 @@ vkGetAdCampaigns <- function(account_id = NULL,
                         stringsAsFactors = F)
   
   
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/ads.getCampaigns?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&access_token=",access_token)
+  #Формируем запрос
+  query <- paste0("https://api.vk.com/method/ads.getCampaigns?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #Проверка ответа на ошибки
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Ïàðñèíã ðåçóëüòàòà
+  #Парсинг результата
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -53,20 +61,18 @@ vkGetAdCampaigns <- function(account_id = NULL,
                                 update_time         = ifelse(is.null(dataRaw$response[[i]]$update_time), NA,as.POSIXct(as.integer(dataRaw$response[[i]]$update_time), origin="1970-01-01")),
                                 stringsAsFactors = F))}
   
- if(status_names == TRUE){
-  #Çàãðóæàåì ñïðàâî÷íèê ñòàòóñîâ êàìïàíèé
+  #Загружаем справочник статусов кампаний
   campaign_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/campaign.status.csv", .encoding = "1251")
   campaign_status <- read.csv(text = campaign_status, sep = ";")
   result$status <- as.character(merge(result, campaign_status, by.x = "status", by.y = "id", all.x = T)$status_name)
-  }
   
-  #Ïðèâîäèì ïîëÿ â ïðàâèëüíûé ôîðìàò
+  #Приводим поля в правильный формат
   result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
   result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
   result$start_time  <- as.POSIXct(as.integer(result$start_time), origin="1970-01-01")
   result$stop_time   <- as.POSIXct(as.integer(result$stop_time), origin="1970-01-01")
   
-  #Ïðåîáðàçîâàíèå â ÷èñëà
+  #Преобразование в числа
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   

@@ -1,9 +1,5 @@
 vkGetGroupStatGender <-
 function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL){
-  if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred..")
-  }
-  
   #Create query text
   apiQuery <- paste0("https://api.vk.com/method/stats.get?group_id=",group_id,"&date_from=",date_from,"&date_to=",date_to,"&v=5.52&access_token=",access_token)
   
@@ -30,6 +26,11 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
   vkGender <- vkGender[c(1,3,2)]
   vkGender$Date <- as.POSIXct(vkGender$Date, format = "%Y-%m-%d")
   vkGender$Gender <- as.factor(vkGender$Gender)
+  return(vkGender)
+  
+  if(isFactor == "Yes") options(stringsAsFactors = TRUE)
+}
+ender$Gender)
   return(vkGender)
   
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)

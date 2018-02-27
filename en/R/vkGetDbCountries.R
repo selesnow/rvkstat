@@ -1,12 +1,15 @@
 vkGetDbCountries <- function(need_all = TRUE,
                              code = NULL,
+							 api_version  = NULL,
                              access_token = NULL){
 
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred.")
+    stop("ÐÐµ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½ access_token, ÑÑ‚Ð¾Ñ‚ Ð°Ñ€Ð³ÑƒÐ¼ÐµÐ½Ñ‚ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼.")
   }
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+  api_version <- api_version_checker(api_version)
+	
+  #Ð¤Ð¸Ð»ÑŒÑ‚Ñ€ Ð¿Ð¾ ÑÑ‚Ð°Ñ‚ÑƒÑÑƒ Ð¾Ð±ÑŠÑÐ²Ð»ÐµÐ½Ð¸Ñ
   if(!(is.null(code))){
   code <- paste0(code, collapse = ",")
   }
@@ -17,27 +20,27 @@ vkGetDbCountries <- function(need_all = TRUE,
     need_all <- 0
   }
   
-  #Ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð¸Ñ€ÑƒÑŽÑ‰Ð¸Ð¹ Ð´Ð°Ñ‚Ð° Ñ„Ñ€ÐµÐ¹Ð¼
   result  <- data.frame()
   
   
-  #Ïîñòðàíè÷íàÿ âûãðóçêà
+  #ÐŸÐ¾ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ‡Ð½Ð°Ñ Ð²Ñ‹Ð³Ñ€ÑƒÐ·ÐºÐ°
   offset <- 0
   count <- 1000
   
 
-  #Ôîðìèðóåì çàïðîñ
-  query <- paste0("https://api.vk.com/method/database.getCountries?need_all=",need_all,ifelse(!(is.null(code)),paste0("&code=",code),""),"&offset=",offset,"&count=",count,"&access_token=",access_token)
+  #Ð¤Ð¾Ñ€Ð¼Ð¸Ñ€ÑƒÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð¾Ñ
+  query <- paste0("https://api.vk.com/method/database.getCountries?need_all=",need_all,ifelse(!(is.null(code)),paste0("&code=",code),""),"&offset=",offset,"&count=",count,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¾Ñ‚Ð²ÐµÑ‚Ð° Ð½Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ¸
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Ïàðñèíã ðåçóëüòàòà
+  #ÐŸÐ°Ñ€ÑÐ¸Ð½Ð³ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð°
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(cid                  = ifelse(is.null(dataRaw$response[[i]]$cid), NA,dataRaw$response[[i]]$cid),

@@ -1,64 +1,56 @@
 vkGetAdPostsReach <- function(account_id = NULL,
                               ids_type = "campaign",
                               ids = NULL,
+							  api_version = NULL,
                               access_token = NULL){
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred.")
+    stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
   
   if(!(ids_type %in% c("ad","campaign"))){
-    stop("Invalid ids_type, use one of ad or campaign!")
+    stop("Не верно указан аргумент ids_type, допустимые значения ad или campaign!")
   }
-
- #Create result data frame
+	
+  #Проверка версии API
+  api_version <- api_version_checker(api_version)
+  
+  #Фильтр по статусу объявления
+  ids <- paste0(ids, collapse = ",")
+  
+  #Рещультирующая таблица
   result <- data.frame()  
- 
- #Create param for paging query by 100 ids
-  ids_num     <- as.integer(length(ids))
-  ids_start   <- 1
-  ids_step    <- 100
   
- #Start paging cycle
-  while(ids_start <= ids_num){
-    
-  ids_step  <-  if(ids_num - ids_start > ids_step) ids_step else ids_num - ids_start + 1
-  
-  #Get 100 ids
-  ids_temp <- paste0(ids[ids_start:(ids_start + ids_step - 1)], collapse = ",")
-  
-  #Request API query
-  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids_temp,"&access_token=",access_token)
+  #Формируем запрос
+  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Check for errors
+  #Проверка ответа на ошибки
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Parse result
   for(i in 1:length(dataRaw$response)){
     
-    result  <- rbind(result,
-                     data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
-                                reach_subscribers   = ifelse(is.null(dataRaw$response[[i]]$reach_subscribers), NA,dataRaw$response[[i]]$reach_subscribers),
-                                reach_total         = ifelse(is.null(dataRaw$response[[i]]$reach_total), NA,dataRaw$response[[i]]$reach_total),
-                                links               = ifelse(is.null(dataRaw$response[[i]]$links), NA,dataRaw$response[[i]]$links),
-                                to_group            = ifelse(is.null(dataRaw$response[[i]]$to_group ), NA,dataRaw$response[[i]]$to_group),
-                                join_group          = ifelse(is.null(dataRaw$response[[i]]$join_group), NA,dataRaw$response[[i]]$join_group),
-                                report              = ifelse(is.null(dataRaw$response[[i]]$report), NA,dataRaw$response[[i]]$report),
-                                hide                = ifelse(is.null(dataRaw$response[[i]]$hide), NA,dataRaw$response[[i]]$hide),
-                                unsubscribe         = ifelse(is.null(dataRaw$response[[i]]$unsubscribe), NA,dataRaw$response[[i]]$unsubscribe),
-                                video_views_start   = ifelse(is.null(dataRaw$response[[i]]$video_views_start), NA,dataRaw$response[[i]]$video_views_start),
-                                video_views_3s      = ifelse(is.null(dataRaw$response[[i]]$video_views_3s), NA,dataRaw$response[[i]]$video_views_3s),
-                                video_views_25p     = ifelse(is.null(dataRaw$response[[i]]$video_views_25p), NA,dataRaw$response[[i]]$video_views_25p),
-                                video_views_50p     = ifelse(is.null(dataRaw$response[[i]]$video_views_50p), NA,dataRaw$response[[i]]$video_views_50p),
-                                video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75pp),
-                                video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
-                                stringsAsFactors = F))}
-  #steping to next 100 ids
-  ids_start <- ids_start + ids_step}
-  #Reurn the result
+          result  <- rbind(result,
+                         data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
+                                    reach_subscribers   = ifelse(is.null(dataRaw$response[[i]]$reach_subscribers), NA,dataRaw$response[[i]]$reach_subscribers),
+                                    reach_total         = ifelse(is.null(dataRaw$response[[i]]$reach_total), NA,dataRaw$response[[i]]$reach_total),
+                                    links               = ifelse(is.null(dataRaw$response[[i]]$links), NA,dataRaw$response[[i]]$links),
+                                    to_group            = ifelse(is.null(dataRaw$response[[i]]$to_group ), NA,dataRaw$response[[i]]$to_group),
+                                    join_group          = ifelse(is.null(dataRaw$response[[i]]$join_group), NA,dataRaw$response[[i]]$join_group),
+                                    report              = ifelse(is.null(dataRaw$response[[i]]$report), NA,dataRaw$response[[i]]$report),
+                                    hide                = ifelse(is.null(dataRaw$response[[i]]$hide), NA,dataRaw$response[[i]]$hide),
+                                    unsubscribe         = ifelse(is.null(dataRaw$response[[i]]$unsubscribe), NA,dataRaw$response[[i]]$unsubscribe),
+                                    video_views_start   = ifelse(is.null(dataRaw$response[[i]]$video_views_start), NA,dataRaw$response[[i]]$video_views_start),
+                                    video_views_3s      = ifelse(is.null(dataRaw$response[[i]]$video_views_3s), NA,dataRaw$response[[i]]$video_views_3s),
+                                    video_views_25p     = ifelse(is.null(dataRaw$response[[i]]$video_views_25p), NA,dataRaw$response[[i]]$video_views_25p),
+                                    video_views_50p     = ifelse(is.null(dataRaw$response[[i]]$video_views_50p), NA,dataRaw$response[[i]]$video_views_50p),
+                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75pp),
+                                    video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
+                                    stringsAsFactors = F))}
+  
+  #Возвращаем результирующий дата фрейм
   return(result)
 }

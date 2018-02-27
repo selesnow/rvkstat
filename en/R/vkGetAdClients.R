@@ -1,26 +1,27 @@
 vkGetAdClients <- function(account_id = NULL,
+						   api_version  = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
-    stop("Enter the access_token, this argument is requred.")
+    stop("Не заполнен access_token, этот аргумент является обязательным.")
   }
   
-  #
+  #ГђГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГЁГ© Г¤Г ГІГ  ГґГ°ГҐГ©Г¬
   result  <- data.frame()
   
   
-  #n
-  query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token)
+  #Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ Г§Г ГЇГ°Г®Г±
+  query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #
+  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г®ГІГўГҐГІГ  Г­Г  Г®ГёГЁГЎГЄГЁ
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #
+  #ГЏГ Г°Г±ГЁГ­ГЈ Г°ГҐГ§ГіГ«ГјГІГ ГІГ 
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -29,7 +30,7 @@ vkGetAdClients <- function(account_id = NULL,
                                 all_limit           = ifelse(is.null(dataRaw$response[[i]]$all_limit), NA,dataRaw$response[[i]]$all_limit),
                                 stringsAsFactors = F))}
   
-    #
+    #ГЏГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ Гў Г·ГЁГ±Г«Г 
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   
