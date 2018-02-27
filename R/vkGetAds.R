@@ -3,7 +3,8 @@ vkGetAds <- function(account_id = NULL,
                      include_deleted = TRUE,
                      campaign_ids = "null",
                      ad_ids = "null",
-					 api_version = NULL,
+                     status_names = TRUE,
+					           api_version = NULL,
                      access_token = NULL){
   
   if(is.null(access_token)){
@@ -84,35 +85,35 @@ vkGetAds <- function(account_id = NULL,
                                 video               = ifelse(is.null(dataRaw$response[[i]]$video), NA,dataRaw$response[[i]]$video),
                                 stringsAsFactors = F))}
 
-
-#Преобразуем переменные в правильный формат
-result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
-result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
-
-#Загружаем справочник форматов объвлений
-ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
-ad_formats <- read.csv(text = ad_formats, sep = ";")
-result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
-
-#Загружаем справочник статусов модерации объявлений
-ad_approveds <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.approveds.csv", .encoding = "1251")
-ad_approveds <- read.csv(text = ad_approveds, sep = ";")
-result$approved <- as.character(merge(result, ad_approveds, by.x = "approved", by.y = "id", all.x = T)$approved_name)
-
-#Загружаем справочник типов оплат
-ad_cost_type <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.cost_type.csv", .encoding = "1251")
-ad_cost_type <- read.csv(text = ad_cost_type, sep = ";")
-result$cost_type <- as.character(merge(result, ad_cost_type, by.x = "cost_type", by.y = "id", all.x = T)$cost_type_name)
-
-#Загружаем справочник возрастных меток
-ad_age_restriction <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.age_restriction.csv", .encoding = "1251")
-ad_age_restriction <- read.csv(text = ad_age_restriction, sep = ";")
-result$age_restriction <- as.character(merge(result, ad_age_restriction, by.x = "age_restriction", by.y = "id", all.x = T)$age_label)
-
-#Справочник статусов
-ad_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.status.csv", .encoding = "1251")
-ad_status <- read.csv(text = ad_status, sep = ";")
-result$status <- as.character(merge(result, ad_status, by.x = "status", by.y = "id", all.x = T)$status_name)
+if(status_names == TRUE){
+    #Преобразуем переменные в правильный формат
+    result$create_time <- as.POSIXct(as.integer(result$create_time), origin="1970-01-01")
+    result$update_time <- as.POSIXct(as.integer(result$update_time), origin="1970-01-01")
+    
+    #Загружаем справочник форматов объвлений
+    ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
+    ad_formats <- read.csv(text = ad_formats, sep = ";")
+    result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
+    
+    #Загружаем справочник статусов модерации объявлений
+    ad_approveds <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.approveds.csv", .encoding = "1251")
+    ad_approveds <- read.csv(text = ad_approveds, sep = ";")
+    result$approved <- as.character(merge(result, ad_approveds, by.x = "approved", by.y = "id", all.x = T)$approved_name)
+    
+    #Загружаем справочник типов оплат
+    ad_cost_type <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.cost_type.csv", .encoding = "1251")
+    ad_cost_type <- read.csv(text = ad_cost_type, sep = ";")
+    result$cost_type <- as.character(merge(result, ad_cost_type, by.x = "cost_type", by.y = "id", all.x = T)$cost_type_name)
+    
+    #Загружаем справочник возрастных меток
+    ad_age_restriction <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.age_restriction.csv", .encoding = "1251")
+    ad_age_restriction <- read.csv(text = ad_age_restriction, sep = ";")
+    result$age_restriction <- as.character(merge(result, ad_age_restriction, by.x = "age_restriction", by.y = "id", all.x = T)$age_label)
+    
+    #Справочник статусов
+    ad_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.status.csv", .encoding = "1251")
+    ad_status <- read.csv(text = ad_status, sep = ";")
+    result$status <- as.character(merge(result, ad_status, by.x = "status", by.y = "id", all.x = T)$status_name)}
 
 #Преобрахуем в числовой формат
 result$cpc   <- as.numeric(result$cpc) / 100 
