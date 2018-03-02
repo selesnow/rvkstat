@@ -23,7 +23,7 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
   vkData$Date <- as.POSIXct(vkData$Date, format = "%Y-%m-%d")
   return(vkData)
 }
-Unsubscribed")
+ubscribed")
   vkData$Date <- as.POSIXct(vkData$Date, format = "%Y-%m-%d")
   return(vkData)
 }
