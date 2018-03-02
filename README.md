@@ -143,8 +143,10 @@ devtools::install_github('selesnow/rvkstat', subdir = "en")
 `group_token <- vkGetGroupToken(app_id = <ID Вашего Приложения>, group_ids = <ID Сообщества>)`
 
 После чего откроется окно браузера, в котором вам необходимо подтвердить разрещение на доступ к данным
-![](http://img.netpeak.ua/alsey/151999759566_kiss_80kb.png)
-далее скопируйте
+<center>![](http://img.netpeak.ua/alsey/151999759566_kiss_80kb.png)</center>
+
+Далее скопируйте токен доступа из URL на который вы были перенаправлены и вставьте в R, в качестве ответа на запрос "Your vk token from URL parameter access_token: ".
+![](http://img.netpeak.ua/alsey/151999776264_kiss_15kb.png)
 
 #### Пример прохождения авторизации с помощью функции vkAuth
 `myToken <- vkAuth(app_id = <ID Вашего Приложения>, app_secret = <Защищённый Ключ Вашего Приложения>)`
