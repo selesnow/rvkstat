@@ -28,7 +28,7 @@ vkGetUserDialogs <- function(offset = NULL,
   
   #Результирующий дата фрейм
   result  <- data.frame(id                  = integer(0),
-                        date                = character(0),
+                        date                = as.Date(character()),
                         out                 = integer(0),
                         user_id             = integer(0),
                         read_state          = integer(0),
