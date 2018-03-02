@@ -21,7 +21,7 @@ vkGetUserDialogs(offset = NULL, count = NULL, start_message_id = NULL, preview_l
 
 Метод API который используется в функции: messages.getDialogs (https://vk.com/dev/messages.getDialogs)
 
-Метод messages.getDialogs возвращает коллекцию объектов описывающих личные сообщения. Список всех возможных полей описания личных сообщений можно найти [тут](https://vk.com/dev/objects/message).
+Метод messages.getDialogs возвращает коллекцию объектов описывающих личные сообщения. Список всех возможных полей описания личных сообщений можно найти href{https://vk.com/dev/objects/message}{тут}.
 }
 \value{Дата фрейм со следующими значениями:
 \item{1. id}{идентификатор сообщения (не возвращается для пересланных сообщений).}
