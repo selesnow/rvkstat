@@ -5,7 +5,7 @@ vkGetUserDialogs <- function(offset = NULL,
                              unread = 0,
                              important = 0,
                              unanswered =  0,
-                             api_version = 5.73,
+                             api_version = NULL,
                              access_token = NULL){
   
   if(is.null(access_token)){
@@ -64,24 +64,3 @@ vkGetUserDialogs <- function(offset = NULL,
   
   #Возвращаем результат
   return(result)}
-  
-  tst <- function(a = NULL, b = NULL){
-    params <- c()
-    for(param in ls()[ls() != "params"]){
-      if(is.null(get(param))) next
-      params <- c(params,paste0(param,"=",get(param)))
-    }
-    print(paste0(params, collapse = "&"))
-  }
-
-  tst(b = 9, a = 86867)  
-  
-  library(rvkstat)
-  api_version_checker <- function(v){
-    current_version <- "5.73"
-    
-    if(is.null(v)) return(current_version)
-    if(as.numeric(v) < 4) return(current_version)
-    return(v)}
-  message <- vkGetUserDialogs(access_token = access_token)
-  
