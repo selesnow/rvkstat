@@ -61,6 +61,8 @@ vkGetUserDialogs <- function(offset = NULL,
                                 body                = ifelse(is.null(dataRaw$response$items[[i]]$message$body), NA,dataRaw$response$items[[i]]$message$body),
                                 random_id           = ifelse(is.null(dataRaw$response$items[[i]]$message$random_id), NA,dataRaw$response$items[[i]]$message$random_id),
                                 stringsAsFactors = F))}
+   #Конвертируем дату
+   result$date <- as.POSIXct(result$date, origin="1970-01-01")
   
   #Возвращаем результат
   return(result)}
