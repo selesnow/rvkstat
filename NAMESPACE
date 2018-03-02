@@ -1,5 +1,6 @@
 export(vkAuth)
 export(vkGetToken)
+export(vkGetGroupToken)
 export(vkGetGroupStat)
 export(vkGetGroupStatAge)
 export(vkGetGroupStatCity)
