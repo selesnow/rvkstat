@@ -34,6 +34,9 @@
       <td>
         <a href="https://selesnow.github.io/getProxy/">getProxy</a>
       </td>
+      <td>
+        <a href="https://selesnow.github.io/news/">NEWS</a>
+      </td>
     </tr>
 </table>
 
@@ -115,7 +118,7 @@
 Процесс обхода блокировки с помозью пакета getProxy:
 
 1. Устанавливаем пакет getProxy с помощью приведённого ниже кода:
-```
+```r
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 library(devtools)
 install_github("selesnow/getProxy")
@@ -123,7 +126,7 @@ install_github("selesnow/getProxy")
 2. Подключаем пакет getProxy с помощью комманды `library(getProxy)`.
 3. Далее с помощью функции `getProy` обходим блокировку через прокси сервер, пример кода ниже:
 
-```
+```r
 #Направляем интернет соединение через прокси сервер
 getProxy(port = "3128", country = "RU", supportsHttps = TRUE, action = "start")
 
@@ -137,12 +140,12 @@ getProxy9action = "stop")
 Пакет rvkstat может быть установлен непосредственно из репозитория Github с помощью приведённого ниже программного кода.
 
 ### Установка на Windows
-```
+```r
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 devtools::install_github('selesnow/rvkstat')
 ```
 ### Установка на Ubuntu, Linux, Mac
-```
+```r
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 devtools::install_github('selesnow/rvkstat', subdir = "en")
 ```
@@ -198,7 +201,7 @@ devtools::install_github('selesnow/rvkstat', subdir = "en")
 ### Функции для загрузки данных из рекламного кабинета Вконтакте
 
 #### Получить список возможных тематик рекламных объявлений и их подразделов.
-```
+```r
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Получение списка возможных тематик рекламных объявлений
@@ -209,7 +212,7 @@ vk_ad_categories <- vkGetAdCategories(access_token = my_tok$access_token)
 * <b>api_version</b> - Версия API к который вы будете обращаться, список актуальных версий доступен по [ссылке](https://vk.com/dev/versions).
 
 #### Получить список досупных рекламных кабинетов Вконтакте
-```
+```r
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Запрос списка доступных рекламных кабинетов
@@ -220,7 +223,7 @@ my_vk_acc <- vkGetAdAccounts(my_tok$access_token)
 * <b>api_version</b> - Версия API к который вы будете обращаться, список актуальных версий доступен по [ссылке](https://vk.com/dev/versions).
 
 #### Получить список клиентов из агентского аккаунта Вконтакте
-```
+```r
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 ##Запрос списка доступных рекламных кабинетов
@@ -232,7 +235,7 @@ my_vk_clients <- vkGetAdClients(account_id = 11111111, access_token = my_tok$acc
 * <b>api_version</b> - Версия API к который вы будете обращаться, список актуальных версий доступен по [ссылке](https://vk.com/dev/versions).
 
 #### Получить список объявлений из рекламного кабинета вконтакте
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список объявлений
@@ -250,7 +253,7 @@ my_vk_ads <- vkGetAds(account_id = 11111111,
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить описания внешнего вида рекламных объявлений.
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список объявлений с описанием их внешнего вида
@@ -281,7 +284,7 @@ my_vk_ads <- vkGetAdsLayout(account_id = 11111111,
 * image_src - url изображения объявления.
 
 #### Получить список рекламных кампаний из рекламного кабинета вконтакте
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем список рекламных кампаний
@@ -298,7 +301,7 @@ my_vk_campaigns <- vkGetAdCampaigns(account_id = 11111111,
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету.
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -355,7 +358,7 @@ vk_stat_by_campaign <- vkGetAdStatistics(account_id = 11111111,
 * join_rate (если ids_type равен ad или campaign) — вступления в группу, событие, подписки на публичную страницу или установки приложения (только если в объявлении указана прямая ссылка на соответствующую страницу ВКонтакте)
 
 #### Получить остаток средств из рекламного кабинета
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 #Получаем остаток средств из рекламного кабинета
@@ -368,7 +371,7 @@ vk_budget <- vkGetAdBudget(account_id = 11111111,
 * <b>api_version</b> - Версия API к который вы будете обращаться, список актуальных версий доступен по [ссылке](https://vk.com/dev/versions).
 
 #### Получить статистику по охвату аудитории по рекламным кампаним или объявления в разрезе городов
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -418,7 +421,7 @@ vk_ad_city_stat_day <- vkGetAdCityStats(account_id = 11111111,
 * clicks_rate — часть аудитории, кликнувшая по объявлению, от 0 до 1.
 
 #### Получить статистику по охвату аудитории по рекламным кампаним или объявления в разрезе пола
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -466,7 +469,7 @@ vk_ad_gender_stat_day <- vkGetAdGenderStats(account_id = 11111111,
 * clicks_rate — часть аудитории, кликнувшая по объявлению, от 0 до 1.
 
 #### Получить статистику по охвату аудитории по рекламным кампаним или объявления в разрезе возраста
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -514,7 +517,7 @@ vk_ad_age_stat_day <- vkGetAdAgeStats(account_id = 1,
 * clicks_rate — часть аудитории, кликнувшая по объявлению, от 0 до 1.
 
 #### Получить статистику по охвату аудитории по рекламным кампаним или объявления в разрезе пола и возраста
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -563,7 +566,7 @@ vk_ad_gender_age_stat_day <- vkGetAdGenderAgeStats(account_id = 11111111,
 * clicks_rate — часть аудитории, кликнувшая по объявлению, от 0 до 1
 
 #### Получить подробную статистику по охвату рекламных записей из объявлений и кампаний для продвижения записей сообщества
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
 
@@ -605,14 +608,14 @@ post_reach <- vkGetAdPostsReach(account_id = 11111111,
 ### Функции для загрузки данных из сообществ Вконтакте
 Во всех примерах этого раздела подразумевается что вы сначала прошли процесс авторизации с помощью функции vkAuth, пример кода ниже:
 
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 ```
 
 #### Получить данные о количестве просмотров, посетителях, подписавшихся и отписавшихся посетителей по дням
 
-```
+```r
 communityData <- vkGetGroupStat(date_from = "2016-01-01", 
                                 date_to = "2016-04-01", 
                                 group_id = 1, 
@@ -627,7 +630,7 @@ communityData <- vkGetGroupStat(date_from = "2016-01-01",
 
 #### Получить данные о возрастных группах посетителей по дням.
 
-```
+```r
 communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01", 
                                       date_to = "2016-04-01", 
                                       group_id = 1, 
@@ -642,7 +645,7 @@ communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01",
 
 #### Получить данные о поле посетителей по дням.
 
-```
+```r
 communityDataGender <- vkGetGroupStatGender(date_from = "2016-01-01", 
                                             date_to = "2016-04-01", 
                                             group_id = 1, 
@@ -657,7 +660,7 @@ communityDataGender <- vkGetGroupStatGender(date_from = "2016-01-01",
 
 #### Получить данные о половозрастной структуре ваших посетителей по дням.
 
-```
+```r
 communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01", 
                                                   date_to = "2016-04-01", 
                                                   group_id = 1, 
@@ -672,7 +675,7 @@ communityDataGenderAge <- vkGetGroupStatGenderAge(date_from = "2016-01-01",
 
 #### Получить данные о городах посетителей.
 
-```
+```r
 communityDataCity <- vkGetGroupStatCity(date_from = "2016-01-01", 
                                         date_to = "2016-04-01", 
                                         group_id = 1, 
@@ -687,7 +690,7 @@ communityDataCity <- vkGetGroupStatCity(date_from = "2016-01-01",
 
 #### Получить данные о странах посетителей.
 
-```
+```r
 communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01", 
                                                   date_to = "2016-04-01", 
                                                   group_id = 1, 
@@ -703,13 +706,13 @@ communityDataCountries <- vkGetGroupStatCountries(date_from = "2016-01-01",
 ### Функции для загрузки справочной информации из Вконтакте
 Во всех примерах этого раздела подразумевается что вы сначала прошли процесс авторизации с помощью функции vkAuth, пример кода ниже:
 
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 ```
 
 #### Получить id и название стран
-```
+```r
 ##Получаем список стран
 vk_countries <- vkGetDbCountries(need_all = T,
                                  code = c("RU","UA","BY"),
@@ -722,7 +725,7 @@ vk_countries <- vkGetDbCountries(need_all = T,
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить справочник городов
-```
+```r
 ##Получаем справочник городов Украины, т.к. id Украины = 2
 vk_cities <- vkGetDbCities(country_id = 2,
                            access_token = my_tok$access_token)
@@ -736,7 +739,7 @@ vk_cities <- vkGetDbCities(country_id = 2,
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 
 #### Получить справочник регионов
-```
+```r
 ##Получаем справочник городов Украины, т.к. id Украины = 2, по запросу "Оде"
 vk_regions_search  <- vkGetDbRegions(country_id = 2,
                                      q = "Оде",
@@ -751,13 +754,13 @@ vk_regions_search  <- vkGetDbRegions(country_id = 2,
 ### Функции для загрузки инормации о пользователе Вконтакте
 Во всех примерах этого раздела подразумевается что вы сначала прошли процесс авторизации с помощью функции vkAuth, пример кода ниже:
 
-```
+```r
 ##Авторизация в вконтакте
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 ```
 
 #### Получиить список друзей пользователя Вконтакте.
-```
+```r
 my_vk_friends <- vkGetUserfriends(user_id = 7437995,
                                   access_token = my_tok$access_token)
 ```
@@ -827,7 +830,7 @@ my_vk_friends <- vkGetUserfriends(user_id = 7437995,
 	* 0 — не указано.}
 
 #### Получить список групп и сообществ в которых состоит пользователь Вконтакте
-```
+```r
 my_vk_community <- vkGetUserGroups(user_id = 7437995,
                                    access_token = my_tok$access_token)
 ```
@@ -881,7 +884,7 @@ my_vk_community <- vkGetUserGroups(user_id = 7437995,
 * photo_big - URL главной фотографии в максимальном размере.
 
 #### Получить список диалогов текущего пользователя или сообщества
-```
+```r
 library(rvkstat)
 #Получаем ключ доступа для сообщества
 group_token <- vkGetGroupToken(app_id = 111111, group_ids = 222222)
@@ -911,7 +914,7 @@ message <- vkGetUserDialogs(access_token = group_token)
 * random_id - идентификатор, используемый при отправке сообщения. Возвращается только для исходящих сообщений.
 
 #### Получить сообщения со стены пользователя с количеством комментариев, лайков и рипостов
-```
+```r
 my_vk_wall <- vkGetUserWall(user_id = 7437995,
                             access_token = my_tok$access_token)
 ```
