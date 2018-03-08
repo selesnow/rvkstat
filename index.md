@@ -133,7 +133,7 @@ getProxy(port = "3128", country = "RU", supportsHttps = TRUE, action = "start")
 #Пишем код для работы с API Вконтакте с помощью функций пакета rvkstat
 
 #Отключаемся от прокси сервера
-getProxy9action = "stop")
+getProxy(action = "stop")
 ```
 
 ## Установка пакета
