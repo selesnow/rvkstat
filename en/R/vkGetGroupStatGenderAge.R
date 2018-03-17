@@ -38,7 +38,3 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
   
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)
 }
-return(vkGenderAge[c(1,3,4,2)])
-  
-  if(isFactor == "Yes") options(stringsAsFactors = TRUE)
-}

@@ -29,8 +29,3 @@ function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_t
     
   if(isFactor == "Yes") options(stringsAsFactors = TRUE)
 }
-m-%d")
-    return(vkCities)
-    
-  if(isFactor == "Yes") options(stringsAsFactors = TRUE)
-}
