@@ -56,6 +56,12 @@
 </script>
 <gcse:search></gcse:search>
 
+# Ссылки
+* [Документация](https://selesnow.github.io/rvkstat/)
+* [Отчёт об ошибках и доработках](https://github.com/selesnow/rvkstat/issues)
+* [Список релизов](https://github.com/selesnow/rvkstat/releases)
+* [Группа в Вконтакте](https://vk.com/data_club)
+
 # Содержание ReadMe пакета rvkstat
 
 - **[Краткое описание пакета rvkstat](https://selesnow.github.io/rvkstat/#краткое-описание-пакета-rvkstat)**
