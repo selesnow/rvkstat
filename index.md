@@ -178,6 +178,21 @@ devtools::install_github('selesnow/rvkstat', subdir = "en")
 + vkGetGroupToken - Упрощённая авторизация по методу [Implicit Flow](https://vk.com/dev/implicit_flow_group), токен доступа сообщества выдаётся с привязкой к IP адресу, в связи с чем при смене IP адреса прийдётся проходить процедуру авторизации. Такой ключ позволяет работать с API от имени группы, встречи или публичной страницы. Например, с его помощью Вы можете отвечать подписчикам сообщества на сообщения, поступившие в его адрес. С ключом доступа сообщества можно вызывать те методы, которые имеют специальную пометку в общем [списке](https://vk.com/dev/methods). 
 + vkAuth - Для прохождение процесса авторизации с помощью метода [Authorization Code Flow](https://vk.com/dev/authcode_flow_user), токен полученный с помощью данной функции будет работать с любого IP.
 
+## Форма для получения токена доступа пользователя по схеме Implict Flow
+<center>
+<form name="f1" method="get" action="https://oauth.vk.com/authorize?">
+<input name="link" type="hidden" value="index.php" />
+ID приложения в Facebook: <br />
+<input name="client_id" type="text" size="25" maxlength="30" value="" /> 
+<input name="display" type="hidden" value="popup" /> 
+<input name="redirect_uri" type="hidden" value="https://selesnow.github.io/rvkstat/getCode/get_token.html" />
+<input name="response_type" type="hidden" value="token" /> 
+<input name="scope" type="hidden" value="offline,groups,ads,stats" /> 
+<input type="submit" name="enter" value="Получить токен!" />
+</form> 
+</center>    
+<Br>
+
 #### Пример прохождения авторизации с помощью функции vkGetToken
 Для получения [ключа доступа пользователя](https://vk.com/dev/access_token?f=1.%20%D0%9A%D0%BB%D1%8E%D1%87%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%B0%20%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8F) по схеме [Implicit Flow](https://vk.com/dev/implicit_flow_user) воспользуйтесь следующим кодом:
 
