@@ -138,11 +138,11 @@
 ![настройки приложения - Open API - Включить](http://img.netpeak.ua/alsey/152232852842_kiss_39kb.png)
 
 После чего появятся настройки Open API, введите в них следующие значения:
-<b>Адрес сайта: </b>http://selesnow.github.io
-<b>Адрес сайта: </b>selesnow.github.io
-<b>Доверенный redirect URI: </b>https://selesnow.github.io/rvkstat/getCode/get_code.html
-<b>Доверенный redirect URI: </b>https://selesnow.github.io/rvkstat/getCode/get_token.html
-<b>Доверенный redirect URI: </b>https://oauth.vk.com/blank.html
+<b>Адрес сайта: </b>http://selesnow.github.io <Br>
+<b>Адрес сайта: </b>selesnow.github.io <Br>
+<b>Доверенный redirect URI: </b>https://selesnow.github.io/rvkstat/getCode/get_code.html <Br>
+<b>Доверенный redirect URI: </b>https://selesnow.github.io/rvkstat/getCode/get_token.html <Br>
+<b>Доверенный redirect URI: </b>https://oauth.vk.com/blank.html <Br>
 ![Настройка Open API](http://img.netpeak.ua/alsey/152232876897_kiss_27kb.png)
 
 Для начала работы и для того, что бы с помощью функции авторизации в Вконтакте получить токен разработчика используйте ID и Защищённый ключ приложения.
