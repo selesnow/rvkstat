@@ -200,7 +200,7 @@ ID приложения в Вконтакте: <br />
 ID приложения в Вконтакте: <br />
 <input name="client_id" type="text" size="25" maxlength="30" value="" /> <br />
 ID сообществ Вконтакте разделённых запятыми, без пробелов: <br />
-<i>пример: 0001,0002,0003</i>
+<i>пример: 0001,0002,0003</i> <br />
 <input name="group_ids" type="text" size="25" maxlength="30" value="" /> <br />
 <input name="display" type="hidden" value="popup" /> 
 <input name="redirect_uri" type="hidden" value="https://oauth.vk.com/blank.html" />
