@@ -194,7 +194,7 @@ devtools::install_github('selesnow/rvkstat', subdir = "en")
 
 ## Форма для получения токена доступа пользователя по схеме Implict Flow
 <center>
-<form name="f1" method="get" action="https://oauth.vk.com/authorize?">
+<form name="form_user_token" method="get" action="https://oauth.vk.com/authorize?">
 ID приложения в Вконтакте: <br />
 <input name="client_id" type="text" size="25" maxlength="30" value="" /> 
 <input name="display" type="hidden" value="popup" /> 
@@ -208,9 +208,9 @@ ID приложения в Вконтакте: <br />
 
 ## Форма для получения токена доступа гуппы по схеме Implict Flow
 <center>
-<form name="f1" method="get" action="https://oauth.vk.com/authorize?">
+<form name="form_group_token" method="get" action="https://oauth.vk.com/authorize?">
 ID приложения в Вконтакте: <br />
-<input name="client_id" type="text" size="25" maxlength="30" value="" /> <br />
+<input name="client_id" type="text" size="25" maxlength="30" value="" /> <br /><br />
 ID сообществ Вконтакте разделённых запятыми, без пробелов: <br />
 <i>пример: 0001,0002,0003</i> <br />
 <input name="group_ids" type="text" size="25" maxlength="30" value="" /> <br />
