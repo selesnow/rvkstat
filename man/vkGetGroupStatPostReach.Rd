@@ -42,7 +42,7 @@ my_vk_wall  <- vkGetUserWall(user_id = -111111,
                              access_token = my_tok$access_token) 
 							 
 ## Получаем подрубную статистику по последним 300 записям сообщества							 
-post_reach <- vkGetGroupStatPostReach(owner_id = -8149447,
+post_reach <- vkGetGroupStatPostReach(owner_id = -2222222,
                                       post_ids = my_vk_wall$id,
                                       access_token = my_tok$access_token)
 }
