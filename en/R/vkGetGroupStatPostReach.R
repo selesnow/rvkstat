@@ -1,7 +1,7 @@
-vkGetPostReach <- function(owner_id = NULL,
-                           post_ids = NULL,
-                           api_version = NULL,
-                           access_token = NULL){
+vkGetGroupStatPostReach <- function(owner_id = NULL,
+                                    post_ids = NULL,
+                                    api_version = NULL,
+                                    access_token = NULL){
    
   if(is.null(access_token)){
     stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
