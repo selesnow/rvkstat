@@ -15,7 +15,7 @@ vkGetAds <- function(account_id = NULL,
   api_version <- api_version_checker(api_version)
   
   #Преобразуем фильтр по кампаниям в json массив
-  if(campaign_ids != "null"){
+  if(any(campaign_ids != "null")){
     campaign_ids <- toJSON(campaign_ids)
   }
   
