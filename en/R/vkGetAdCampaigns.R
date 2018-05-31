@@ -63,7 +63,7 @@ vkGetAdCampaigns <- function(account_id = NULL,
   
   #Загружаем справочник статусов кампаний
   campaign_status <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/campaign.status.csv", .encoding = "1251")
-  campaign_status <- read.csv(text = campaign_status, sep = ";")
+  campaign_status <- read.csv(text = campaign_status, sep = ";", encoding = "UTF-8")
   result$status <- as.character(merge(result, campaign_status, by.x = "status", by.y = "id", all.x = T)$status_name)
   
   #Приводим поля в правильный формат
