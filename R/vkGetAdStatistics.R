@@ -140,8 +140,8 @@ vkGetAdStatistics <- function(account_id = NULL,
   if (nrow(result) > 0) {
     result$spent <- as.numeric(result$spent)
     result$clicks <- as.integer(result$clicks)
-    result$impressions <- as.integer(result$clicks)
-    result$reach <- as.integer(result$clicks)
+    result$impressions <- as.integer(result$impressions)
+    result$reach <- as.integer(result$reach)
     result$join_rate <- as.integer(result$join_rate)
   }
   return(result)
