@@ -54,6 +54,7 @@ vkGetUserWall <- function(user_id = NULL,
     
     #Niauaai offet
     offset <- offset + count
+    Sys.sleep(0.5)
  
     
   } else {
@@ -81,7 +82,7 @@ vkGetUserWall <- function(user_id = NULL,
     
     #Niauaai offet
     offset <- offset + count
-    
+    Sys.sleep(0.5)
   }
   }
   
