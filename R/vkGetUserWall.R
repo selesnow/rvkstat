@@ -1,20 +1,20 @@
 vkGetUserWall <- function(user_id = NULL,
                           domain = NULL,
                           filter = NULL,
-						  api_version = NULL,
+			  api_version = NULL,
                           access_token = NULL){
   
   if(is.null(access_token)){
-    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+    stop("ÃÃ¥ Ã§Ã Ã¯Ã®Ã«Ã­Ã¥Ã­ access_token, Ã½Ã²Ã®Ã² Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã² Ã¿Ã¢Ã«Ã¿Ã¥Ã²Ã±Ã¿ Ã®Ã¡Ã¿Ã§Ã Ã²Ã¥Ã«Ã¼Ã­Ã»Ã¬.")
   }
   
-  #Ïðîâåðêà âåðñèè API
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã¢Ã¥Ã°Ã±Ã¨Ã¨ API
   api_version <- api_version_checker(api_version)
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  #ÃÃ¥Ã¹Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã Ã¿ Ã²Ã Ã¡Ã«Ã¨Ã¶Ã 
   result <- data.frame(stringsAsFactors = F)  
   
-  #Ïîñòðàíè÷íàÿ âûãðóçêà
+  #ÃÃ®Ã±Ã²Ã°Ã Ã­Ã¨Ã·Ã­Ã Ã¿ Ã¢Ã»Ã£Ã°Ã³Ã§ÃªÃ 
   offset <- 0
   count <- 100
   last_iteration <- FALSE
@@ -54,7 +54,7 @@ vkGetUserWall <- function(user_id = NULL,
     
     #Niauaai offet
     offset <- offset + count
- 
+    Sys.sleep(0.5)
     
   } else {
   
@@ -81,12 +81,12 @@ vkGetUserWall <- function(user_id = NULL,
     
     #Niauaai offet
     offset <- offset + count
-    
+    Sys.sleep(0.5)
   }
   }
   
-  #Ïðåîáðàçóåì äàòó â  ôîðìàò Windows
+  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã¤Ã Ã²Ã³ Ã¢  Ã´Ã®Ã°Ã¬Ã Ã² Windows
   result$date <- as.POSIXct(as.integer(result$date), origin="1970-01-01")
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   return(result)
 }
