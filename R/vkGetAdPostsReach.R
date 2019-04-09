@@ -4,29 +4,29 @@ vkGetAdPostsReach <- function(account_id = NULL,
 							  api_version = NULL,
                               access_token = NULL){
   if(is.null(access_token)){
-    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+    stop("ÃÃ¥ Ã§Ã Ã¯Ã®Ã«Ã­Ã¥Ã­ access_token, Ã½Ã²Ã®Ã² Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã² Ã¿Ã¢Ã«Ã¿Ã¥Ã²Ã±Ã¿ Ã®Ã¡Ã¿Ã§Ã Ã²Ã¥Ã«Ã¼Ã­Ã»Ã¬.")
   }
   
   if(!(ids_type %in% c("ad","campaign"))){
-    stop("Íå âåðíî óêàçàí àðãóìåíò ids_type, äîïóñòèìûå çíà÷åíèÿ ad èëè campaign!")
+    stop("ÃÃ¥ Ã¢Ã¥Ã°Ã­Ã® Ã³ÃªÃ Ã§Ã Ã­ Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã² ids_type, Ã¤Ã®Ã¯Ã³Ã±Ã²Ã¨Ã¬Ã»Ã¥ Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¿ ad Ã¨Ã«Ã¨ campaign!")
   }
 	
-  #Ïðîâåðêà âåðñèè API
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã¢Ã¥Ã°Ã±Ã¨Ã¨ API
   api_version <- api_version_checker(api_version)
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+  #Ã”Ã¨Ã«Ã¼Ã²Ã° Ã¯Ã® Ã±Ã²Ã Ã²Ã³Ã±Ã³ Ã®Ã¡ÃºÃ¿Ã¢Ã«Ã¥Ã­Ã¨Ã¿
   ids <- paste0(ids, collapse = ",")
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  #ÃÃ¥Ã¹Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã Ã¿ Ã²Ã Ã¡Ã«Ã¨Ã¶Ã 
   result <- data.frame()  
   
-  #Ôîðìèðóåì çàïðîñ
+  #Ã”Ã®Ã°Ã¬Ã¨Ã°Ã³Ã¥Ã¬ Ã§Ã Ã¯Ã°Ã®Ã±
   query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -47,10 +47,10 @@ vkGetAdPostsReach <- function(account_id = NULL,
                                     video_views_3s      = ifelse(is.null(dataRaw$response[[i]]$video_views_3s), NA,dataRaw$response[[i]]$video_views_3s),
                                     video_views_25p     = ifelse(is.null(dataRaw$response[[i]]$video_views_25p), NA,dataRaw$response[[i]]$video_views_25p),
                                     video_views_50p     = ifelse(is.null(dataRaw$response[[i]]$video_views_50p), NA,dataRaw$response[[i]]$video_views_50p),
-                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75pp),
+                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75p),
                                     video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
                                     stringsAsFactors = F))}
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   return(result)
 }
