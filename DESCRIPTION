@@ -1,8 +1,8 @@
 Package: rvkstat
 Type: Package
 Title: Load data from vk.com api into R
-Version: 2.5.7
-Date: 2019-04-09
+Version: 2.5.8
+Date: 2019-04-25
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from vk.com api about your communiti users and viewa by date into R
