@@ -47,7 +47,7 @@ vkGetAdPostsReach <- function(account_id = NULL,
                                     video_views_3s      = ifelse(is.null(dataRaw$response[[i]]$video_views_3s), NA,dataRaw$response[[i]]$video_views_3s),
                                     video_views_25p     = ifelse(is.null(dataRaw$response[[i]]$video_views_25p), NA,dataRaw$response[[i]]$video_views_25p),
                                     video_views_50p     = ifelse(is.null(dataRaw$response[[i]]$video_views_50p), NA,dataRaw$response[[i]]$video_views_50p),
-                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75pp),
+                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75p),
                                     video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
                                     stringsAsFactors = F))}
   
