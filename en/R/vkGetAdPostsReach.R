@@ -4,29 +4,29 @@ vkGetAdPostsReach <- function(account_id = NULL,
 							  api_version = NULL,
                               access_token = NULL){
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Не заполнен access_token, тот а гумент является обязательным.")
   }
   
   if(!(ids_type %in% c("ad","campaign"))){
-    stop("Не верно указан аргумент ids_type, допустимые значения ad или campaign!")
+    stop("Не верно указан а гумент ids_type, допустимые значения ad или campaign!")
   }
 	
-  #Проверка версии API
+  #Ïðîâåðêà âåðñèè API
   api_version <- api_version_checker(api_version)
   
-  #Фильтр по статусу объявления
+  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
   ids <- paste0(ids, collapse = ",")
   
-  #Рещультирующая таблица
+  #Ðåùóëüòèðóþùàÿ òàáëèöà
   result <- data.frame()  
   
-  #Формируем запрос
+  #Ôîðìèðóåì çàïðîñ
   query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  #Ïðîâåðêà îòâåòà íà îøèáêè
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -51,6 +51,6 @@ vkGetAdPostsReach <- function(account_id = NULL,
                                     video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
                                     stringsAsFactors = F))}
   
-  #Возвращаем результирующий дата фрейм
+  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
   return(result)
 }
