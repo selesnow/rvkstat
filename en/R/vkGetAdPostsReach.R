@@ -11,22 +11,22 @@ vkGetAdPostsReach <- function(account_id = NULL,
     stop("Не верно указан а гумент ids_type, допустимые значения ad или campaign!")
   }
 	
-  #Ïðîâåðêà âåðñèè API
+
   api_version <- api_version_checker(api_version)
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+
   ids <- paste0(ids, collapse = ",")
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+
   result <- data.frame()  
   
-  #Ôîðìèðóåì çàïðîñ
+
   query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -51,6 +51,6 @@ vkGetAdPostsReach <- function(account_id = NULL,
                                     video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
                                     stringsAsFactors = F))}
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+
   return(result)
 }
