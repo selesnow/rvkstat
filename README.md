@@ -2,7 +2,7 @@
 <a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
 </p>
 
-# rvkstat
+# rvkstat - R пакет для работы с API Вконтакте<a href='https:/selesnow.github.io/rvkstat'><img src='https://raw.githubusercontent.com/selesnow/rvkstat/master/inst/logo/rvkstat.png' align="right" height="139" /></a>
 
 ## Краткое описание.
 
