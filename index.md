@@ -340,7 +340,7 @@ vk_ad_categories <- vkGetAdCategories(access_token = my_tok$access_token)
 * <b>access_token</b> - Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken
 * <b>api_version</b> - Версия API к который вы будете обращаться, список актуальных версий доступен по [ссылке](https://vk.com/dev/versions).
 
-#### Получить список досупных рекламных кабинетов Вконтакте
+#### Получить список доступных рекламных кабинетов Вконтакте
 ```r
 ##Авторизация в вк
 my_tok <- vkAuth(app_id = 11111111,app_secret = "H2Pk8htyFD8024mZaPHm")
