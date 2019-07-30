@@ -22,6 +22,8 @@ rvkstatWelcomeMessage <- function(){
          "Type ?rvkstat for the main documentation.\n",
          "The github page is: https://github.com/selesnow/rvkstat/\n",
          "\n",
+         "Package Load from GitHub\n",
+         "\n",
          "Suggestions and bug-reports can be submitted at: https://github.com/selesnow/rvkstat/issues\n",
          "Or contact: <selesnow@gmail.com>\n",
          "\n",
