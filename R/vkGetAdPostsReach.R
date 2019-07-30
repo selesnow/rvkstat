@@ -1,32 +1,32 @@
 vkGetAdPostsReach <- function(account_id = NULL,
                               ids_type = "campaign",
                               ids = NULL,
-							  api_version = NULL,
+							                api_version = NULL,
                               access_token = NULL){
   if(is.null(access_token)){
-    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+    stop("Set access_token in options, is require.")
   }
   
   if(!(ids_type %in% c("ad","campaign"))){
-    stop("Íå âåðíî óêàçàí àðãóìåíò ids_type, äîïóñòèìûå çíà÷åíèÿ ad èëè campaign!")
+    stop("Set correctly ids_type, one of ad or campaign!")
   }
 	
-  #Ïðîâåðêà âåðñèè API
+  # set api_version
   api_version <- api_version_checker(api_version)
   
-  #Ôèëüòð ïî ñòàòóñó îáúÿâëåíèÿ
+  # sep ids
   ids <- paste0(ids, collapse = ",")
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  # result frame
   result <- data.frame()  
   
-  #Ôîðìèðóåì çàïðîñ
+  # query
   query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
@@ -51,6 +51,6 @@ vkGetAdPostsReach <- function(account_id = NULL,
                                     video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
                                     stringsAsFactors = F))}
   
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  # return result
   return(result)
 }

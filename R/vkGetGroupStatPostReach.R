@@ -4,11 +4,11 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
                                     access_token = NULL){
    
   if (is.null(access_token) | is.null(post_ids) | is.null(owner_id)){
-    stop("Аргументы owner_id, post_ids и access_token являются обязательными!")
+    stop("Arguments owner_id, post_ids and access_token is required!")
   }
   
   if (length(post_ids) > 300){
-    warning("Данные по статистике доступны только для 300 последних (самых свежих) записей на стене сообщества. Аргумент post_id будет сокращён до 300 элементов.")
+    warning("Statistics data is available only for the latest 300 (most recent) posts on the community wall. The post_id argument will be abbreviated to 300 elements.")
     post_ids <- head(post_ids[order(-post_ids)], 300)
   }
   
@@ -16,13 +16,13 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
     owner_id <- paste0("-", owner_id)
   }
   
-  # Устанавливаем версию API
+  # set api version
   api_version <- api_version_checker(api_version)
   
-  #?auoeuoe?o?uay oaaeeoa
+  # result
   result <- data.frame(stringsAsFactors = F)  
   
-  #Запускаем прогресс бар
+  # progress bar
   if (length(post_ids) > 1){      
     #Progress settings
     pb_step <- 1
@@ -34,25 +34,25 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     
-    # Проверка на наличие ошибок
+    # Рџcheck for error
     if (!is.null(dataRaw$error)){
       stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
     }
     
-    # Прикрепляем данные к результирующему дата фрейму
+    # union with result
     result <- rbind(result, cbind(do.call(cbind, dataRaw$response[[1]]), post_id))
-    # Пауза перед следующим запросом
+    # pause
     Sys.sleep(.5)
-    # Переставляем счётчик
+    # set pb
     if (exists("pb")){
       pb_step <- pb_step + 1
       setTxtProgressBar(pb, pb_step)}
   }
   
-  # Закрываем прогресс бар
+  # close pb
   if(exists("pb")){
   close(pb)
   }
-  # Возвращем результат
+  # return result
   return(result)
 }

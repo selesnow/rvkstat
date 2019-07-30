@@ -144,5 +144,5 @@ vkGetAdStatistics <- function(account_id = NULL,
     result$reach <- as.integer(result$reach)
     result$join_rate <- as.integer(result$join_rate)
   }
-  return(result)
+  return(result) 
 }

@@ -4,32 +4,33 @@ vkGetUserGroups <- function(user_id = NULL,
                             access_token = NULL){
   
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Set access_token in options, is require.")
   }
   
-  #Проверка версии API
+  # check api version
   api_version <- api_version_checker(api_version)
   
-  #Рещультирующая таблица
+  # Result frame
   result <- data.frame(stringsAsFactors = F)  
   
-  #Постраничная выгрузка
+  # Paging
   offset <- 0
   count <- 1000
   last_iteration <- FALSE
   
   while(last_iteration == FALSE){
-  #Формируем запрос
+  # Query
   query <- paste0("https://api.vk.com/method/groups.get?fields=city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,verified,site,can_create_topic",ifelse(is.null(user_id),"",paste0("&user_id=",user_id)),"&extended=1","&offset=",offset,"&count=1000",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  # Check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
+  # parsing
   for(i in 1:length(dataRaw$response$items)){
     
           result  <- rbind(result,
@@ -55,16 +56,16 @@ vkGetUserGroups <- function(user_id = NULL,
                                     photo_big                     = ifelse(is.null(dataRaw$response$items[[i]]$photo_big), NA,dataRaw$response$items[[i]]$photo_big),
                                     stringsAsFactors = F))}
   
-  #Переводим дату в нужный формат
+  # check for next iteration
   if(length(dataRaw$response) < 1000){
     last_iteration <- TRUE}
   
-  #Niauaai offet
+  # offset
   offset <- offset + count}
   
-  #Преобразуем дату в формат Windows
+  # convert to date
   result$start_date <- as.POSIXct(as.integer(result$start_date), origin="1970-01-01")
   
-  #Возвращаем результирующий дата фрейм
+  # return result
   return(result)
 }

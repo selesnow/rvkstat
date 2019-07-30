@@ -4,13 +4,14 @@ vkGetDbRegions <- function(country_id = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Access token isn't set")
   }
   
+  region_id <- NULL
   
-  #Фильтр по статусу объявления
+  #Р¤РёР»СЊС‚СЂ РїРѕ СЃС‚Р°С‚СѓСЃСѓ РѕР±СЉСЏРІР»РµРЅРёСЏ
   if(nchar(q) > 15 && !(is.null(q))){
-  stop(paste0("В аргументе q максимальная длина строки — 15 символов. Вы ввели щапрос состоящий из ", nchar(q)," символов!"))
+  stop(paste0("In query ( argument q ) max length is 15 characters. You enter ", nchar(q)," characters!"))
   }
   
   api_version <- api_version_checker(api_version)
@@ -21,29 +22,29 @@ vkGetDbRegions <- function(country_id = NULL,
     need_all <- 0
   }
   
-  #Результирующий дата фрейм
+  # result frame
   result  <- data.frame()
   
   
-  #Постраничная выгрузка
+  # paging
   offset <- 0
   count <- 1000
   last_iteration <- FALSE
   
   while(last_iteration == FALSE){
 
-  #Формируем запрос
+  # query
   query <- paste0("https://api.vk.com/method/database.getRegions?need_all=",need_all,"&country_id=",country_id,ifelse(!(is.null(region_id)),paste0("&region_id=",region_id),""),ifelse(!(is.null(q)),paste0("&q=",q),""),"&offset=",offset,"&count=",count,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Парсинг результата
+  # parsing
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(region_id            = ifelse(is.null(dataRaw$response[[i]]$region_id), NA,dataRaw$response[[i]]$region_id),
@@ -53,7 +54,7 @@ vkGetDbRegions <- function(country_id = NULL,
   if(length(dataRaw$response) < 1000){
     last_iteration <- TRUE}
   
-  #Смещаем offet
+  # offset
   offset <- offset + count
   }
   

@@ -9,26 +9,26 @@ vkGetAdsLayout <- function(account_id = NULL,
   
   
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Set access_token in options, is require.")
   }
   
-  #Проверка версии API
+  # API version
   api_version <- api_version_checker(api_version)
   
-  #Преобразуем фильтр по кампаниям в json массив
+  # camp filter to json format
   if(campaign_ids != "null"){
     campaign_ids <- toJSON(campaign_ids)
   }
   
-  #Преобразуем фильтр по кампаниям в json массив
+  # ad filter to json format
   if(ad_ids != "null"){
     ad_ids <- toJSON(ad_ids)
   }
   
-  #Фильтр по статусу объявления
+  # status filter
   include_deleted <- ifelse(include_deleted == T,1,0) 
   
-  #Результирующий дата фрейм
+  # result frame
   result  <- data.frame(id                  = integer(0),
                         campaign_id         = integer(0),
                         title               = character(0),
@@ -41,19 +41,19 @@ vkGetAdsLayout <- function(account_id = NULL,
                         stringsAsFactors = F)
   
   
-  #Формируем запрос
+  # query
   query <- paste0("https://api.vk.com/method/ads.getAdsLayout?account_id=",account_id,ifelse(is.null(client_id), "",paste0("&client_id=",client_id)),"&include_deleted=",include_deleted,"&campaign_ids=",campaign_ids,"&ad_ids=",ad_ids,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
     
-  #Парсинг результата
+  # parsing
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -68,19 +68,18 @@ vkGetAdsLayout <- function(account_id = NULL,
                                 image_src           = ifelse(is.null(dataRaw$response[[i]]$image_src), NA,dataRaw$response[[i]]$image_src),
                                 stringsAsFactors = F))}
   if(status_names == TRUE){
-  #Загружаем справочник форматов объвлений
-  ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
-  ad_formats <- read.csv(text = ad_formats, sep = ";")
-  result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
+    # formats names
+    #ad_formats <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.formats.csv", .encoding = "1251")
+    #ad_formats <- read.csv(text = ad_formats, sep = ";")
+    result$ad_format <- as.character(merge(result, ad_formats, by.x = "ad_format", by.y = "id", all.x = T)$format)
+    
+    # cost type names
+    #ad_cost_type <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.cost_type.csv", .encoding = "1251")
+    #ad_cost_type <- read.csv(text = ad_cost_type, sep = ";")
+    result$cost_type <- as.character(merge(result, ad_cost_type, by.x = "cost_type", by.y = "id", all.x = T)$cost_type_name)
+  }
   
-  #Загружаем справочник типов оплат
-  ad_cost_type <- getURL("https://raw.githubusercontent.com/selesnow/rvkstat/master/Dictionary/ad.cost_type.csv", .encoding = "1251")
-  ad_cost_type <- read.csv(text = ad_cost_type, sep = ";")
-  result$cost_type <- as.character(merge(result, ad_cost_type, by.x = "cost_type", by.y = "id", all.x = T)$cost_type_name)}
-  
-  #Возвращаем результат
+  # return result
   return(result)
-  
-  
-  
+
 }

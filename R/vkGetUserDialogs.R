@@ -9,13 +9,13 @@ vkGetUserDialogs <- function(offset = NULL,
                              access_token = NULL){
   
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Set access_token in options, is require.")
   }
 
-  #Проверка версии API
+  # set api version
   api_version <- api_version_checker(api_version)
   
-  #Собираем параметры
+  # collect params
   params <- c()
   
   for(param in ls()[! ls() %in% c("params","api_version")]){
@@ -26,7 +26,7 @@ vkGetUserDialogs <- function(offset = NULL,
   
   params <- paste0(params, collapse = "&")
   
-  #Результирующий дата фрейм
+  # result frame
   result  <- data.frame(id                  = integer(0),
                         date                = as.Date(character()),
                         out                 = integer(0),
@@ -37,19 +37,19 @@ vkGetUserDialogs <- function(offset = NULL,
                         stringsAsFactors = F)
   
  
-  #Формируем запрос
+  # query
   query <- paste0("https://api.vk.com/method/messages.getDialogs?",params,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
   
-  #Парсинг результата
+  # parsing
   for(i in 1:length(dataRaw$response$items)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response$items[[i]]$message$id), NA,dataRaw$response$items[[i]]$message$id),
@@ -61,8 +61,8 @@ vkGetUserDialogs <- function(offset = NULL,
                                 body                = ifelse(is.null(dataRaw$response$items[[i]]$message$body), NA,dataRaw$response$items[[i]]$message$body),
                                 random_id           = ifelse(is.null(dataRaw$response$items[[i]]$message$random_id), NA,dataRaw$response$items[[i]]$message$random_id),
                                 stringsAsFactors = F))}
-   #Конвертируем дату
+   # convert date
    result$date <- as.POSIXct(result$date, origin="1970-01-01")
   
-  #Возвращаем результат
+  # return result
   return(result)}

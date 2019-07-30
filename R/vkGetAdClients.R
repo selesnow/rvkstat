@@ -3,25 +3,25 @@ vkGetAdClients <- function(account_id = NULL,
                            access_token = NULL){
 
   if(is.null(access_token)){
-    stop("�� �������� access_token, ���� �������� �������� ������������.")
+    stop("Set access_token in options, is require.")
   }
   
-  #Ðåçóëüòèðóþùèé äàòà ôðåéì
+  # result frame
   result  <- data.frame()
   
   
-  #Ôîðìèðóåì çàïðîñ
+  # query
   query <- paste0("https://api.vk.com/method/ads.getClients?account_id=",account_id,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Ïðîâåðêà îòâåòà íà îøèáêè
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  #Ïàðñèíã ðåçóëüòàòà
+  # parsing
   for(i in 1:length(dataRaw$response)){
     result  <- rbind(result,
                      data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
@@ -30,7 +30,7 @@ vkGetAdClients <- function(account_id = NULL,
                                 all_limit           = ifelse(is.null(dataRaw$response[[i]]$all_limit), NA,dataRaw$response[[i]]$all_limit),
                                 stringsAsFactors = F))}
   
-    #Ïðåîáðàçîâàíèå â ÷èñëà
+  # convert
   result$day_limit   <- as.numeric(result$day_limit)
   result$all_limit   <- as.numeric(result$all_limit)
   

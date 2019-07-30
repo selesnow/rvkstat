@@ -5,28 +5,28 @@ vkGetUserWall <- function(user_id = NULL,
                           access_token = NULL){
   
   if(is.null(access_token)){
-    stop("Íå çàïîëíåí access_token, ýòîò àðãóìåíò ÿâëÿåòñÿ îáÿçàòåëüíûì.")
+    stop("Set access_token in options, is require.")
   }
   
-  #Ïðîâåðêà âåðñèè API
+  # set api version
   api_version <- api_version_checker(api_version)
   
-  #Ðåùóëüòèðóþùàÿ òàáëèöà
+  # result frame
   result <- data.frame(stringsAsFactors = F)  
   
-  #Ïîñòðàíè÷íàÿ âûãðóçêà
+  # paging
   offset <- 0
   count <- 100
   last_iteration <- FALSE
   
   while(last_iteration == FALSE){
-    #Oi?ie?oai cai?in
+    # query
     query <- paste0("https://api.vk.com/method/wall.get?extended=1",ifelse(is.null(user_id),"",paste0("&owner_id=",user_id)),ifelse(is.null(domain),"",paste0("&domain=",domain)),"&offset=",offset,"&count=100",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
     answer <- GET(query)
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     
-    #I?iaa?ea ioaaoa ia ioeaee
+    # check for error
     if(!is.null(dataRaw$error)){
       stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
     }
@@ -48,11 +48,10 @@ vkGetUserWall <- function(user_id = NULL,
                                   attachment_type               = ifelse(is.null(dataRaw$response$wall[[i]]$attachment$type), NA,dataRaw$response$wall[[i]]$attachment$type),
                                   stringsAsFactors = F))}
     
-    #Ia?aaiaei aaoo a io?iue oi?iao
     if(length(dataRaw$response$wall) < 100){
       last_iteration <- TRUE}
     
-    #Niauaai offet
+    # offset
     offset <- offset + count
     Sys.sleep(0.5)
     
@@ -75,18 +74,17 @@ vkGetUserWall <- function(user_id = NULL,
                                   attachment_type               = ifelse(is.null(dataRaw$response$items[[i]]$attachment$type), NA,dataRaw$response$items[[i]]$attachment$type),
                                   stringsAsFactors = F))}
     
-    #Ia?aaiaei aaoo a io?iue oi?iao
     if(length(dataRaw$response$items) < 100){
       last_iteration <- TRUE}
     
-    #Niauaai offet
+    # offset
     offset <- offset + count
     Sys.sleep(0.5)
   }
   }
   
-  #Ïðåîáðàçóåì äàòó â  ôîðìàò Windows
+  # convert to date
   result$date <- as.POSIXct(as.integer(result$date), origin="1970-01-01")
-  #Âîçâðàùàåì ðåçóëüòèðóþùèé äàòà ôðåéì
+  # return result
   return(result)
 }

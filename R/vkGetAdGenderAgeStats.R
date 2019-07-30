@@ -7,16 +7,16 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
 								  api_version  = NULL,
                                   access_token = NULL){
   if(is.null(access_token)){
-    stop("Не заполнен access_token, этот аргумент является обязательным.")
+    stop("Set access_token in options, is require.")
   }
   
   if(!(period %in% c("day","month","overall"))){
-    stop("Неверное значение в аргументе period, доступные значения day, month и overall")
+    stop("Set correctly period, one of: day, month or overall")
   }
   
   api_version <- api_version_checker(api_version)
   
-  #Переводим дату в месяц
+  # date to month
   if(period == "month"){
     date_from <- format(as.Date(as.character(date_from)), "%Y-%m")
     date_to   <- format(as.Date(as.character(date_to)), "%Y-%m")
@@ -27,26 +27,26 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
     date_to   <- 0
   }
   
-  #Фильтр по статусу объявления
+  # ids
   ids <- paste0(ids, collapse = ",")
   
-  #Рещультирующая таблица
+  # result
   result <- data.frame()  
   
-  #Формируем запрос
+  # query
   query <- paste0("https://api.vk.com/method/ads.getDemographics?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&period=",period,"&date_from=",date_from,"&date_to=",date_to,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")
   
-  #Проверка ответа на ошибки
+  # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
   for(i in 1:length(dataRaw$response)){
     
-    #Парсинг результата
+    # parsing
     if(period == "day"){
       for(dt in 1:length(dataRaw$response[[i]]$stats)){
         
@@ -104,8 +104,8 @@ vkGetAdGenderAgeStats <- function(account_id = NULL,
   }
   
 
-  #Разделяем пол и возрасты в разные столбцы
-  result <- separate(data = result, sex_age, c("gender", "age"), ";")
-  #Возвращаем результирующий дата фрейм
+  # separate age and gender
+  result <- separate(data = result, "sex_age", c("gender", "age"), ";")
+  # return result
   return(result)
 }
