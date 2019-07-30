@@ -1,11 +1,18 @@
 Package: rvkstat
 Type: Package
-Title: Load data from vk.com api into R
-Version: 2.5.8
-Date: 2019-04-25
+Title: Interface to API 'vk.com'
+Version: 2.6.2
+Date: 2019-07-26
 Author: Alexey Seleznev
-Maintainer: Alexey Seleznev <selesnow@mail.ru>
-Description: Load data from vk.com api about your communiti users and viewa by date into R
+Maintainer: Alexey Seleznev <selesnow@gmail.com>
+Description: Load data from vk.com api about your communiti users and views,
+    ads performance, post on user wall and etc. For more detail see 
+    <https://vk.com/dev/first_guide>.	
 License: GPL-2
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.5.0)
 Imports: RCurl, jsonlite, httr, tidyr
+Language: ru
+Encoding: UTF-8
+BugReports: https://github.com/selesnow/rvkstat/issues
+URL: http://selesnow.github.io/rvkstat
+License: GPL-2
