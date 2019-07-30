@@ -3,6 +3,9 @@
 </p>
 
 # rvkstat - R пакет для работы с API Вконтакте<a href='https:/selesnow.github.io/rvkstat'><img src='https://raw.githubusercontent.com/selesnow/rvkstat/master/inst/logo/rvkstat.png' align="right" height="139" /></a>
+[![Rdoc](http://www.rdocumentation.org/badges/version/rvkstat)](http://www.rdocumentation.org/packages/rvkstat)
+[![rpackages.io rank](http://www.rpackages.io/badge/rvkstat.svg)](http://www.rpackages.io/package/rvkstat)
+[![](https://cranlogs.r-pkg.org/badges/rvkstat)](https://cran.r-project.org/package=rvkstat)
 
 ## Краткое описание.
 
