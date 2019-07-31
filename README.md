@@ -36,7 +36,7 @@
 1. [Документация по работе с пакетом rvkstat](https://selesnow.github.io/rvkstat/).
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/rvkstat/issues). 
 3. [Список релизов](https://github.com/selesnow/rvkstat/releases).
-4. [Telegram канал])(https://t.me/R4marketing)
+4. [Telegram канал](https://t.me/R4marketing)
 5. [Группа в Вконтакте](https://vk.com/data_club).
 
 ### Автор пакета
