@@ -51,6 +51,7 @@ vkGetAdStatistics <- function(account_id = NULL,
   ids <- paste0(ids_list[[i]], collapse = ",")
   
   # check if flood control
+  Sys.sleep(2) #fuck vk
   query <- paste0("https://api.vk.com/method/ads.getFloodStats?account_id=",account_id,"&access_token=",access_token,"&v=",api_version)
   answer <- GET(query)
   stop_for_status(answer)
