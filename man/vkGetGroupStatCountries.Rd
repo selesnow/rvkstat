@@ -1,35 +1,36 @@
 \name{vkGetGroupStatCountries}
 \alias{vkGetGroupStatCountries}
-\title{Статистика посетителей сообщества вконтакте в разрезе стран.}
-\description{Функция vkGetGroupStatCountries позволяет получить данные о городе посетителей сообщества в разрезе дат.}
+\title{Statistics of The Vkontakte Community Visitors By Country.}
+\description{Allows you to get data about the city of community visitors by date.}
 \usage{
-vkGetGroupStatCountries(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL)
+vkGetGroupStatCountries(date_from = Sys.Date(), 
+                        date_to = Sys.Date(), 
+                        group_id = NULL, 
+                        access_token = NULL)
 }
 \arguments{
-  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{group_id}{Идентификатор сообщества.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{date_from}{The start date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{date_to}{The end date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{group_id}{Community ID.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
 }
-\value{Дата фрейм со статистикой по посетителям сообщества со следующими значениями:
-\item{1. Date}{дата за которую приведена статистика.}
-\item{2. Visitors}{количество уникальных посетителей.}
-\item{3. CountryID}{идентификатор страны.}
-\item{4. CountryCode}{двухбуквенный код страны (например, "RU").}
-\item{5. CountryName}{название страны.}
+\value{Date frame with statistics on community visitors with the following values:
+\item{Date}{date for which statistics is given.}
+\item{Visitors}{number of unique visitors.}
+\item{CountryID}{country identifier}
+\item{CountryCode}{two-letter country code (for example, "RU").}
+\item{CountryName}{country name.}
 }
 \author{Alexey Seleznev}
 \examples{
-##Авторизация в вк
+\dontrun{
+## auth
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Загрузка данных по пользователям в разрезе стран
+## load data
 communityDataCountry <- vkGetGroupStatCountries(date_from = "2016-01-01",
 											date_to = "2016-04-01",
 											group_id = 1,
 											access_token = my_tok$access_token)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

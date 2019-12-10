@@ -1,48 +1,55 @@
 \name{vkGetAdStatistics}
 \alias{vkGetAdStatistics}
-\title{Статистика по посещению сообщества в Вконтакте.}
-\description{Функция vkGetAdStatistics возвращает статистику показателей эффективности по рекламным объявлениям, кампаниям, клиентам или всему кабинету.}
+\title{Statistics of advertising in 'VKontakte'.}
+\description{returns performance statistics for advertisements, campaigns, customers, or the entire account.}
 \usage{
-vkGetAdStatistics(account_id = NULL, ids_type = "office", ids = NULL, period = "overall", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
+vkGetAdStatistics(account_id = NULL, ids_type = "office", ids = NULL,
+                 period = "overall", date_from = Sys.Date() - 30,
+                 date_to = Sys.Date(), api_version = NULL, access_token
+                 = NULL)
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
-  \item{ids_type}{Тип запрашиваемых объектов, которые перечислены в параметре ids. Допустимые значения ad — объявления, campaign — кампании, client — клиенты, office — кабинет.}
-  \item{ids}{Вектор id запрашиваемых объявлений, кампаний, клиентов или кабинета, в зависимости от того, что указано в параметре ids_type.}
-  \item{period}{Способ группировки данных по датам day — статистика по дням, month — статистика по месяцам, overall — статистика за всё время.Временные ограничения задаются аргументами date_from и date_to.}
-  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{account_id}{The ID of the advertising account, a list of all available advertising offices can be obtained using the function vkGetAdAccounts.}
+  \item{ids_type}{The type of objects requested that are listed in the ids parameter. Valid ad values are ads, campaign campaigns, client clients, office office.}
+  \item{ids}{Vector id of the requested ads, campaigns, clients or account, depending on what is specified in the ids_type parameter.}
+  \item{period}{The method of grouping data by date. day - statistics by days, month - statistics by months, overall - statistics for all time. Temporary restrictions are given by the arguments date_from and date_to.}
+  \item{date_from}{The starting date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{date_to}{The end date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. id}{id объекта из аргумента ids.}
-\item{2. day}{(если period равен day) день в формате YYYY-MM-DD.}
-\item{3. month}{(если period равен month) — день в формате YYYY-MM.}
-\item{4. day_from}{(если period равен overall) начальная дата отчётного периода.}
-\item{5. day_to}{(если period равен overall) конечная дата отчётного периода.}
-\item{6. type}{тип объекта из параметра ids_type.}
-\item{7. spent}{потраченные средства.}
-\item{8. impressions}{количество просмотров.}
-\item{9. clicks}{количество уникальных посетителей.}
-\item{10. reach}{(если ids_type равен ad или campaign и period равен day или month) — охват.}
-\item{11. video_views}{(если ids_type равен ad) — просмотры видеоролика (для видеорекламы).}
-\item{12. video_views_half}{(если ids_type равен ad) — просмотры половины видеоролика (для видеорекламы)}
-\item{13. video_views_full}{(если ids_type равен ad) — просмотры целого видеоролика (для видеорекламы).}
-\item{14. video_clicks_site}{(если ids_type равен ad) — переходы на сайт рекламодателя из видеорекламы (для видеорекламы).}
-\item{15. join_rate}{(если ids_type равен ad или campaign) — вступления в группу, событие, подписки на публичную страницу или установки приложения (только если в объявлении указана прямая ссылка на соответствующую страницу ВКонтакте).}
+\value{Date frame with advertising statistics with the following values:
+\item{1. id}{id of the object from the ids argument.}
+\item{2. day}{(if the period is equal to day) day in the format YYYY-MM-DD.}
+\item{3. month}{(if period is equal to month) - day in the format YYYY-MM.}
+\item{4. day_from}{(if period is overall) the start date of the reporting period.}
+\item{5. day_to}{(if period is overall) end date of the reporting period.}
+\item{6. type}{object type from the ids_type parameter.}
+\item{7. spent}{money spent.}
+\item{8. impressions}{number of views.}
+\item{9. clicks}{number of unique visitors.}
+\item{10. reach}{(if ids_type is ad or campaign and period is equal to day or month) - coverage.}
+\item{11. video_views}{(if ids_type is ad) - video views (for video ads).}
+\item{12. video_views_half}{(if ids_type is ad) - half the video views (for video ads)}
+\item{13. video_views_full}{(if ids_type is ad) - views of the whole video (for video ads).}
+\item{14. video_clicks_site}{(if ids_type is equal to ad) - transitions to the advertiserвЂ™s website from video ads (for video ads).}
+\item{15. join_rate}{(if ids_type is ad or campaign) - group membership, event, subscriptions to a public page or application settings (only if the ad contains a direct link to the corresponding VK page).}
 }
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1, 
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-#1.Получаем статиатику по рекламным кампаниям в разрезе дней
-##1.1. Получаем список рекламных кампаний
+# 1.Get a static message on advertising 
+# campaigns in the context of days
+## 1.1. We get a list of advertising campaigns
 camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
-##1.2. Получаем статистику по рекламным кампаниям
+## 1.2. We get statistics on advertising campaigns
 vk_stat_by_campaign <- vkGetAdStatistics(account_id = 1,
                                          ids_type = "campaign",
                                          ids = camp$id ,
@@ -52,10 +59,10 @@ vk_stat_by_campaign <- vkGetAdStatistics(account_id = 1,
                                          access_token = my_tok$access_token)
 										
 										
-#2.Получаем статиатику по объявлениям в разрезе месяцев
-##2.1. Получаем список рекламных кампаний
+# 2.Receive a static message on the ads in the context of months
+## 2.1. We get a list of advertising campaigns
 ads <- vkGetAds(account_id = account_id, access_token = my_tok$access_token)
-##2.2. Получаем статистику по объявлениям
+## 2.2. Get ad statistics
 vk_stat_by_ads <- vkGetAdStatistics(account_id = 1,
                                     ids_type = "ad",
                                     ids = ads$id ,
@@ -65,7 +72,8 @@ vk_stat_by_ads <- vkGetAdStatistics(account_id = 1,
                                     access_token = my_tok$access_token)
 			
 			
-#3.Получаем общую статиатику по рекламному кабинету, в данном примере подразумевается что id рекламного кабинета равно 1
+# 3.Receive the general static of the advertising cabinet, in this example 
+# it is assumed that the id of the advertising cabinet is 1
 vk_stat_by_account <- vkGetAdStatistics(account_id = 1,
                                         ids_type = "office",
                                         ids = 1,
@@ -75,5 +83,4 @@ vk_stat_by_account <- vkGetAdStatistics(account_id = 1,
                                         access_token = my_tok$access_token)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

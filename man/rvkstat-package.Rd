@@ -20,12 +20,5 @@ The DESCRIPTION file:
 
 Maintainer: \packageMaintainer{rvkstat}
 }
-\references{
-
-}
 
 \keyword{ package }
-
-\examples{
-
-}

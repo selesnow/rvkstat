@@ -1,41 +1,43 @@
 \name{vkGetUserWall}
 \alias{vkGetUserWall}
-\title{Список сообществ Вконтакте.}
-\description{Функция vkGetUserWall Возвращает список сообществ указанного пользователя.}
+\title{Get Posts From Userwall.}
+\description{Return posts list from userwall 'Vkontakte'.}
 \usage{
-vkGetUserWall(user_id = NULL, domain = NULL, filter = NULL, access_token = NULL)
+vkGetUserWall(user_id = NULL, domain = NULL, filter = NULL,
+              api_version = NULL, access_token = NULL)
 }
 \arguments{
-  \item{user_id}{идентификатор пользователя, для которого необходимо получить список друзей. Если параметр не задан, то считается, что он равен идентификатору текущего пользователя.}
-  \item{domain}{короткий адрес пользователя или сообщества.}
-  \item{filter}{определяет, какие типы записей на стене необходимо получить. Возможные значения: suggests — предложенные записи на стене сообщества , postponed — отложенные записи , owner — записи владельца стены, others — записи не от владельца стены, all — все записи на стене (owner + others), По умолчанию: all. }
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
+  \item{domain}{short address of user or community.}
+  \item{filter}{determines what types of posts on the wall should be received. Possible values: suggests вЂ” suggested entries on the community wall, postponed вЂ” deferred entries, owner вЂ” owner wall entries, others вЂ” not wall owner entries, all вЂ” all entries on the wall (owner + others), Default: all. }
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version for send request.}
 }
-\value{Дата фрейм со следующими значениями:
-\item{1. id}{идентификатор записи.}
-\item{2. from_id}{идентификатор автора записи.}
-\item{3. to_id}{идентификатор владельца стены, на которой размещена запись.}
-\item{4. date}{время публикации записи}
-\item{5. post_type}{тип записи, может принимать следующие значения: post, copy, reply, postpone, suggest.}
-\item{6. text}{текст записи.}
-\item{7. can_delete}{информация о том, может ли текущий пользователь удалить запись (1 — может, 0 — не может).}
-\item{8. comments_count}{количество комментариев.}
-\item{9. likes_count}{ число пользователей, которым понравилась запись.}
-\item{10. reposts_count}{число пользователей, скопировавших запись.}
-\item{11. attachment_type}{тип медиавложения записи (фотографии, ссылки и т.п.)}
+\value{Date frame with the following values:
+  \item{1. id}{record ID.}
+  \item{2. from_id}{identifier of the post author.}
+  \item{3. to_id}{identifier of the owner of the wall on which the entry is placed.}
+  \item{4. date}{post publication time}
+  \item{5. post_type}{record type, can be one of the following values: post, copy, reply, postpone, suggest.}
+  \item{6. text}{text entry.}
+  \item{7. can_delete}{information about whether the current user can delete a post (1 вЂ” maybe, 0 вЂ” cannot).}
+  \item{8. comments_count}{number of comments.}
+  \item{9. likes_count}{the number of users who liked the post.}
+  \item{10. reposts_count}{number of users who copied the record.}
+  \item{11. attachment_type}{type of media attachment of the record (photos, links, etc.)}
 }
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
+\dontrun{
+## auth
 my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем получаем сообщения со стены пользователя Вконтакте.
+## get posts
 my_vk_wall <- vkGetUserWall(user_id = 7437995,
                             access_token = my_tok$access_token)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

@@ -1,34 +1,34 @@
 \name{vkGetGroupStatAge}
 \alias{vkGetGroupStatAge}
-\title{Статистика по возрастным группам посетителей сообщества вконтакте}
-\description{Функция vkGetGroupStatAge предназначена для загрузки данных о посетителях сообщества в разрезе возрастных групп (12-18, 18-21, 21-24, 24-27, 27-30, 30-35, 35-45, 45-100) по датам.}
+\title{Community Statistics by User Age Bucket}
+\description{Load data about community visitors by age group (12-18, 18-21, 21-24, 24-27, 27-30, 30-35, 35-45, 45-100) on dates.}
 \usage{
-vkGetGroupStatAge(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL)
+vkGetGroupStatAge(date_from = Sys.Date(), 
+                  date_to = Sys.Date(), 
+                  group_id = NULL, access_token = NULL)
 }
 \arguments{
-  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{group_id}{Идентификатор сообщества.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{date_from}{The starting date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{date_to}{The end date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{group_id}{Community ID.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
 }
-\value{Дата фрейм со статистикой по посетителям сообщества со следующими значениями:
-\item{1. Date}{дата за которую приведена статистика.}
-\item{2. Visitors}{количество уникальных посетителей.}
-\item{3. AgeGroup}{возрастной интервал.}
+\value{Date frame with statistics on community visitors with the following values:
+\item{1. Date}{the date for which statistics are given.}
+\item{2. Visitors}{number of unique visitors.}
+\item{3. AgeGroup}{age interval.}
 }
 \author{Alexey Seleznev}
 
 \examples{
-##Авторизация в вк
+\dontrun{
+## auth
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получить статистику по возрастным группам посетителеф
+## Get statistics on age groups of visitors
 communityDataAge <- vkGetGroupStatAge(date_from = "2016-01-01",
                                       date_to = "2016-04-01",
                                       group_id = 1,
                                       access_token = my_tok$access_token)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

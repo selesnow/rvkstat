@@ -1,23 +1,23 @@
 \name{vkAuth}
 \alias{vkAuth}
-\title{Авторизация в Вконтакте}
-\description{Функция vkAuth даёт возможность получить токен для доступа к API используя схему Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
+\title{Authorization in 'Vkontakte'}
+\description{Allows you to get a token to access the API using the scheme Authorization Code Flow - https://vk.com/dev/authcode_flow_user}
 \usage{
 vkAuth(app_id = NULL, app_secret = NULL, apiVersion = "5.68")
 }
 \arguments{
-  \item{app_id}{ID приложения, найти его можно на странице настройки приложения.}
-  \item{app_secret}{Защищённый ключ приложения, найти его можно на странице настройки приложения.}
-  \item{apiVersion}{Версия API.}
+  \item{app_id}{Application ID, you can find it on the application settings page.}
+  \item{app_secret}{Secure application key, you can find it on the application settings page.}
+  \item{apiVersion}{API version.}
 }
-\value{Список учётных данных для работы с API Вконтакте}
+\value{The list of credentials to work with the API Vkontakte}
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Auth in VK
+\dontrun{
+## Auth in VK
 my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

@@ -1,31 +1,35 @@
 \name{vkGetAdClients}
 \alias{vkGetAdClients}
-\title{Список клиентов Вконтакте.}
-\description{Функция vkGetAdClients Возвращает список клиентов рекламного агентства.}
+\title{Client list.}
+\description{Returns a list of advertising agency clients.}
 \usage{
-vkGetAdClients(account_id = NULL, access_token = NULL)
+vkGetAdClients(account_id = NULL, api_version = NULL, 
+               access_token = NULL)
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. id}{идентификатор клиента.}
-\item{2. name}{название клиента.}
-\item{3. day_limit}{дневной лимит клиента в рублях.}
-\item{4. all_limit}{общий лимит клиента в рублях.}
+\value{Date frame with community statistics with the following values:
+\item{id}{client id.}
+\item{name}{customer name.}
+\item{day_limit}{client's daily limit in rubles.}
+\item{all_limit}{total customer limit in rubles.}
 }
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1, 
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем список клиентов из агентского аккаунта
-vk_clients <- vkGetAdClients(account_id = 1, access_token = my_tok$access_token)
+## We get a list of clients from the agent account
+vk_clients <- vkGetAdClients(account_id = 1, 
+                             access_token = my_tok$access_token)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

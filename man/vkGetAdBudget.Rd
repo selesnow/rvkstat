@@ -1,25 +1,28 @@
 \name{vkGetAdBudget}
 \alias{vkGetAdBudget}
-\title{Получение текущего бюджета рекламного кабинета Вконтакте.}
-\description{Функция vkGetAdBudget возвращает текущий балланс средств рекламного кабинета Вконтакте.}
+\title{Budget of Advertising Cabinet 'Vkontakte'.}
+\description{Returns the current balance of the advertising account Vkontakte.}
 \usage{
-vkGetAdBudget(account_id = NULL, access_token = NULL)
+vkGetAdBudget(account_id = NULL, access_token = NULL, 
+              api_version = NULL)
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version.}
 }
-\value{Остаток средств рекламного кабинета вконтакте в виде числового значения.}
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1, 
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-#Получаем остаток средст из рекламного кабинета
-vk_budget <- vkGetAdBudget(account_id = 1, access_token = my_tok$access_token)
+# Receive the rest of means from an advertising office
+vk_budget <- vkGetAdBudget(account_id = 1, 
+                           access_token = my_tok$access_token)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

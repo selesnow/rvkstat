@@ -1,49 +1,50 @@
 \name{vkGetUserGroups}
 \alias{vkGetUserGroups}
-\title{Список сообществ Вконтакте.}
-\description{Функция vkGetUserGroups Возвращает список сообществ указанного пользователя.}
+\title{List of 'Vkontakte' communities.}
+\description{Returns the list of communities for the specified user.}
 \usage{
-vkGetUserGroups(user_id = NULL, filter = NULL, access_token = NULL)
+vkGetUserGroups(user_id = NULL, filter = NULL, api_version = NULL,
+                 access_token = NULL)
 }
 \arguments{
-  \item{user_id}{идентификатор пользователя, для которого необходимо получить список друзей. Если параметр не задан, то считается, что он равен идентификатору текущего пользователя.}
-  \item{filter}{список фильтров сообществ, которые необходимо вернуть, перечисленные через запятую. Доступны значения admin, editor, moder, groups, publics, events. По умолчанию возвращаются все сообщества пользователя. При указании фильтра admin будут возвращены сообщества, в которых пользователь является администратором, editor — администратором или редактором, moder — администратором, редактором или модератором.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
+  \item{filter}{A list of community filters to be returned, separated by commas. The values are admin, editor, moder, groups, publics, events. By default, all user communities are returned. If the admin filter is specified, the communities in which the user is an administrator, editor - administrator or editor, moder - administrator, editor or moderator will be returned.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version for send request.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. gid}{идентификатор сообщества.}
-\item{2. name}{название сообщества.}
-\item{3. screen_name}{короткий адрес, например, apiclub.}
-\item{4. is_closed}{является ли сообщество закрытым. Возможные значения: 0 — открытое, 1 — закрытое, 2 — частное}
-\item{5. type}{тип сообщества: group — группа, page — публичная страница, event — мероприятие.}
-\item{6. description}{текст описания сообщества.}
-\item{7. wiki_page}{название главной вики-страницы.}
-\item{8. members_count}{количество участников.}
-\item{9. start_date}{дата основания.}
-\item{10. can_post}{информация о том, может ли текущий пользователь оставлять записи на стене сообщества. Возможные значения: 1 — может, 0 — не может.}
-\item{11. can_see_all_posts}{информация о том, разрешено ли видеть чужие записи на стене группы. Возможные значения: 1 — может, 0 — не может.}
-\item{12. activity}{строка состояния публичной страницы. У групп возвращается строковое значение, открыта ли группа или нет, а у событий дата начала.}
-\item{13. status}{статус сообщества.}
-\item{14. fixed_post}{идентификатор закрепленной записи.}
-\item{15. verified}{информация о том, верифицировано ли сообщество. Возможные значения: 1 — может, 0 — не может.}
-\item{16. site}{адрес сайта из поля «веб-сайт» в описании сообщества.}
-\item{17. can_create_topic}{информация о том, может ли текущий пользователь создать новое обсуждение в группе. Возможные значения: 1 — может,  0 — не может.}
-\item{18. photo}{URL главной фотографии с размером 50x50px.}
-\item{19. photo_medium}{URL главной фотографии с размером 100х100px.}
-\item{20. photo_big}{URL главной фотографии в максимальном размере.}
+\value{Date frame with community statistics with the following values:
+  \item{gid}{community id.}
+  \item{name}{community name.}
+  \item{screen_name}{short address, for example, apiclub.}
+  \item{is_closed}{is the community closed. Possible values: 0 - open, 1 - closed, 2 - private}
+  \item{type}{community type: group - group, page - public page, event - event.}
+  \item{description}{community description text.}
+  \item{wiki_page}{name of the main wiki page.}
+  \item{members_count}{number of members.}
+  \item{start_date}{date of foundation.}
+  \item{can_post}{information about whether the current user can post on the community wall. Possible values: 1 - can, 0 - can not.}
+  \item{can_see_all_posts}{information about whether it is allowed to see other people's posts on the group wall. Possible values: 1 - can, 0 - can not.}
+  \item{activity}{public page status bar. For groups, a string value is returned, whether the group is open or not, and for events the start date.}
+  \item{status}{community status.}
+  \item{fixed_post}{pinned post ID.}
+  \item{verified}{information about whether the community is verified. Possible values: 1 - can, 0 - can not.}
+  \item{site}{the address of the site from the "web site" field in the community description.}
+  \item{can_create_topic}{information on whether the current user can create a new discussion in the group. Possible values: 1 - can, 0 - can not.}
+  \item{photo}{URL of the main photo with a size of 50x50px.}
+  \item{photo_medium}{URL of the main photo with a size of 100x100px.}
+  \item{photo_big}{The URL of the main photo in the maximum size.}
 }
 \author{
 Alexey Seleznev
 }
-
 \examples{
-##Авторизация в вк
+\dontrun{
+## auth
 my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем список групп в которы состоит пользователь пользователя
+## get groups
 my_vk_community <- vkGetUserGroups(user_id = 7437995,
                                    access_token = my_tok$access_token)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

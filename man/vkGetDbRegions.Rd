@@ -1,40 +1,43 @@
 \name{vkGetDbRegions}
 \alias{vkGetDbRegions}
-\title{Список стран.}
-\description{Функция vkGetDbRegions возвращает список стран.}
+\title{Regions list.}
+\description{Get regions dictionary.}
 \usage{
-vkGetDbRegions(country_id = NULL, q = NULL, access_token = NULL)
+vkGetDbRegions(country_id = NULL, q = NULL, api_version = NULL,
+                 access_token = NULL)
 }
 \arguments{
-  \item{country_id}{идентификатор страны, полученный с помощью функции vkGetDbCountries.}
-  \item{q}{строка поискового запроса. Например, Лен. Максимальная длина строки — 15 символов.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{country_id}{country identifier obtained using the vkGetDbCountries function.}
+  \item{q}{search query string. For example, Len. The maximum string length is 15 characters.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
+  \item{api_version}{Vkontakte API version for send rquest.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. region_id}{идентификатор региона.}
-\item{2. title}{название региона.}
+\value{Data frame contains community statistics with the following values:
+\item{1. region_id}{region identifier.}
+\item{2. title}{name of the region.}
 }
 \details{
-Если не задан параметр q, то будет возвращен список всех регионов в заданной стране. Если задан параметр q, то будет возвращен список регионов, которые релевантны поисковому запросу.
+If the q parameter is not specified, then a list of all regions in the given country will be returned. If the q parameter is specified, a list of regions that are relevant to the search query will be returned.
 }
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1, 
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем список городов для Украины, т.к. id Украины = 2
+## Get a list of regions for Ukraine, because Ukraine id = 2
 vk_regions  <- vkGetDbRegions(country_id = 2,
                               access_token = my_tok$access_token)
 
-##Получаем список городов Украины по запросу "Оде"
+##get a list of cities of Ukraine on request "Ode"
 vk_regions_search  <- vkGetDbRegions(country_id = 2,
-                                     q = "Оде",
+                                     q = "Ode",
                                      access_token = my_tok$access_token)
 
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

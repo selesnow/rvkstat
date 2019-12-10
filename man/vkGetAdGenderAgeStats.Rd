@@ -1,43 +1,49 @@
 \name{vkGetAdGenderAgeStats}
 \alias{vkGetAdGenderAgeStats}
-\title{Статистика по охвату аудитории в разрезе возраста и пола.}
-\description{Функция vkGetAdGenderAgeStats возвращает статистику по охвату аудитории по рекламным кампания и объявлениям по возрасту и полу.}
+\title{Statistics on Audience Coverage by Age and Gender.}
+\description{Returns statistics on the reach of advertising campaigns and ads by age and sex.}
 \usage{
-vkGetAdGenderAgeStats(account_id = NULL, ids_type = "campaign", ids = NULL, period = "day", date_from = Sys.Date() - 30, date_to = Sys.Date(), access_token = NULL)
+vkGetAdGenderAgeStats(account_id = NULL, ids_type = "campaign", ids = NULL,
+                 period = "day", date_from = Sys.Date() - 30, date_to =
+                 Sys.Date(), api_version = NULL, access_token = NULL)
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
-  \item{ids_type}{Тип запрашиваемых объектов, которые перечислены в параметре ids. Допустимые значения ad — объявления, campaign — кампании.}
-  \item{ids}{Вектор id запрашиваемых объявлений, кампаний, клиентов или кабинета, в зависимости от того, что указано в параметре ids_type.}
-  \item{period}{Способ группировки данных по датам day — статистика по дням, month — статистика по месяцам, overall — статистика за всё время.Временные ограничения задаются аргументами date_from и date_to.}
-  \item{date_from}{Начальная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{date_to}{Конечная дата выводимой статистики в формате YYYY-MM-DD.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
+  \item{ids_type}{The type of objects requested, which are listed in the ids parameter. Valid ad values are ads, campaigns are campaigns.}
+  \item{ids}{Vector id of the requested ads, campaigns, clients or account, depending on what is specified in the ids_type parameter.}
+  \item{period}{The method of grouping data by date. day - statistics by days, month - statistics by months, overall - statistics for all time. Temporary restrictions are given by the arguments date_from and date_to.}
+  \item{date_from}{The starting date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{date_to}{The end date of the displayed statistics in the format YYYY-MM-DD.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
+  \item{api_version}{Vkontakte API version.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. id}{id объекта из аргумента ids.}
-\item{2. day}{(если period равен day) день в формате YYYY-MM-DD.}
-\item{3. month}{(если period равен month) — день в формате YYYY-MM.}
-\item{4. day_from}{(если period равен overall) начальная дата отчётного периода.}
-\item{5. day_to}{(если period равен overall) конечная дата отчётного периода.}
-\item{6. type}{тип объекта из параметра ids_type.}
-\item{7. gender}{пол.}
-\item{8. age}{возраст.}
-\item{9. impressions_rate}{часть аудитории, просмотревшая объявление, от 0 до 1.}
-\item{10. clicks_rate}{(часть аудитории, кликнувшая по объявлению, от 0 до 1.}
+\value{Date frame with community statistics with the following values:
+\item{1. id}{id of the object from the ids argument.}
+\item{2. day}{(if the period is equal to day) day in the format YYYY-MM-DD.}
+\item{3. month}{(if period is equal to month) - day in the format YYYY-MM.}
+\item{4. day_from}{(if period is overall) the start date of the reporting period.}
+\item{5. day_to}{(if period is overall) end date of the reporting period.}
+\item{6. type}{object type from the ids_type parameter.}
+\item{7. gender}{gender.}
+\item{8. age}{age.}
+\item{9. impressions_rate}{part of the audience that viewed the ad, from 0 to 1.}
+\item{10. clicks_rate}{(the part of the audience that clicked on the ad, from 0 to 1.}
 }
 \author{
 Alexey Seleznev
 }
 
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1, 
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-#1.Получаем статиатику по охвату аудитории по полу, рекламным кампаниям в разрезе дней
-##1.1. Получаем список рекламных кампаний
+# 1.Get a static message on audience coverage by sex, 
+# advertising campaigns in the context of days
+## 1.1. We get a list of advertising campaigns
 camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
-##1.2. Получаем статистику по рекламным кампаниям
+## 1.2. We get statistics on advertising campaigns
 vk_ad_gender_age_stat_day <- vkGetAdGenderAgeStats(account_id = 1,
                                                    ids_type = "campaign",
                                                    ids = camp$id ,
@@ -47,10 +53,10 @@ vk_ad_gender_age_stat_day <- vkGetAdGenderAgeStats(account_id = 1,
                                                    access_token = my_tok$access_token)
 										
 										
-#2.Получаем статиатику по объявлениям в разрезе месяцев
-##2.1. Получаем список рекламных кампаний
+# 2.Receive a static message on the ads in the context of months
+## 2.1. We get a list of advertising campaigns
 ads <- vkGetAds(account_id = account_id, access_token = my_tok$access_token)
-##2.2. Получаем статистику по объявлениям
+## 2.2. Get ad statistics
 vk_ad_gender_age_stat_month <- vkGetAdGenderAgeStats(account_id = 1,
                                                      ids_type = "ad",
                                                      ids = ads$id ,
@@ -60,10 +66,11 @@ vk_ad_gender_age_stat_month <- vkGetAdGenderAgeStats(account_id = 1,
                                                      access_token = my_tok$access_token)
 			
 			
-#3.Получаем статиатику по охвату аудитории по рекламным кампаниям без временной разбивки
-##3.1. Получаем список рекламных кампаний
+# 3.Get a static message on reaching the audience 
+# for advertising campaigns without a temporary breakdown
+## 3.1. We get a list of advertising campaigns
 camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
-##3.2. Получаем статистику по рекламным кампаниям
+## 3.2. We get statistics on advertising campaigns
 vk_ad_gender_age_stat_total <- vkGetAdGenderAgeStats(account_id = 1,
                                                      ids_type = "campaign",
                                                      ids = camp$id ,
@@ -73,5 +80,4 @@ vk_ad_gender_age_stat_total <- vkGetAdGenderAgeStats(account_id = 1,
                                                      access_token = my_tok$access_token)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

@@ -1,57 +1,57 @@
 \name{vkGetUserFriends}
 \alias{vkGetUserFriends}
-\title{Список друзей Вконтакте.}
-\description{Функция vkGetUserFriends возвращает список идентификаторов друзей пользователя и расширенную информацию о друзьях пользователя.}
+\title{Frend List in 'Vkontakte'}
+\description{Returns a list of user friends identifiers and extended information about the user's friends.}
 \usage{
-vkGetUserFriends(user_id = NULL, name_case = "nom", access_token = NULL)
+vkGetUserFriends(user_id = NULL, access_token = NULL, api_version =
+                 NULL, name_case = "nom")
 }
 \arguments{
-  \item{user_id}{идентификатор пользователя, для которого необходимо получить список друзей. Если параметр не задан, то считается, что он равен идентификатору текущего пользователя.}
-  \item{name_case}{падеж для склонения имени и фамилии пользователя. Возможные значения: именительный – nom, родительный – gen, дательный – dat, винительный – acc, творительный – ins, предложный – abl. По умолчанию nom.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
+  \item{name_case}{case for declining the user's first and last name. Possible values: nominative - nom, genitive - gen, dative - dat, accusative - acc, ablative - ins, prepositional - abl. Default nom.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{api_version}{Vkontakte API version for send rquest.}
 }
-\value{Дата фрейм со статистикой сообщества со следующими значениями:
-\item{1. user_id}{идентификатор пользователя.}
-\item{2. first_name}{имя.}
-\item{3. last_name}{фамилия.}
-\item{4. gender}{пол.}
-\item{5. nickname}{	никнейм (отчество) пользователя.}
-\item{6. domain}{короткий адрес страницы. Возвращается строка, содержащая короткий адрес страницы (например, andrew). Если он не назначен, возвращается "id"+user_id, например, id35828305.}
-\item{7. bdate}{дата рождения. Возвращается в формате D.M.YYYY или D.M (если год рождения скрыт). Если дата рождения скрыта целиком, поле отсутствует в ответе.}
-\item{8. city}{id города, название города можно получить с помощью функции vkGetDbCities.}
-\item{9. country}{id страны, название страны можно получить с помощью функции vkGetDbCountries.}
-\item{10. photo_50}{url квадратной фотографии пользователя, имеющей ширину 50 пикселей. В случае отсутствия у пользователя фотографии возвращается http://vk.com/images/camera_c.gif.}
-\item{11. photo_100}{url квадратной фотографии пользователя, имеющей ширину 100 пикселей. В случае отсутствия у пользователя фотографии возвращается http://vk.com/images/camera_b.gif.}
-\item{12. photo_200_orig}{url фотографии пользователя, имеющей ширину 200 пикселей. В случае отсутствия у пользователя фотографии возвращается http://vk.com/images/camera_a.gif.}
-\item{13. has_mobile}{информация о том, известен ли номер мобильного телефона пользователя. Возвращаемые значения: 1 — известен, 0 — не известен.}
-\item{14. online}{информация о том, находится ли пользователь сейчас на сайте.}
-\item{15. can_post}{информация о том, может ли текущий пользователь оставлять записи на стене. Возможные значения: 1 — может, 0 — не может.}
-\item{16. can_see_all_posts}{информация о том, может ли текущий пользователь видеть чужие записи на стене. Возможные значения: 1 — может,  0 — не может.}
-\item{17. can_write_private_message}{информация о том, может ли текущий пользователь отправить личное сообщение. Возможные значения: 1 — может,  0 — не может.}
-\item{18. status}{статус пользователя. Возвращается строка, содержащая текст статуса, расположенного в профиле под именем пользователя.}
-\item{19. last_seen_time}{дата и время время последнего посещения.}
-\item{20. last_seen_platform}{тип платформы, через которую был осуществлён последний вход. Возможные значения: 1 — мобильная версия, 2 — приложение для iPhone, 3 — приложение для iPad, 4 — приложение для Android, 5 — приложение для Windows Phone, 6 — приложение для Windows 10, 7 — полная версия сайта.}
-\item{21. university}{идентификатор университета.}
-\item{22. university_name}{название университета.}
-\item{23. faculty}{идентификатор факультета.}
-\item{24. faculty_name}{название факультета.}
-\item{25. graduation}{год окончания.}
-\item{26. education_form}{форма обучения}
-\item{27. education_status}{ статус (например, "Выпускник (специалист)")}
-\item{28. relation}{семейное положение пользователя. Возможные значения: 1 — не женат/не замужем, 2 — есть друг/есть подруга, 3 — помолвлен/помолвлена, 4 — женат/замужем, 5 — всё сложно, 6 — в активном поиске, 7 — влюблён/влюблена, 8 — в гражданском браке, 0 — не указано.}
+\value{Date frame with community statistics with the following values:
+  \item{1. user_id}{user id.}
+  \item{2. first_name}{name.}
+  \item{3. last_name}{last name}
+  \item{4. gender}{sex.}
+  \item{5. nickname}{nickname of the user.}
+  \item{6. domain}{short page address. Returns a string containing the short address of the page (for example, andrew). If not assigned, it returns "id" + user_id, for example, id35828305.}
+  \item{7. bdate}{date of birth. Returns in the format D.M.YYYY or D.M (if the year of birth is hidden). If the date of birth is hidden entirely, the field is absent in the answer.}
+  \item{8. city}{city id, city name can be obtained using the function vkGetDbCities.}
+  \item{9. country}{country id, country name can be obtained using the function vkGetDbCountries.}
+  \item{10. photo_50}{url of a square photo of a user having a width of 50 pixels. If the user does not have a photo, he returns http://vk.com/images/camera_c.gif.}
+  \item{11. photo_100}{url of a square photo of a user having a width of 100 pixels. If the user doesnвЂ™t have a photo, he returns http://vk.com/images/camera_b.gif.}
+  \item{12. photo_200_orig}{url of a user photo that has a width of 200 pixels. If the user doesnвЂ™t have a photo, he returns http://vk.com/images/camera_a.gif.}
+  \item{13. has_mobile}{information about whether the user's mobile phone number is known. Return values: 1 - known, 0 - unknown.}
+  \item{14. online}{information about whether the user is currently online.}
+  \item{15. can_post}{information about whether the current user can post on the wall. Possible values: 1 - can, 0 - can not.}
+  \item{16. can_see_all_posts}{information about whether the current user can see someone else's posts on the wall. Possible values: 1 - can, 0 - can not.}
+  \item{17. can_write_private_message}{information about whether the current user can send a private message. Possible values: 1 - can, 0 - can not.}
+  \item{18. status}{user status. Returns a string containing the text of the status located in the profile under the user name.}
+  \item{19. last_seen_time}{date and time of last visit.}
+  \item{20. last_seen_platform}{the type of platform through which the last entry was made. Possible values: 1 - mobile version, 2 - application for iPhone, 3 - application for iPad, 4 - application for Android, 5 - application for Windows Phone, 6 - application for Windows 10, 7 - full version of the site.}
+  \item{21. university}{university id.}
+  \item{22. university_name}{university name.}
+  \item{23. faculty}{faculty id.}
+  \item{24. faculty_name}{faculty name.}
+  \item{25. graduation}{graduation year.}
+  \item{26. education_form}{learning form}
+  \item{27. education_status}{status (for example, "Graduate (Specialist)")}
+  \item{28. relation}{marital status of the user. Possible values: 1 - not married / not married, 2 - have a friend / have a girlfriend, 3 - engaged / engaged, 4 - married / married, 5 - everything is difficult, 6 - in active search, 7 - in love / in love, 8 - in a civil marriage, 0 - not specified.}
 }
 \author{
 Alexey Seleznev
 }
-
 \examples{
-##Авторизация в вк
+\dontrun{
+## auth
 my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Получаем список друзей пользователя
+## user list
 my_vk_friends <- vkGetUserFriends(user_id = 7437995,
                                   access_token = my_tok$access_token)
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

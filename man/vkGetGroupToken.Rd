@@ -1,23 +1,23 @@
 \name{vkGetGroupToken}
 \alias{vkGetGroupToken}
-\title{Получить получения ключа доступа сообщества Вконтакте}
-\description{Такой ключ позволяет работать с API от имени группы, встречи или публичной страницы. Например, с его помощью Вы можете отвечать подписчикам сообщества на сообщения, поступившие в его адрес. 
-С ключом доступа сообщества можно вызывать те методы, которые имеют специальную пометку в общем списке (https://vk.com/dev/methods). 
-Функция vkGetGroupToken получает ключ досупа к сообществу по схеме Implicit flow (https://vk.com/dev/implicit_flow_group).}
+\title{Get the Access Key of Community 'Vkontakte'.}
+\description{This key allows you to work with the API on behalf of a group, meeting or public page. For example, with its help you can respond to community subscribers to messages received in its address.
+With the community access key, you can call those methods that have a special mark in the general list (https://vk.com/dev/methods).
+The vkGetGroupToken function gets the community access key using the Implicit flow scheme (https://vk.com/dev/implicit_flow_group).}
 \usage{
-vkGetGroupToken(appId = NULL, group_ids = NULL)
+vkGetGroupToken(app_id = NULL, group_ids = NULL)
 }
 \arguments{
-  \item{appId}{ID вашего приложения Вконтакте, которое находится в поле "ID приложения" в настройках приложения.}
-  \item{group_ids}{Вектор содержащий ID групп к которым вы хотите получить код доступа.}
+  \item{app_id}{The ID of your Vkontakte application, which is located in the "Application ID" field in the application settings.}
+  \item{group_ids}{A vector containing the ID of the groups to which you want to get an access code.}
 }
-\value{Объект содержаший токен доступа к группам}
+\value{Object containing a group access token}
 \author{Alexey Seleznev}
 \examples{
-##---- Get vk api token, где 1 это ID приложения, а 11,22,33 это ID групп.
-myToken <- vkGetGroupToken(appId = 1, group_ids = c(11,22,33))
+\dontrun{
+## Get vk api token, where 1 is the application ID, 
+## and 11,22,33 is the group ID.
+myToken <- vkGetGroupToken(appId = 1, 
+                           group_ids = c(11,22,33))
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

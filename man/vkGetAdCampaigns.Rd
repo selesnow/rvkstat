@@ -1,40 +1,43 @@
 \name{vkGetAdCampaigns}
 \alias{vkGetAdCampaigns}
-\title{Возвращает список рекламных кампаний}
-\description{Функция vkGetAdCampaigns возвращает список доступны рекламных кампаний из рекламного кабинета Вконтакте.}
+\title{Campaign list}
+\description{Returns a list of available advertising campaigns from the advertising office Vkontakte.}
 \usage{
-vkGetAdCampaigns(account_id = NULL, client_id = NULL, include_deleted = TRUE, campaign_ids = "null", access_token = NULL)
+vkGetAdCampaigns(account_id = NULL, client_id = NULL, include_deleted =
+                 TRUE, campaign_ids = "null", api_version = NULL,
+                 access_token = NULL)
 }
 \arguments{
-  \item{account_id}{Идентификатор рекламного кабинета, список всех доступных рекламных кабинетов можно получить с помщью функции vkGetAdAccounts.}
-  \item{client_id}{Идентификатор клиента, у которого запрашиваются рекламные объявления. Доступно и обязательно для рекламных агентств.}
-  \item{include_deleted}{Логическое TRUE или FALSE, флаг, задающий необходимость вывода архивных объявлений.}
-  \item{campaign_ids}{Числовой вектор, фильтр по рекламным кампаниям.}
-  \item{status_names}{Логическое TRUE или FALSE, отвечает за формат вывода статуса кампании, если TRUE статус будет возвращён в виде текстовой строки, если FALSE то будет возвращён номер статуса.}
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{account_id}{The ID of the advertising account, a list of all available advertising offices can be obtained using the function vkGetAdAccounts.}
+  \item{client_id}{Client identifier from which advertisements are requested. Available and required for advertising agencies.}
+  \item{include_deleted}{Boolean TRUE or FALSE, flag, specifying the need to display archived ads.}
+  \item{campaign_ids}{Campaing ids.}
+  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
+  \item{api_version}{Vkontakte API version for send request.}
 }
 \author{
 Alexey Seleznev
 }
-\value{Дата фрейм со списком рекламных кабинетов и их параметров со следующими значениями:
-\item{1. id}{идентификатор кампании.}
-\item{2. type}{тип кампании.}
-\item{3. name}{название кампании.}
-\item{4. status}{статус кампании. }
-\item{5. day_limit}{дневной лимит кампании в рублях. }
-\item{6. all_limit}{общий лимит кампании в рублях. }
-\item{7. start_time}{время запуска кампании. }
-\item{8. stop_time}{время остановки кампании. }
-\item{9. create_time}{время создания кампании. }
-\item{10. update_time}{время последнего изменения кампании. }
+\value{Date frame with a list of advertising offices and their parameters with the following values:
+  \item{id}{campaign ID.}
+  \item{type}{campaign type.}
+  \item{name}{campaign name.}
+  \item{status}{campaign status.}
+  \item{day_limit}{daily campaign limit in rubles.}
+  \item{all_limit}{total campaign limit in rubles. }
+  \item{start_time}{campaign start time.}
+  \item{stop_time}{campaign stop time.}
+  \item{create_time}{campaign creation time.}
+  \item{update_time}{the last time the campaign was modified.}
 }
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## auth
+my_tok <- vkAuth(app_id = 1,
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Запрос списка рекламных кампаний
+## get campaing list
 my_vk_camp <- vkGetAdCampaigns(account_id = 1, 
                                access_token = my_tok$access_token)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}

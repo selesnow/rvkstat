@@ -1,28 +1,29 @@
 \name{vkGetAdAccounts}
 \alias{vkGetAdAccounts}
-\title{Возвращает список рекламных кабинетов}
-\description{Функция vkgetAccounts возвращает список доступны рекламных кабинетов.}
+\title{List of Advertising Account}
+\description{Returns a list of available advertising spaces.}
 \usage{
-vkGetAdAccounts(access_token = NULL)
+vkGetAdAccounts(access_token = NULL, api_version = NULL)
 }
 \arguments{
-  \item{access_token}{Токен доступа к API, полученный с помощью функций vkAuth или vkGetToken}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
+  \item{api_version}{Vkontakte API version.}
 }
 \author{
 Alexey Seleznev
 }
-\value{Дата фрейм со списком рекламных кабинетов и их параметров со следующими значениями:
-\item{1. account_id}{идентификатор рекламного кабинета.}
-\item{2. account_type}{тип рекламного кабинета.}
-\item{3. account_status}{статус рекламного кабинета. (1 — активен, 0 — неактивен)}
-\item{4. access_role}{права пользователя в рекламном кабинете. }
+\value{Date frame with a list of advertising offices and their parameters with the following values:
+  \item{account_id}{ID of the advertising account.}
+  \item{account_type}{Type of advertising office.}
+  \item{account_status}{The status of the advertising office. (1 - active, 0 - inactive)}
+  \item{access_role}{User privileges in the advertising office.}
 }
 \examples{
-##Авторизация в вк
-my_tok <- vkAuth(app_id = 1,app_secret = "H2Pk8htyFD8024mZaPHm")
+\dontrun{
+## Auth in VK
+my_tok <- vkAuth(app_id = 1,
+                 app_secret = "H2Pk8htyFD8024mZaPHm")
 
-##Запрос списка доступных рекламных кабинетов
 my_vk_acc <- vkGetAdAccounts(my_tok$access_token)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}
