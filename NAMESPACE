@@ -1,3 +1,4 @@
+# rvkstat function
 export(vkAuth)
 export(vkGetToken)
 export(vkGetGroupToken)
@@ -25,16 +26,25 @@ export(vkGetDbCountries)
 export(vkGetDbCities)
 export(vkGetDbRegions)
 export(vkGetUserFriends)
-export(vkGetUserDialogs)
 export(vkGetUserGroups)
 export(vkGetUserWall)
-export(vkLoadToken)
-importFrom(utils,browseURL)
-importFrom(httr,GET)
-importFrom(httr,stop_for_status)
-importFrom(httr,content)
-importFrom(RCurl,getURL)
-importFrom(jsonlite,fromJSON)
-importFrom(jsonlite,toJSON)
-importFrom(tidyr,separate)
-import(tidyr)
+export(vkSetUsername)
+export(vkSetAccountId)
+export(vkSetAgencyId)
+export(vkSetAccessToken)
+export(vkSetTokenPath)
+export(vkSetThreshold)
+
+# import from other package function
+importFrom(httr,GET, stop_for_status, content)
+importFrom(jsonlite,fromJSON, toJSON)
+importFrom(tidyr, separate, unnest_longer, unnest_wider, tibble, replace_na)
+importFrom(utils, browseURL, head, setTxtProgressBar, txtProgressBar)
+importFrom(stringr, str_interp, str_glue)
+
+# import package
+import(dplyr)
+import(lgr)
+
+# S3 methods
+S3method(print, vk_auth)

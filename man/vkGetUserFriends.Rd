@@ -3,14 +3,22 @@
 \title{Frend List in 'Vkontakte'}
 \description{Returns a list of user friends identifiers and extended information about the user's friends.}
 \usage{
-vkGetUserFriends(user_id = NULL, access_token = NULL, api_version =
-                 NULL, name_case = "nom")
+vkGetUserFriends(
+      user_id      = NULL,
+      name_case    = "nom",
+      username     = getOption("rvkstat.username"),
+      api_version  = getOption("rvkstat.api_version"),
+      token_path   = vkTokenPath(),
+      access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
   \item{name_case}{case for declining the user's first and last name. Possible values: nominative - nom, genitive - gen, dative - dat, accusative - acc, ablative - ins, prepositional - abl. Default nom.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
-  \item{api_version}{Vkontakte API version for send rquest.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with community statistics with the following values:
   \item{1. user_id}{user id.}
@@ -45,13 +53,12 @@ vkGetUserFriends(user_id = NULL, access_token = NULL, api_version =
 \author{
 Alexey Seleznev
 }
+\references{
+Documentation for API method friends.get: https://vk.com/dev/friends.get
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
-
 ## user list
-my_vk_friends <- vkGetUserFriends(user_id = 7437995,
-                                  access_token = my_tok$access_token)
+my_vk_friends <- vkGetUserFriends(user_id = 7437995)
 }
 }

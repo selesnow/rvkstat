@@ -3,14 +3,22 @@
 \title{Country Dictionary.}
 \description{Get list of countries.}
 \usage{
-vkGetDbCountries(need_all = TRUE, code = NULL, api_version = NULL,
-                 access_token = NULL)
+vkGetDbCountries(
+    need_all     = TRUE,
+    code         = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{need_all}{Boolean TRUE or FALSE, flag — return a list of all countries.}
   \item{code}{Text vector, two-letter codes of countries in ISO 3166-1 alpha-2, for which you need to give information. Example c ("RU", "UA", "BY"), a list of all codes can be viewed at the link - https://vk.com/dev/country_codes.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
-  \item{api_version}{Vkontakte API version for send rquest.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with community statistics with the following values:
 \item{1. cid}{country id.}
@@ -23,16 +31,14 @@ A list of all country codes can be obtained at the link - https://vk.com/dev/cou
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method database.getCountries: https://vk.com/dev/database.getCountries
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
-
 ## get dictionary
 vk_countries <- vkGetDbCountries(need_all = T,
-                                 code = c("RU","UA","BY"),
-                                 access_token = my_tok$access_token)
+                                 code = c("RU","UA","BY"))
 
 }
 }

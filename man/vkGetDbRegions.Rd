@@ -3,14 +3,22 @@
 \title{Regions list.}
 \description{Get regions dictionary.}
 \usage{
-vkGetDbRegions(country_id = NULL, q = NULL, api_version = NULL,
-                 access_token = NULL)
+vkGetDbRegions(
+    country_id,
+    q = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{country_id}{country identifier obtained using the vkGetDbCountries function.}
   \item{q}{search query string. For example, Len. The maximum string length is 15 characters.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
-  \item{api_version}{Vkontakte API version for send rquest.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Data frame contains community statistics with the following values:
 \item{1. region_id}{region identifier.}
@@ -22,7 +30,9 @@ If the q parameter is not specified, then a list of all regions in the given cou
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method database.getRegions: https://vk.com/dev/database.getRegions
+}
 \examples{
 \dontrun{
 ## auth

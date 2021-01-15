@@ -1,18 +1,39 @@
-vkGetAdCategories <- function(access_token = NULL,
-							  api_version  = NULL){
-  if(is.null(access_token)){
-    stop("Set access_token in options, is require.")
+vkGetAdCategories <- function(
+  version      = c("v1", "v2"),
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+) {
+  
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
-  api_version <- api_version_checker(api_version)
-  
-  # result
-  result <- data.frame()
-  
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
+  }
+
   # query
-  query <- paste0("https://api.vk.com/method/ads.getCategories?access_token=",access_token,"&v=",api_version)
-  answer <- GET(query)
+  answer <- GET("https://api.vk.com/method/ads.getCategories", 
+                query = list(
+                  access_token = access_token,
+                  v            = api_version
+                ))
+  
+  # check status
   stop_for_status(answer)
+  
+  # parsing body
   dataRaw <- content(answer, "parsed", "application/json")
   
   # check for error
@@ -20,18 +41,12 @@ vkGetAdCategories <- function(access_token = NULL,
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  # parsing
-  for(i in 1:length(dataRaw$response$v2)){
-    for(subcat in 1:(if(length(dataRaw$response$v2[[i]]$subcategories)==0) 1 else length(dataRaw$response$v2[[i]]$subcategories))){
-
-      result  <- rbind(result,
-                       data.frame(id                  = ifelse(is.null(dataRaw$response$v2[[i]]$id), NA,dataRaw$response$v2[[i]]$id),
-                                  name                = ifelse(is.null(dataRaw$response$v2[[i]]$name), NA,dataRaw$response$v2[[i]]$name),
-                                  subcategories_id    = ifelse(is.null(dataRaw$response$v2[[i]]$subcategories[[subcat]]$id), NA,dataRaw$response$v2[[i]]$subcategories[[subcat]]$id),
-                                  ubcategories_name   = ifelse(is.null(dataRaw$response$v2[[i]]$subcategories[[subcat]]$name), NA,dataRaw$response$v2[[i]]$subcategories[[subcat]]$name),
-                                  stringsAsFactors = F))}
-    
-  }
+  # convert to tibble
+  result <- tibble(response = dataRaw$response[[version]]) %>%
+          unnest_wider("response") %>%
+          unnest_longer("subcategories") %>%
+          unnest_wider("subcategories", names_sep = "_")
   
-  
-  return(result)}
+  # return
+  return(result)
+}

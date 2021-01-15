@@ -1,37 +1,58 @@
-vkGetDbCountries <- function(need_all = TRUE,
-                             code = NULL,
-							 api_version  = NULL,
-                             access_token = NULL){
+vkGetDbCountries <- function(
+    need_all     = TRUE,
+    code         = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+    ){
 
-  if(is.null(access_token)){
-    stop("Access token isn't set")
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
-  api_version <- api_version_checker(api_version)
-	
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
+  }
+  
+	# collect countries codes
   if(!(is.null(code))){
   code <- paste0(code, collapse = ",")
   }
   
-  if(need_all == TRUE){
-    need_all <- 1
-  } else {
-    need_all <- 0
-  }
-  
-  # result
-  result  <- data.frame()
-  
+  # convert to integer
+  need_all <- as.integer(need_all)
   
   # paging
   offset <- 0
-  count <- 1000
+  count  <- 1000
   
-
-  # request
-  query <- paste0("https://api.vk.com/method/database.getCountries?need_all=",need_all,ifelse(!(is.null(code)),paste0("&code=",code),""),"&offset=",offset,"&count=",count,"&access_token=",access_token,"&v=",api_version)
-  answer <- GET(query)
+  # res object
+  res <- list()
+  
+  # API request
+  answer <- GET("https://api.vk.com/method/database.getCountries",
+                query = list(
+                  need_all     = need_all,
+                  code         = code,
+                  offset       = offset,
+                  count        = count,
+                  access_token = access_token,
+                  v            = api_version
+                ))
+  
+  
   stop_for_status(answer)
+
   dataRaw <- content(answer, "parsed", "application/json")
   
   # check for error
@@ -39,13 +60,57 @@ vkGetDbCountries <- function(need_all = TRUE,
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  # parsing
-  for(i in 1:length(dataRaw$response)){
-    result  <- rbind(result,
-                     data.frame(cid                  = ifelse(is.null(dataRaw$response[[i]]$cid), NA,dataRaw$response[[i]]$cid),
-                                title                = ifelse(is.null(dataRaw$response[[i]]$title), NA,dataRaw$response[[i]]$title),
-                                stringsAsFactors = F))}
+  # paging
+  read_items  <- length(dataRaw$response$items)
+  total_items <- dataRaw$response$count
   
+  # to result
+  res <- append(res, dataRaw$response$items)
+  
+  # paging
+  offset <- offset + read_items
+  
+  # go paging
+  while ( offset < total_items ) {
+    
+    # pause
+    Sys.sleep(0.6)
+    
+    # API request
+    answer <- GET("https://api.vk.com/method/database.getCountries",
+                  query = list(
+                    need_all     = need_all,
+                    code         = code,
+                    offset       = offset,
+                    count        = count,
+                    access_token = access_token,
+                    v            = api_version
+                  ))
+    
+    
+    stop_for_status(answer)
+    
+    dataRaw <- content(answer, "parsed", "application/json")
+    
+    # check for error
+    if(!is.null(dataRaw$error)){
+      stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
+    }
+    
+    # to result
+    res <- append(res, dataRaw$response$items)
+    
+    # paging
+    read_items  <- length(dataRaw$response$items)
+    offset <- offset + read_items
+    
+  }
+  
+  # temp result
+  result <- tibble(items = res) %>%
+            unnest_wider("items")
+  
+  # end 
   return(result)
 }
   

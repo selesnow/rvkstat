@@ -3,15 +3,24 @@
 \title{Get Posts From Userwall.}
 \description{Return posts list from userwall 'Vkontakte'.}
 \usage{
-vkGetUserWall(user_id = NULL, domain = NULL, filter = NULL,
-              api_version = NULL, access_token = NULL)
+vkGetUserWall(
+  user_id      = NULL,
+  domain       = NULL,
+  filter       = NULL,
+  username     = getOption("rvkstat.username"),
+	api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
   \item{domain}{short address of user or community.}
   \item{filter}{determines what types of posts on the wall should be received. Possible values: suggests — suggested entries on the community wall, postponed — deferred entries, owner — owner wall entries, others — not wall owner entries, all — all entries on the wall (owner + others), Default: all. }
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
-  \item{api_version}{Vkontakte API version for send request.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with the following values:
   \item{1. id}{record ID.}
@@ -29,7 +38,9 @@ vkGetUserWall(user_id = NULL, domain = NULL, filter = NULL,
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method wall.get: https://vk.com/dev/wall.get
+}
 \examples{
 \dontrun{
 ## auth

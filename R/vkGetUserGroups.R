@@ -1,67 +1,85 @@
-vkGetUserGroups <- function(user_id = NULL,
-                            filter = NULL,
-							api_version = NULL,
-                            access_token = NULL){
+vkGetUserGroups <- function(
+    user_id = NULL,
+    filter = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+              )
+  {
   
-  if(is.null(access_token)){
-    stop("Set access_token in options, is require.")
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
-  # check api version
-  api_version <- api_version_checker(api_version)
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
+  }
   
   # Result frame
-  result <- data.frame(stringsAsFactors = F)  
+  result <- list()  
   
   # Paging
   offset <- 0
   count <- 1000
   last_iteration <- FALSE
   
-  while(last_iteration == FALSE){
-  # Query
-  query <- paste0("https://api.vk.com/method/groups.get?fields=city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,verified,site,can_create_topic",ifelse(is.null(user_id),"",paste0("&user_id=",user_id)),"&extended=1","&offset=",offset,"&count=1000",ifelse(is.null(filter),"",paste0("&filter=",filter)),"&access_token=",access_token,"&v=",api_version)
-  answer <- GET(query)
-  stop_for_status(answer)
-  dataRaw <- content(answer, "parsed", "application/json")
+  while ( last_iteration == FALSE ){
+    
+    # Query
+    answer <- GET("https://api.vk.com/method/groups.get", 
+                  query = list(
+                    fields = "city,country,place,description,wiki_page,members_count,counters,start_date,finish_date,can_post,can_see_all_posts,activity,status,contacts,links,fixed_post,verified,site,can_create_topic",
+                    user_id = user_id,
+                    extended = 1,
+                    offset = offset,
+                    count = count,
+                    filter = filter,
+                    access_token = access_token,
+                    v = api_version
+                  ))
+    
+    # check status
+    stop_for_status(answer)
+    
+    # pars answer
+    dataRaw <- content(answer, "parsed", "application/json")
+    
+    # Check for error
+    if(!is.null(dataRaw$error)){
+      stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
+    }
+    
+    # unnest temp result
+    tempData <- 
+      tibble(items = dataRaw$response$items) %>%
+      unnest_wider("items") 
   
-  # Check for error
-  if(!is.null(dataRaw$error)){
-    stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
+    # add to result
+    result <- append(result, list(tempData))
+    
+    # check for next iteration
+    if(length(dataRaw$response) < 1000){
+      last_iteration <- TRUE}
+    
+    # offset
+    offset <- offset + count
   }
   
-  # parsing
-  for(i in 1:length(dataRaw$response$items)){
-    
-          result  <- rbind(result,
-                         data.frame(gid                           = ifelse(is.null(dataRaw$response$items[[i]]$id), NA,dataRaw$response$items[[i]]$id),
-                                    name                          = ifelse(is.null(dataRaw$response$items[[i]]$name), NA,dataRaw$response$items[[i]]$name),
-                                    screen_name                   = ifelse(is.null(dataRaw$response$items[[i]]$screen_name), NA,dataRaw$response$items[[i]]$screen_name),
-                                    is_closed                     = ifelse(is.null(dataRaw$response$items[[i]]$is_closed), NA,dataRaw$response$items[[i]]$is_closed),
-                                    type                          = ifelse(is.null(dataRaw$response$items[[i]]$type), NA,dataRaw$response$items[[i]]$type),
-                                    description                   = ifelse(is.null(dataRaw$response$items[[i]]$description), NA,dataRaw$response$items[[i]]$description),
-                                    wiki_page                     = ifelse(is.null(dataRaw$response$items[[i]]$wiki_page), NA,dataRaw$response$items[[i]]$wiki_page),
-                                    members_count                 = ifelse(is.null(dataRaw$response$items[[i]]$members_count), NA,dataRaw$response$items[[i]]$members_count),
-                                    start_date                    = ifelse(is.null(dataRaw$response$items[[i]]$start_date), NA,dataRaw$response$items[[i]]$start_date),
-                                    can_post                      = ifelse(is.null(dataRaw$response$items[[i]]$can_post), NA,dataRaw$response$items[[i]]$can_post),
-                                    can_see_all_posts             = ifelse(is.null(dataRaw$response$items[[i]]$can_see_all_posts), NA,dataRaw$response$items[[i]]$can_see_all_posts),
-                                    activity                      = ifelse(is.null(dataRaw$response$items[[i]]$activity), NA,dataRaw$response$items[[i]]$activity),
-                                    status                        = ifelse(is.null(dataRaw$response$items[[i]]$status), NA,dataRaw$response$items[[i]]$status),
-                                    fixed_post                    = ifelse(is.null(dataRaw$response$items[[i]]$fixed_post), NA,dataRaw$response$items[[i]]$fixed_post),
-                                    verified                      = ifelse(is.null(dataRaw$response$items[[i]]$verified), NA,dataRaw$response$items[[i]]$verified),
-                                    site                          = ifelse(is.null(dataRaw$response$items[[i]]$site), NA,dataRaw$response$items[[i]]$site),
-                                    can_create_topic              = ifelse(is.null(dataRaw$response$items[[i]]$can_create_topic), NA,dataRaw$response$items[[i]]$can_create_topic),
-                                    photo                         = ifelse(is.null(dataRaw$response$items[[i]]$photo), NA,dataRaw$response$items[[i]]$photo),
-                                    photo_medium                  = ifelse(is.null(dataRaw$response$items[[i]]$photo_medium), NA,dataRaw$response$items[[i]]$photo_medium),
-                                    photo_big                     = ifelse(is.null(dataRaw$response$items[[i]]$photo_big), NA,dataRaw$response$items[[i]]$photo_big),
-                                    stringsAsFactors = F))}
-  
-  # check for next iteration
-  if(length(dataRaw$response) < 1000){
-    last_iteration <- TRUE}
-  
-  # offset
-  offset <- offset + count}
+  # unnest result
+  result <- 
+    bind_rows(result) %>%
+    unnest_wider("city", names_sep = '_') %>%
+    unnest_wider("country", names_sep = '_')
   
   # convert to date
   result$start_date <- as.POSIXct(as.integer(result$start_date), origin="1970-01-01")

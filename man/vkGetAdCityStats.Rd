@@ -3,9 +3,18 @@
 \title{Statistics on Audience Coverage in The Context of Cities.}
 \description{Returns statistics on audience reach by advertising campaign and ads by city.}
 \usage{
-vkGetAdCityStats(account_id = NULL, ids_type = "campaign", ids = NULL,
-                 period = "day", date_from = Sys.Date() - 30, date_to =
-                 Sys.Date(), api_version = NULL, access_token = NULL)
+vkGetAdCityStats(
+    account_id   = vkCurrentAdAccount(),
+    ids_type     = c("campaign", "ad"),
+    ids          = NULL,
+    period       = c("day", "month", "overall"),
+    date_from    = Sys.Date() - 30,
+    date_to      = Sys.Date(),
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
@@ -14,8 +23,10 @@ vkGetAdCityStats(account_id = NULL, ids_type = "campaign", ids = NULL,
   \item{period}{The method of grouping data by date. day - statistics by days, month - statistics by months, overall - statistics for all time. Temporary restrictions are given by the arguments date_from and date_to.}
   \item{date_from}{The starting date of the displayed statistics in the format YYYY-MM-DD.}
   \item{date_to}{The end date of the displayed statistics in the format YYYY-MM-DD.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{username}{Your vkontakte login.}
   \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with the following values:
   \item{id}{id of the object from the ids argument.}
@@ -32,24 +43,23 @@ vkGetAdCityStats(account_id = NULL, ids_type = "campaign", ids = NULL,
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getDemographics: https://vk.com/dev/ads.getDemographics
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1, app_secret = "H2Pk8htyFD8024mZaPHm")
 
 # 1.Get a static report on audience coverage in the context 
 # of cities by advertising campaigns by day
 ## 1.1. We get a list of advertising campaigns
-camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
+camp <- vkGetAdCampaigns(account_id = 1)
 ## 1.2. We get statistics on advertising campaigns
 vk_ad_city_stat_day <- vkGetAdCityStats(account_id = 1,
                                         ids_type = "campaign",
                                         ids = camp$id ,
                                         period = "day",
                                         date_from = "2010-01-01", 
-                                        date_to = "2017-09-10",
-                                        access_token = my_tok$access_token)
+                                        date_to = "2017-09-10")
 										
 										
 # 2.Receive a static message on the ads in the context of months
@@ -61,22 +71,20 @@ vk_ad_city_stat_month <- vkGetAdCityStats(account_id = 1,
                                           ids = ads$id ,
                                           period = "month",
                                           date_from = "2010-01-01", 
-                                          date_to = "2017-09-10",
-                                          access_token = my_tok$access_token)
+                                          date_to = "2017-09-10")
 			
 			
 # 3.Receive a static report on audience coverage in the context 
 # of cities by advertising campaigns without a temporary breakdown
 ## 3.1. We get a list of advertising campaigns
-camp <- vkGetAdCampaigns(account_id = 1, access_token = my_tok$access_token)
+camp <- vkGetAdCampaigns(account_id = 1)
 ##3.2. Get statistics on advertising campaigns
 vk_ad_city_stat_total <- vkGetAdCityStats(account_id = 1,
                                           ids_type = "campaign",
                                           ids = camp$id ,
                                           period = "overall",
                                           date_from = "2010-01-01", 
-                                          date_to = "2017-09-10",
-                                          access_token = my_tok$access_token)
+                                          date_to = "2017-09-10")
 
 }
 }

@@ -1,12 +1,31 @@
-vkGetGroupStatPostReach <- function(owner_id = NULL,
-                                    post_ids = NULL,
-                                    api_version = NULL,
-                                    access_token = NULL){
+vkGetGroupStatPostReach <- function(
+    owner_id,
+    post_ids,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+  ) {
    
-  if (is.null(access_token) | is.null(post_ids) | is.null(owner_id)){
-    stop("Arguments owner_id, post_ids and access_token is required!")
+  
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
+  }
+
+  # check post count
   if (length(post_ids) > 300){
     warning("Statistics data is available only for the latest 300 (most recent) posts on the community wall. The post_id argument will be abbreviated to 300 elements.")
     post_ids <- head(post_ids[order(-post_ids)], 300)
@@ -15,9 +34,6 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
   if (grepl("^\\d", owner_id)) {
     owner_id <- paste0("-", owner_id)
   }
-  
-  # set api version
-  api_version <- api_version_checker(api_version)
   
   # result
   result <- data.frame(stringsAsFactors = F)  
@@ -30,7 +46,14 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
   
   for (post_id in post_ids){
     #Send query
-    answer <- GET("https://api.vk.com/method/stats.getPostReach", query = list(owner_id = owner_id, post_id = post_id, v = api_version, access_token = access_token))
+    answer <- GET("https://api.vk.com/method/stats.getPostReach", 
+                  query = list(
+                    owner_id = owner_id, 
+                    post_id = post_id, 
+                    v = api_version, 
+                    access_token = access_token)
+                  )
+    
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     
@@ -42,7 +65,7 @@ vkGetGroupStatPostReach <- function(owner_id = NULL,
     # union with result
     result <- rbind(result, cbind(do.call(cbind, dataRaw$response[[1]]), post_id))
     # pause
-    Sys.sleep(.5)
+    Sys.sleep(0.5)
     # set pb
     if (exists("pb")){
       pb_step <- pb_step + 1

@@ -3,7 +3,7 @@
 \title{Get vkontakte developer token}
 \description{vkGetToken open web link in browser and generate developer token, which you need for work with vk.com api}
 \usage{
-vkGetToken(app_id = NULL)
+vkGetToken(app_id = getOption("rvkstat.app_id"))
 }
 \arguments{
   \item{app_id}{Your app id from filed in app page vkontakte.}

@@ -3,11 +3,20 @@
 \title{List of Possible Subjects of Advertisements}
 \description{Returns a table with all possible topics and their subsections of the topics of advertisements from 'Vkontakte'}
 \usage{
-vkGetAdCategories(access_token = NULL, api_version = NULL)
+vkGetAdCategories(
+  version      = c("v1", "v2"),
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
+  \item{version}{Dictionary version, v1 include deprecated themes, v2 exclude deprecated themes.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
   \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
-  \item{api_version}{Vkontakte API version for send request.}
 }
 \value{Date frame with the following values:
   \item{id}{subject identifier.}
@@ -18,14 +27,12 @@ vkGetAdCategories(access_token = NULL, api_version = NULL)
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getCategories: https://vk.com/dev/ads.getCategories
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1,
-                 client_secret = "H2Pk8htyFD8024mZaPHm")
-
 # list of subjects
-vk_ad_categories <- vkGetAdCategories(access_token = my_tok$access_token)
+vk_ad_categories <- vkGetAdCategories()
 }
 }

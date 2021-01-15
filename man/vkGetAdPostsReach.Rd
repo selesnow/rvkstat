@@ -3,15 +3,24 @@
 \title{Statistics on The Coverage of Advertising Entries 'Vkontakte'.}
 \description{Returns detailed statistics on the reach of advertisements from ads and campaigns to promote community entries.}
 \usage{
-vkGetAdPostsReach(account_id = NULL, ids_type = "campaign", ids = NULL,
-                 api_version = NULL, access_token = NULL)
+vkGetAdPostsReach(
+    account_id   = vkCurrentAdAccount(),
+    ids_type     = "campaign",
+    ids          = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
   \item{ids_type}{The type of objects requested, which are listed in the ids parameter. Valid ad values are ads, campaigns are campaigns.}
   \item{ids}{Vector of id of the requested ads, campaigns, clients or account, depending on what is specified in the ids_type parameter.}
-  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
+  \item{username}{Your vkontakte login.}
   \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with community statistics with the following values:
 \item{1. id}{object ID from the ids parameter.}
@@ -37,7 +46,9 @@ The video_views_start, video_views_3s, video_views_25p, video_views_50p, video_v
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getPostsReach: https://vk.com/dev/ads.getPostsReach
+}
 \examples{
 \dontrun{
 ## auth

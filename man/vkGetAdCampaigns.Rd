@@ -3,17 +3,26 @@
 \title{Campaign list}
 \description{Returns a list of available advertising campaigns from the advertising office Vkontakte.}
 \usage{
-vkGetAdCampaigns(account_id = NULL, client_id = NULL, include_deleted =
-                 TRUE, campaign_ids = "null", api_version = NULL,
-                 access_token = NULL)
+vkGetAdCampaigns(
+  account_id      = vkCurrentAdAccount(),
+  client_id       = vkCurrentClientAccount(),
+  include_deleted = TRUE,
+  campaign_ids    = "null",
+  username        = getOption("rvkstat.username"),
+  api_version     = getOption("rvkstat.api_version"),
+  token_path      = vkTokenPath(),
+  access_token    = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{The ID of the advertising account, a list of all available advertising offices can be obtained using the function vkGetAdAccounts.}
   \item{client_id}{Client identifier from which advertisements are requested. Available and required for advertising agencies.}
   \item{include_deleted}{Boolean TRUE or FALSE, flag, specifying the need to display archived ads.}
   \item{campaign_ids}{Campaing ids.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
-  \item{api_version}{Vkontakte API version for send request.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \author{
 Alexey Seleznev
@@ -30,14 +39,12 @@ Alexey Seleznev
   \item{create_time}{campaign creation time.}
   \item{update_time}{the last time the campaign was modified.}
 }
+\references{
+Documentation for API method ads.getCampaigns: https://vk.com/dev/ads.getCampaigns
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1,
-                 app_secret = "H2Pk8htyFD8024mZaPHm")
-
 ## get campaing list
-my_vk_camp <- vkGetAdCampaigns(account_id = 1, 
-                               access_token = my_tok$access_token)
+my_vk_camp <- vkGetAdCampaigns(account_id = 1)
 }
 }

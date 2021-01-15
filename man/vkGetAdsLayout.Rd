@@ -3,20 +3,32 @@
 \title{Appearance of Advertisements.}
 \description{Allows you to get a list of advertisements and a description of their appearance from the advertising office 'Vkontakte'.}
 \usage{
-vkGetAdsLayout(account_id = NULL, client_id = NULL, include_deleted =
-               TRUE, campaign_ids = "null", ad_ids = "null",
-               api_version = NULL, status_names = TRUE, access_token
-               = NULL)
+vkGetAdsLayout(
+    account_id      = vkCurrentAdAccount(),
+    client_id       = vkCurrentClientAccount(),
+    include_deleted = TRUE,
+    only_deleted    = FALSE,
+    campaign_ids    = "null",
+    ad_ids          = "null",
+    status_names    = TRUE,
+    username        = getOption("rvkstat.username"),
+    api_version     = getOption("rvkstat.api_version"),
+    token_path      = vkTokenPath(),
+    access_token    = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
   \item{client_id}{Client identifier from which advertisements are requested. Available and required for advertising agencies.}
   \item{include_deleted}{Boolean TRUE or FALSE, flag, specifying whether to display archived ads.}
+  \item{only_deleted}{Boolean TRUE or FALSE, flag, get only deleted ads.}
   \item{campaign_ids}{Numeric vector, filter by advertising campaigns.}
   \item{ad_ids}{Numeric vector, ad filter.}
   \item{status_names}{Numeric vector, filter by advertising campaigns.}
+  \item{username}{Your vkontakte login.}
   \item{api_version}{Vkontakte API version.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \details{
 If campaign_ids and ad_ids filters are enabled at the same time, the following ads will be displayed:
@@ -44,14 +56,12 @@ The function is based on the API method ads.getAdsLayout, you can find out all t
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getAdsLayout: https://vk.com/dev/ads.getAdsLayout
+}
 \examples{
 \dontrun{
-## auth
-my_tok <- vkAuth(app_id = 1,
-                 app_secret = "H2Pk8htyFD8024mZaPHm")
 # get Ads Layouts
-my_vk_ads <- vkGetAdsLayout(account_id = 11111111, 
-                            access_token = my_tok$access_token)
+my_vk_ads <- vkGetAdsLayout(account_id = 11111111)
 }
 }

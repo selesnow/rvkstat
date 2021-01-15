@@ -3,11 +3,18 @@
 \title{List of Advertising Account}
 \description{Returns a list of available advertising spaces.}
 \usage{
-vkGetAdAccounts(access_token = NULL, api_version = NULL)
+vkGetAdAccounts(
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
-  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
+  \item{username}{Your vkontakte login.}
   \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \author{
 Alexey Seleznev
@@ -18,12 +25,11 @@ Alexey Seleznev
   \item{account_status}{The status of the advertising office. (1 - active, 0 - inactive)}
   \item{access_role}{User privileges in the advertising office.}
 }
+\references{
+Documentation for API method ads.getAccounts: https://vk.com/dev/ads.getAccounts 
+}
 \examples{
 \dontrun{
-## Auth in VK
-my_tok <- vkAuth(app_id = 1,
-                 app_secret = "H2Pk8htyFD8024mZaPHm")
-
-my_vk_acc <- vkGetAdAccounts(my_tok$access_token)
+my_vk_acc <- vkGetAdAccounts()
 }
 }

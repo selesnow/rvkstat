@@ -3,16 +3,22 @@
 \title{Statistics of Posts on The Community Wall.}
 \description{Returns statistics for writing to the wall.}
 \usage{
-vkGetGroupStatPostReach(owner_id = NULL, 
-                        post_ids = NULL, 
-                        api_version = NULL, 
-                        access_token = NULL)
+vkGetGroupStatPostReach(
+    owner_id,
+    post_ids,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{owner_id}{community ID - the owner of the entry. Indicated with a minus sign.}
   \item{post_ids}{vector containing record identifiers, please note - statistics data are available only for the 300 latest (most recent) posts on the community wall.}
-  \item{api_version}{An optional argument, the API version number to which the request will be executed.}
-  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with the following values:
 \item{1. reach_viral}{viral coverage (if recording was promoted with targeted advertising)}
@@ -35,6 +41,9 @@ Common errors may occur during execution. Their description is on a separate pag
 }
 \author{
 Alexey Seleznev
+}
+\references{
+Documentation for API method stats.getPostReach: https://vk.com/dev/stats.getPostReach
 }
 \examples{
 \dontrun{

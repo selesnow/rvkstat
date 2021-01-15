@@ -3,13 +3,20 @@
 \title{Client list.}
 \description{Returns a list of advertising agency clients.}
 \usage{
-vkGetAdClients(account_id = NULL, api_version = NULL, 
-               access_token = NULL)
+vkGetAdClients(
+  account_id   = getOption("rvkstat.agency_id"),
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{Advertising account ID, a list of all available advertising accounts can be obtained using the function vkGetAdAccounts.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
+  \item{username}{Your vkontakte login.}
   \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with community statistics with the following values:
 \item{id}{client id.}
@@ -20,7 +27,9 @@ vkGetAdClients(account_id = NULL, api_version = NULL,
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getClients: https://vk.com/dev/ads.getClients
+}
 \examples{
 \dontrun{
 ## auth

@@ -1,32 +1,81 @@
 vkGetGroupStatAge <-
-function(date_from = Sys.Date(), date_to = Sys.Date(), group_id = NULL, access_token = NULL){
-  # Create query text
-  apiQuery <- paste0("https://api.vk.com/method/stats.get?group_id=",group_id,"&date_from=",date_from,"&date_to=",date_to,"&v=5.52&access_token=",access_token)
-  
-  #G et json data
-  vkdatajson <- getURL(apiQuery)
-  
-  # Transform json to list
-  vkdatalist <- fromJSON(vkdatajson)
-  
-  # Transform list to data frame
-  vkdataRaw <- as.data.frame(vkdatalist)
-  
-  # Check stringsAsFactors
-  if(getOption("stringsAsFactors")) {
-	  oldpar <- options(stringsAsFactors = FALSE)
-	  on.exit(options(oldpar))
-  }
-  
-  vkAge <- data.frame()
-  for (i in 1:length(vkdataRaw$response.day)) {
-    temp <- data.frame()
-    try(temp <- data.frame(date = vkdataRaw$response.day[i],do.call(rbind.data.frame, vkdataRaw$response.age[i])), silent = TRUE)
-    try(vkAge <- rbind(vkAge, temp),silent = TRUE)
-    try(rm(temp), silent = TRUE)}
-  colnames(vkAge) <- c("Date", "Visitors", "AgeGroup")
-  vkAge <- vkAge[c(1,3,2)]
-  vkAge$Date <- as.POSIXct(vkAge$Date, format = "%Y-%m-%d")
-  vkAge$AgeGroup <- as.factor(vkAge$AgeGroup)
-  return(vkAge)
+  function(
+    date_from    = Sys.Date() - 7, 
+    date_to      = Sys.Date(), 
+    group_id     = NULL, 
+    interval     = "day",
+    intervals_count = NULL,
+    filters      = NULL,
+    stats_groups = c("visitors", "reach", "activity"),
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+  ) {
+    
+    # auth
+    if ( is.null(access_token) ) {    
+      
+      if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+        access_token <- Sys.getenv("RVK_API_TOKEN")    
+      } else {
+        access_token <- vkAuth(username   = username, 
+                               token_path = token_path)$access_token
+      }
+    }
+    
+    if ( class(access_token) == "vk_auth" ) {
+      
+      access_token <- access_token$access_token
+      
+    }
+    
+    # query
+    answer <- GET("https://api.vk.com/method/stats.get", 
+                  query = list(
+                    group_id = group_id,
+                    timestamp_from = as.numeric(as.POSIXct(date_from), tz = Sys.timezone()),
+                    timestamp_to = as.numeric(as.POSIXct(paste0(date_to, " 23:59:59"), tz = Sys.timezone())),
+                    interval = interval,
+                    intervals_count = intervals_count,
+                    filters = filters,
+                    stats_groups = paste0(stats_groups, collapse = ","),
+                    access_token = access_token,
+                    v            = api_version
+                  )
+    )
+    
+    
+    # check status
+    stop_for_status(answer)
+    
+    # parsing body
+    dataRaw <- content(answer, "parsed", "application/json")
+    
+    # check for error
+    if(!is.null(dataRaw$error)){
+      stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
+    }
+    
+    # convert to tibble
+    result <- tibble(response = dataRaw$response) %>%
+              unnest_wider("response") %>%
+              select("period_from", "period_to", "reach") %>%
+              unnest_wider("reach") %>%
+              select("period_from", "period_to", "age") %>%
+              unnest_longer("age") %>%
+              unnest_wider("age") %>%
+              rename(age       = "value",
+                     visitors  = "count")
+    
+    # convert timestamp
+    if ( nrow(result) > 0 ) {
+      
+      result$period_from <- as.POSIXct(result$period_from, origin = '1970-01-01')
+      result$period_to   <- as.POSIXct(result$period_to, origin = '1970-01-01')
+      
+    }
+            
+    # end
+    return(result)
 }

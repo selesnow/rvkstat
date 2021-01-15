@@ -3,20 +3,32 @@
 \title{List of Ads From 'Vkontakte'.}
 \description{Provide to get a list of advertisements from the advertising office 'Vkontakte'.}
 \usage{
-vkGetAds(account_id = NULL, client_id = NULL, include_deleted =
-         TRUE, campaign_ids = "null", ad_ids = "null",
-         status_names = TRUE, api_version = NULL, access_token
-         = NULL)
+vkGetAds(
+    account_id      = vkCurrentAdAccount(),
+    client_id       = vkCurrentClientAccount(),
+    include_deleted = TRUE,
+    only_deleted    = FALSE,
+    campaign_ids    = "null",
+    ad_ids          = "null",
+    status_names    = TRUE,
+    username        = getOption("rvkstat.username"),
+    api_version     = getOption("rvkstat.api_version"),
+    token_path      = vkTokenPath(),
+    access_token    = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{account_id}{The ID of the advertising account, a list of all available advertising offices can be obtained using the function vkGetAdAccounts.}
   \item{client_id}{Client identifier from which advertisements are requested. Available and required for advertising agencies.}
   \item{include_deleted}{Boolean TRUE or FALSE, flag, specifying the need to display archived ads.}
+  \item{only_deleted}{Boolean TRUE or FALSE, flag, get only deleted ads.}
   \item{campaign_ids}{Numeric vector, filter by advertising campaigns.}
   \item{ad_ids}{Numeric vector, ad filter.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken.}
-  \item{api_version}{Vkontakte API version.}
   \item{status_names}{If TRUE you get status names, in FALSE status Ids.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \details{
 If campaign_ids and ad_ids filters are enabled at the same time, the following ads will be displayed:
@@ -50,7 +62,9 @@ No more than 2000 ads are output from no more than 2000 campaigns.
 \author{
 Alexey Seleznev
 }
-
+\references{
+Documentation for API method ads.getAds: https://vk.com/dev/ads.getAds
+}
 \examples{
 \dontrun{
 ## auth

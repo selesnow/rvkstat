@@ -3,14 +3,22 @@
 \title{List of 'Vkontakte' communities.}
 \description{Returns the list of communities for the specified user.}
 \usage{
-vkGetUserGroups(user_id = NULL, filter = NULL, api_version = NULL,
-                 access_token = NULL)
+vkGetUserGroups(
+    user_id = NULL,
+    filter = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+)
 }
 \arguments{
   \item{user_id}{user ID for which you want to get a list of friends. If the parameter is not specified, it is considered that it is equal to the identifier of the current user.}
   \item{filter}{A list of community filters to be returned, separated by commas. The values are admin, editor, moder, groups, publics, events. By default, all user communities are returned. If the admin filter is specified, the communities in which the user is an administrator, editor - administrator or editor, moder - administrator, editor or moderator will be returned.}
-  \item{access_token}{API access token, obtained using the functions vkAuth or vkGetToken}
-  \item{api_version}{Vkontakte API version for send request.}
+  \item{username}{Your vkontakte login.}
+  \item{api_version}{Vkontakte API version.}
+  \item{token_path}{Path to dir with credentials}
+  \item{access_token}{API access tokens obtained using vkAuth or vkGetToken functions}
 }
 \value{Date frame with community statistics with the following values:
   \item{gid}{community id.}
@@ -36,6 +44,9 @@ vkGetUserGroups(user_id = NULL, filter = NULL, api_version = NULL,
 }
 \author{
 Alexey Seleznev
+}
+\references{
+Documentation for API method groups.get: https://vk.com/dev/groups.get
 }
 \examples{
 \dontrun{

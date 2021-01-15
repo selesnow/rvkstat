@@ -1,14 +1,38 @@
-vkGetAdAccounts <- function(access_token = NULL, 
-							api_version  = NULL){
-    if(is.null(access_token)){
-    stop("Set access_token in options, is require.")
+vkGetAdAccounts <- function(
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token"))
+  
+{
+
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
-  api_version <- api_version_checker(api_version)						
-
-  query <- paste0("https://api.vk.com/method/ads.getAccounts?v=",api_version,"&access_token=",access_token)
-  answer <- GET(query)
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
+  }
+  
+  # send query
+  answer <- GET("https://api.vk.com/method/ads.getAccounts",
+                query = list(
+                  v = api_version,
+                  access_token = access_token
+                ))
+  
   stop_for_status(answer)
+  
+  # get answer
   dataRaw <- content(answer, "parsed", "application/json")
   
   # check for error
@@ -16,19 +40,10 @@ vkGetAdAccounts <- function(access_token = NULL,
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
   
-  # result
-  result  <- data.frame(account_id     = integer(0),
-                        account_type   = character(0),
-                        account_status = character(0),
-                        access_role    = character(0))
+  # convert result to data frame
+  result <- tibble(items = dataRaw$response) %>%
+            unnest_wider("items")
   
-  # parsing
-  for(i in 1:length(dataRaw$response)){
-    result  <- rbind(result,
-                     data.frame(account_id     = dataRaw$response[[i]]$account_id,
-                                account_type   = dataRaw$response[[i]]$account_type,
-                                account_status = dataRaw$response[[i]]$account_status,
-                                access_role    = dataRaw$response[[i]]$access_role))}
-  
+  # #############->
   return(result)
 }

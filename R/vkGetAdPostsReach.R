@@ -1,55 +1,57 @@
-vkGetAdPostsReach <- function(account_id = NULL,
-                              ids_type = "campaign",
-                              ids = NULL,
-							                api_version = NULL,
-                              access_token = NULL){
-  if(is.null(access_token)){
-    stop("Set access_token in options, is require.")
+vkGetAdPostsReach <- function(
+    account_id   = vkCurrentAdAccount(),
+    ids_type     = "campaign",
+    ids          = NULL,
+    username     = getOption("rvkstat.username"),
+    api_version  = getOption("rvkstat.api_version"),
+    token_path   = vkTokenPath(),
+    access_token = getOption("rvkstat.access_token")
+    ) {
+  
+  # auth
+  if ( is.null(access_token) ) {    
+    
+    if ( Sys.getenv("RVK_API_TOKEN") != "" )  {
+      access_token <- Sys.getenv("RVK_API_TOKEN")    
+    } else {
+      access_token <- vkAuth(username   = username, 
+                             token_path = token_path)$access_token
+    }
   }
   
-  if(!(ids_type %in% c("ad","campaign"))){
-    stop("Set correctly ids_type, one of ad or campaign!")
+  if ( class(access_token) == "vk_auth" ) {
+    
+    access_token <- access_token$access_token
+    
   }
-	
-  # set api_version
-  api_version <- api_version_checker(api_version)
   
   # sep ids
   ids <- paste0(ids, collapse = ",")
   
-  # result frame
-  result <- data.frame()  
+  # API request
+  answer <- GET("https://api.vk.com/method/ads.getPostsReach", 
+                query = list(
+                  account_id   = account_id,
+                  ids_type     = ids_type,
+                  ids          = ids,
+                  access_token = access_token,
+                  v            = api_version
+                ))
   
-  # query
-  query <- paste0("https://api.vk.com/method/ads.getPostsReach?account_id=",account_id,"&ids_type=",ids_type,"&ids=",ids,"&access_token=",access_token,"&v=",api_version)
-  answer <- GET(query)
+  # check status
   stop_for_status(answer)
+  # get answer body
   dataRaw <- content(answer, "parsed", "application/json")
   
   # check for error
   if(!is.null(dataRaw$error)){
     stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
   }
-  
-  for(i in 1:length(dataRaw$response)){
-    
-          result  <- rbind(result,
-                         data.frame(id                  = ifelse(is.null(dataRaw$response[[i]]$id), NA,dataRaw$response[[i]]$id),
-                                    reach_subscribers   = ifelse(is.null(dataRaw$response[[i]]$reach_subscribers), NA,dataRaw$response[[i]]$reach_subscribers),
-                                    reach_total         = ifelse(is.null(dataRaw$response[[i]]$reach_total), NA,dataRaw$response[[i]]$reach_total),
-                                    links               = ifelse(is.null(dataRaw$response[[i]]$links), NA,dataRaw$response[[i]]$links),
-                                    to_group            = ifelse(is.null(dataRaw$response[[i]]$to_group ), NA,dataRaw$response[[i]]$to_group),
-                                    join_group          = ifelse(is.null(dataRaw$response[[i]]$join_group), NA,dataRaw$response[[i]]$join_group),
-                                    report              = ifelse(is.null(dataRaw$response[[i]]$report), NA,dataRaw$response[[i]]$report),
-                                    hide                = ifelse(is.null(dataRaw$response[[i]]$hide), NA,dataRaw$response[[i]]$hide),
-                                    unsubscribe         = ifelse(is.null(dataRaw$response[[i]]$unsubscribe), NA,dataRaw$response[[i]]$unsubscribe),
-                                    video_views_start   = ifelse(is.null(dataRaw$response[[i]]$video_views_start), NA,dataRaw$response[[i]]$video_views_start),
-                                    video_views_3s      = ifelse(is.null(dataRaw$response[[i]]$video_views_3s), NA,dataRaw$response[[i]]$video_views_3s),
-                                    video_views_25p     = ifelse(is.null(dataRaw$response[[i]]$video_views_25p), NA,dataRaw$response[[i]]$video_views_25p),
-                                    video_views_50p     = ifelse(is.null(dataRaw$response[[i]]$video_views_50p), NA,dataRaw$response[[i]]$video_views_50p),
-                                    video_views_75p     = ifelse(is.null(dataRaw$response[[i]]$video_views_75p), NA,dataRaw$response[[i]]$video_views_75p),
-                                    video_views_100p    = ifelse(is.null(dataRaw$response[[i]]$video_views_100p), NA,dataRaw$response[[i]]$video_views_100p),
-                                    stringsAsFactors = F))}
+
+  # parse
+  result <- tibble(response = dataRaw$response) %>%
+                  unnest_wider("response")
+
   
   # return result
   return(result)
