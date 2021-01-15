@@ -26,7 +26,6 @@
 
 ### Установка с CRAN
 ```
-if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 install.packages('rvkstat')
 ```
 ### Установка с Github
