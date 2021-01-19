@@ -31,7 +31,7 @@ install.packages('rvkstat')
 ### Установка с Github
 ```r
 if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
-devtools::install_github('selesnow/rvkstat', subdir = "en")
+devtools::install_github('selesnow/rvkstat')
 ```
 
 ### Ссылки
