@@ -1,8 +1,8 @@
 Package: rvkstat
 Type: Package
 Title: R Interface to API 'vk.com'
-Version: 3.0.0
-Date: 2021-01-14
+Version: 3.0.0.9000
+Date: 2021-01-19
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
 Description: Load data from vk.com api about your communiti users and views,
