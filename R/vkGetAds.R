@@ -95,15 +95,10 @@ vkGetAds <- function(
 
       }
 
-  # to percent
-if ( 'cpc' %in% names(result) ) {
-  # to percent
-  result$cpc   <- as.numeric(result$cpc) / 100 
-}
-
-if ( 'cpm' %in% names(result) ) {
-  result$cpm   <- as.numeric(result$cpm) / 100
-}
+  # to rub
+  if ( "cpc" %in% names(result) )  result$cpc   <- as.numeric(result$cpc)  / 100
+  if ( "cpm" %in% names(result) )  result$cpm   <- as.numeric(result$cpm)  / 100
+  if ( "ocpm" %in% names(result) ) result$ocpm  <- as.numeric(result$ocpm) / 100
   
   # end
   return(result)
