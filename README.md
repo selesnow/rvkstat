@@ -34,6 +34,9 @@ if(!"devtools" %in% installed.packages()[,1]){install.packages("devtools")}
 devtools::install_github('selesnow/rvkstat')
 ```
 
+### Видео уроки
+У пакета `rvkstat` есть свой официальный [плейлист](https://www.youtube.com/watch?v=49-HTLOPSnU&list=PLD2LDq8edf4pQcy0zMmkTlk-o_Z6nRm5N) с урока на YouTube.
+
 ### Ссылки
 1. [Документация по работе с пакетом rvkstat](https://selesnow.github.io/rvkstat/).
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/rvkstat/issues). 
