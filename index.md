@@ -129,6 +129,7 @@ li.nm_li {
 
 ## Содержание ReadMe пакета rvkstat
 
+- **[Видео уроки по работе с API Вконтакте через rvkstat](https://selesnow.github.io/rvkstat/#видео-уроки)
 - **[Краткое описание пакета rvkstat](https://selesnow.github.io/rvkstat/#краткое-описание-пакета-rvkstat)**
 - **[Как получить подробную справку по функциям пакета](https://selesnow.github.io/rvkstat/#как-получить-подробную-справку-по-функциям-пакета-rvkstat)**
 - **[Что необходимо для начала работы с API Вктонтакте с помощью пакета rvkstat](https://selesnow.github.io/rvkstat/#что-необходимо-для-начала-работы-с-api-вктонтакте-с-помощью-пакета-rvkstat)**
@@ -174,6 +175,9 @@ li.nm_li {
 	- [Как перенести данные из ВКонтакте в Power BI (Алексей Селезнёв)](https://netpeak.net/ru/blog/kak-perenesti-dannyye-iz-vkontakte-v-power-bi/)
 	- [Загрузка статистики из «ВКонтакте» и Facebook в Google BigQuery — руководство (Михаил Гусев)](https://ppc.world/articles/zagruzka-statistiki-iz-vkontakte-i-facebook-v-google-bigquery/)
 - **[Информация об авторе пакета](https://selesnow.github.io/rvkstat/#автор-пакета-алексей-селезнёв-head-of-analytics-dept-at-netpeak)**
+
+### Видео уроки
+У пакета `rvkstat` есть свой официальный [плейлист](https://www.youtube.com/watch?v=49-HTLOPSnU&list=PLD2LDq8edf4pQcy0zMmkTlk-o_Z6nRm5N) с урока на YouTube.
 
 ### Краткое описание пакета rvkstat
 Пакет rvkstat является R клиентом для работы с API социальной сети [Вконтакте](url), с помощью функций данного пакета можно получить статистику из рекламного кабинета Вконтакте, а так же данные о посетителях сообществ вконтакте по дням, в разрезе возрастных групп, пола и геолокации посетителей.
