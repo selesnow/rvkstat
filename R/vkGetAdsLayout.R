@@ -62,7 +62,8 @@ vkGetAdsLayout <- function(
   dataRaw <- content(answer, "parsed", "application/json")
   
   # to table
-  result <- bind_rows(dataRaw)
+  result <- tibble(data = dataRaw$response) %>% 
+            unnest_wider(data)
 
   if(status_names == TRUE){
     # formats names
