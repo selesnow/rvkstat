@@ -63,7 +63,7 @@ vkGetAdsLayout <- function(
   
   # to table
   result <- tibble(data = dataRaw$response) %>% 
-            unnest_wider(data)
+            unnest_wider("data")
 
   if(status_names == TRUE){
     # formats names

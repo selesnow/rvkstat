@@ -84,7 +84,7 @@ rvkstatWelcomeMessage <- function(){
   }
   
   op <- options()
-  op.rvkstat <- list(rvkstat.api_version  = "5.126",
+  op.rvkstat <- list(rvkstat.api_version  = "5.131",
                      rvkstat.access_token = vk_token,
                      rvkstat.account_id   = NULL,
                      rvkstat.agency_id    = NULL,
