@@ -34,6 +34,7 @@ export(vkSetAgencyId)
 export(vkSetAccessToken)
 export(vkSetTokenPath)
 export(vkSetThreshold)
+export(vkGetGroupMembers)
 
 # import from other package function
 importFrom(httr,GET, stop_for_status, content)

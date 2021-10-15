@@ -2,6 +2,7 @@
 
 * Исправлена проблема дублирования строк в функции `vkGetUserWall()`, по [тикету #31](https://github.com/selesnow/rvkstat/issues/31).
 * Доработана функция `vkGetAdStatistics()` согласно [тикету #33](https://github.com/selesnow/rvkstat/issues/33).
+* Добавлена функция `vkGetGroupMembers()`, которая позволяет получить список учатсников сообщества.
 
 # 3.1.0
 
