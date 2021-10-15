@@ -80,10 +80,11 @@ vkGetUserWall <- function(
   # bind result
   result <- 
     bind_rows(result) %>%
-    unnest_longer("comments", indices_include = FALSE) %>%
-    unnest_longer("likes", indices_include = FALSE) %>%
+    unnest_wider("comments", names_sep = '_') %>%
+    unnest_wider("likes", names_sep = '_') %>%
     unnest_wider("reposts", names_sep = '_') %>%
-    unnest_longer("donut", indices_include = FALSE)
+    unnest_wider("donut", names_sep = '_') %>% 
+    unnest_longer("views", indices_include = FALSE)
   
   # check views
   if ( "views" %in% names(result) ) {

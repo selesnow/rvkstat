@@ -1,16 +1,16 @@
 vkGetAdStatistics <- function(
-    account_id   = vkCurrentAdAccount(),
-    ids_type     = c("office", "client", "campaign", "ad"),
-    ids,
-    period       = c("day", "week", "month", "year", "overall"),
-    date_from    = Sys.Date() - 30,
-    date_to      = Sys.Date(),
-    username     = getOption("rvkstat.username"),
-    api_version  = getOption("rvkstat.api_version"),
-    token_path   = vkTokenPath(),
-    access_token = getOption("rvkstat.access_token")
-		) 
-  {
+  account_id   = vkCurrentAdAccount(),
+  ids_type     = c("office", "client", "campaign", "ad"),
+  ids,
+  period       = c("day", "week", "month", "year", "overall"),
+  date_from    = Sys.Date() - 30,
+  date_to      = Sys.Date(),
+  username     = getOption("rvkstat.username"),
+  api_version  = getOption("rvkstat.api_version"),
+  token_path   = vkTokenPath(),
+  access_token = getOption("rvkstat.access_token")
+) 
+{
   
   # auth
   if ( is.null(access_token) ) {    
@@ -32,7 +32,7 @@ vkGetAdStatistics <- function(
   # check args
   ids_type <- match.arg(ids_type)
   period   <- match.arg(period)
-
+  
   # transfroming filter for campaigns in json
   if(period == "month"){
     date_from <- ifelse( as.character(date_from) != 0, format(as.Date(as.character(date_from)), "%Y-%m"), 0)
@@ -70,7 +70,7 @@ vkGetAdStatistics <- function(
     
     # ids in this iteraction
     ids <- paste0(i, collapse = ",")
-  
+    
     # check if flood control
     Sys.sleep(2) #vk limit
     
@@ -79,7 +79,7 @@ vkGetAdStatistics <- function(
       account_id,
       access_token,
       api_version
-      )
+    )
     
     # API request
     answer <- GET("https://api.vk.com/method/ads.getStatistics", 
@@ -104,14 +104,30 @@ vkGetAdStatistics <- function(
       stop(paste0("Error ", dataRaw$error$error_code," - ", dataRaw$error$error_msg))
     }
     
-    # parsing 
-    temp <- tibble(response = dataRaw$response) %>%
-            unnest_wider("response") %>%
-            unnest_longer("stats") %>%
-            unnest_wider("stats")
+    message(dataRaw)
     
-    # append to result
-    result <- append(result, list(temp))
+    #if   (length(dataRaw$response[[1]]$stats) > 0)
+    #	{
+    # parsing 
+    tryCatch(
+      
+      {
+        temp <- tibble(response = dataRaw$response) %>%
+          unnest_wider("response") %>%
+          unnest_longer("stats") %>%
+          unnest_wider("stats")
+        
+        # append to result
+        result <- append(result, list(temp))
+        #    }
+      }
+      , error = function(ex) 
+      {
+        # here 'ex' is an instance of 'simpleError'
+        message(as.character(ex))
+        message(ex$message)
+      })
+    
     
     Sys.sleep(2) #vk limit
     
@@ -119,7 +135,7 @@ vkGetAdStatistics <- function(
   
   # collect result
   result <- bind_rows(result) 
-  
+  message(result)
   # data type mismatch handler 
   if (nrow(result) > 0) {
     
