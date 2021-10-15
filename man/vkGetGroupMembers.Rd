@@ -3,7 +3,7 @@
 \title{Returns a list of community members.}
 \description{Returns a list of community members.}
 \usage{
-vkGetGroupStat(
+vkGetGroupMembers(
     group_id     = NULL,
     sort         = c('time_desc', 'time_asc', 'id_desc', 'id_asc'),
     fields       = c('sex', 'bdate', 'city', 'country', 'photo_50', 'photo_100', 

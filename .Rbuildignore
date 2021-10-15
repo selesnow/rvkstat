@@ -1,3 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 vk_auth\.rds$
+.*vk_auth.rds
+\_config.yml
+getCode
+index.md
+^Dictionary$

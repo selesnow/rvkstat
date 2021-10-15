@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+.*vk_auth.rds
+^selesnow\.vk_auth\.rds$
