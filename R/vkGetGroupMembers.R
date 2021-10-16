@@ -87,6 +87,12 @@ vkGetGroupMembers <-
         unnest_wider('relatives', names_sep = '_') %>% 
         unnest_wider('relation_partner', names_sep = '_') %>% 
         unnest_wider('schools', names_sep = '_')
+      
+      if ( 'last_seen_time' %in% names(tempData) ) {
+        
+        tempData$last_seen_time <- as.POSIXct(tempData$last_seen_time, origin = '1970-01-01')
+        
+      }
 
       # add to result
       result <- append(result, list(tempData))
