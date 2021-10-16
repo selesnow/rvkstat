@@ -60,12 +60,18 @@ vkGetGroupStat <-
     
     # convert to tibble
     result <- tibble(response = dataRaw$response) %>%
-      unnest_wider("response") %>%
-      unnest_wider("activity") %>%
-      unnest_wider("reach")    %>%
-      unnest_wider("visitors") %>%
-      relocate(c("period_from", "period_to"), .before = everything()) %>%
-      mutate( across(where(is.numeric), replace_na, 0) ) 
+              unnest_wider("response") 
+    
+    if ( "activity" %in% names(result) ) {
+      
+      result <- unnest_wider(result, "activity")
+      
+    }
+    
+    result <- unnest_wider(result, "reach")    %>%
+              unnest_wider("visitors") %>%
+              relocate(c("period_from", "period_to"), .before = everything()) %>%
+              mutate( across(where(is.numeric), replace_na, 0) ) 
     
     # convert timestamp
     if ( nrow(result) > 0 ) {
