@@ -4,6 +4,7 @@
 * Доработана функция `vkGetAdStatistics()` согласно [тикету #33](https://github.com/selesnow/rvkstat/issues/33).
 * Добавлена функция `vkGetGroupMembers()`, которая позволяет получить список учатсников сообщества.
 * Исправил ошибку `Column `activity` doesn't exist` которая периодически возникала при использовании функции `vkGetGroupStat()`. 
+* Добавлены функции запроса справочников университетов, школ и станций метро: `vkGetDbUniversities()`, `vkGetDbSchools()`, `vkGetDbMetroStations()`.
 
 # 3.1.0
 

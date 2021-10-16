@@ -20,3 +20,4 @@ Language: ru
 Encoding: UTF-8
 BugReports: https://github.com/selesnow/rvkstat/issues
 URL: https://selesnow.github.io/rvkstat/
+RoxygenNote: 7.1.2
