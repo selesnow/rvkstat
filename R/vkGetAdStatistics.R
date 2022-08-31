@@ -142,7 +142,7 @@ vkGetAdStatistics <- function(
     result <- 
       filter(result, !is.na("impressions")) %>%
       mutate(
-        across( where(is.numeric()), replace_na, 0 ),
+        across( where(is.numeric), replace_na, 0 ),
         across( 4:length(result), as.numeric ))
     
   }
